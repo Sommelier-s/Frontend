@@ -1,10 +1,13 @@
+//Import of actions
 
 
-const intialState = {
+//Global states
+const initialState = {
     vinos: []
 }
 
-const reducer = (state = intialState, { type, payload }) => {
+//Reducer function
+export default function reducer(state = initialState, {type,payload}) {
     switch (type) {
         default:
             return {
