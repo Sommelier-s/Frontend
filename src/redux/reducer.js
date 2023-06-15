@@ -3,11 +3,14 @@
 
 //Global states
 const initialState = {
-    vinos: []
+    wine:[],
+    liquor: [],
+    allDrink: [],
+
 }
 
 //Reducer function
-export default function reducer(state = initialState, {type,payload}) {
+export default function reducer(state = initialState, { type, payload }) {
     switch (type) {
         default:
             return {

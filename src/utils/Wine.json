@@ -1,0 +1,52 @@
+[
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27e0e66eeff6",
+		"name": "Vino 1",
+		"description": "Este es un vino viejo",
+		"price": 50,
+		"picture": "https://img.freepik.com/iconos-gratis/botella-vino_318-61391.jpg",
+		"variety": "variedad",
+		"stock": 12,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27e0e66eeff1",
+		"name": "Vino 1",
+		"description": "Este es un vino viejo",
+		"price": 150,
+		"picture": "https://img.freepik.com/iconos-gratis/botella-vino_318-61391.jpg",
+		"variety": "variedad",
+		"stock": 15,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27e0e66eeff2",
+		"name": "Vino 1",
+		"description": "Este es un vino viejo",
+		"price": 250,
+		"picture": "https://img.freepik.com/iconos-gratis/botella-vino_318-61391.jpg",
+		"variety": "variedad",
+		"stock": 24,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27e0e66eefg6",
+		"name": "Vino 1",
+		"description": "Este es un vino viejo",
+		"price": 25,
+		"picture": "https://img.freepik.com/iconos-gratis/botella-vino_318-61391.jpg",
+		"variety": "variedad",
+		"stock": 2,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27e0e66eeff7",
+		"name": "Vino 1",
+		"description": "Este es un vino viejo",
+		"price": 15,
+		"picture": "https://img.freepik.com/iconos-gratis/botella-vino_318-61391.jpg",
+		"variety": "variedad",
+		"stock": 10,
+		"isActive": true
+	}
+]
