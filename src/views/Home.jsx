@@ -4,7 +4,7 @@ import styles from '../assets/styles/components/views/Home.module.css';
 const Home = () => {
   return (
     <div>
-      este es el home
+      <h1 className={styles.title}>Hola este es el inicio</h1>
     </div>
   )
 }
