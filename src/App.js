@@ -9,6 +9,7 @@ import About from "./views/About";
 import Leanding from "./views/Leanding";
 import Detail from "./views/Detail";
 import NotFound from "./views/NotFound";
+import Buy from "./views/Buy";
 import Nav from "./components/Nav";
 import axios from "axios";
 
@@ -28,6 +29,7 @@ function App() {
       case "/": return false
       case "/home": return true
       case "/about": return true
+      case "/buy": return true
       case "/detail/:id": return false
       default: return false
     }
@@ -47,13 +49,14 @@ function App() {
         <Route path="/" element={< Leanding />} />
         <Route path="/home" element={< Home />} />
         <Route path="/about" element={< About />} />
+        <Route path="/buy" element={< Buy />} />
         <Route path="/detail/:id" element={< Detail />} />
         <Route path='*' element={<NotFound />} />
 
       </Routes>
 
     </div>
-    
+
   );
 }
 

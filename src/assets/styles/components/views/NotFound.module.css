@@ -6,9 +6,18 @@
     justify-content: center;
     align-items: center;
 }
+.title{
+    color: white;
+    font-family: felixti,sans-serif;
+}
+
+.subTitle{
+    color: white;
+    font-family: felixti,sans-serif;
+}
 .contentImage {
-	width: 300px;
-	height: 600px;
+	width: 25%;
+	height:auto;
 	overflow: hidden;
 }
 
