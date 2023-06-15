@@ -1,13 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-import styles from "../assets/styles/components/Nav.module.css";
+import { Link } from 'react-router-dom';
+
+import styles from '../assets/styles/components/Nav.module.css';
 
 const Nav = () => {
-  return (
-    <div>
-      Este es el Nav
-    </div>
-  )
-}
+	return (
+		<div className={styles.content}>
+			<ul className={styles.menu}>
+				<Link className={styles.item} to={'/home'}>
+					Inicio
+				</Link>
+				<Link className={styles.item} to={'/about'}>
+					Nosotros
+				</Link>
+				<Link className={styles.item} to={'/buy'}>
+					Comprar
+				</Link>
+				
+			</ul>
+		</div>
+	);
+};
 
-export default Nav
+export default Nav;

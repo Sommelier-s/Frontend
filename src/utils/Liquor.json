@@ -1,0 +1,57 @@
+[
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27e0e66eef12",
+		"name": "licor 1",
+		"description": "Este es un licor altamente embriagador",
+		"price": 45,
+		"picture": "https://us.123rf.com/450wm/keltmd/keltmd1708/keltmd170800616/84414667-botella-de-whisky-de-alcohol-en-negro-iconos-de-estilo-simple-silueta-ilustraci%C3%B3n-vectorial-para-el.jpg",
+		"variety": "variedad",
+		"graduation": "40%",
+		"stock": 12,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b433-27e0e66eef12",
+		"name": "licor 2",
+		"description": "Este es un licor altamente embriagador",
+		"price": 55,
+		"picture": "https://us.123rf.com/450wm/keltmd/keltmd1708/keltmd170800616/84414667-botella-de-whisky-de-alcohol-en-negro-iconos-de-estilo-simple-silueta-ilustraci%C3%B3n-vectorial-para-el.jpg",
+		"variety": "variedad",
+		"graduation": "40%",
+		"stock": 8,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-27r0e66eef12",
+		"name": "licor 3",
+		"description": "Este es un licor altamente embriagador",
+		"price": 105,
+		"picture": "https://us.123rf.com/450wm/keltmd/keltmd1708/keltmd170800616/84414667-botella-de-whisky-de-alcohol-en-negro-iconos-de-estilo-simple-silueta-ilustraci%C3%B3n-vectorial-para-el.jpg",
+		"variety": "variedad",
+		"graduation": "40%",
+		"stock": 2,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-v443-27e0e66eef12",
+		"name": "licor 4",
+		"description": "Este es un licor altamente embriagador",
+		"price": 75,
+		"picture": "https://us.123rf.com/450wm/keltmd/keltmd1708/keltmd170800616/84414667-botella-de-whisky-de-alcohol-en-negro-iconos-de-estilo-simple-silueta-ilustraci%C3%B3n-vectorial-para-el.jpg",
+		"variety": "variedad",
+		"graduation": "40%",
+		"stock": 10,
+		"isActive": true
+	},
+	{
+		"id": "8d2e3354-95c6-4fdf-b443-26e0e66eef12",
+		"name": "licor 5",
+		"description": "Este es un licor altamente embriagador",
+		"price": 25,
+		"picture": "https://us.123rf.com/450wm/keltmd/keltmd1708/keltmd170800616/84414667-botella-de-whisky-de-alcohol-en-negro-iconos-de-estilo-simple-silueta-ilustraci%C3%B3n-vectorial-para-el.jpg",
+		"variety": "variedad",
+		"graduation": "40%",
+		"stock": 12,
+		"isActive": true
+	}
+]
