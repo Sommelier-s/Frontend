@@ -1,0 +1,30 @@
+.content{
+    width: 100%;
+    height: 60px;
+    /* background: rgba(143, 143, 143, 0.473); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.item{
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.item:hover{
+    cursor: pointer;
+    color: rgb(197, 79, 79);
+    transition: all 300ms;
+}
