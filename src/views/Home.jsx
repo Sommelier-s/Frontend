@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div>
       <h1 className={styles.title}>Hola este es el inicio</h1>
-      <h1 className={styles.title}>Nuevo cambio</h1>
+      <h1 className={styles.title}>Bienvenidos a Sommelier!</h1>
     </div>
   )
 }
