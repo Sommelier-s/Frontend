@@ -8,6 +8,7 @@ import Home from "./views/Home";
 import About from "./views/About";
 import Leanding from "./views/Leanding";
 import Detail from "./views/Detail";
+import Create from './views/Create';
 import NotFound from "./views/NotFound";
 import Buy from "./views/Buy";
 import Nav from "./components/Nav";
@@ -30,6 +31,7 @@ function App() {
       case "/home": return true
       case "/about": return true
       case "/buy": return true
+      case "/create": return true
       case "/detail/:id": return false
       default: return false
     }
@@ -50,6 +52,7 @@ function App() {
         <Route path="/home" element={< Home />} />
         <Route path="/about" element={< About />} />
         <Route path="/buy" element={< Buy />} />
+        <Route path="/create" element={< Create />} />
         <Route path="/detail/:id" element={< Detail />} />
         <Route path='*' element={<NotFound />} />
 
