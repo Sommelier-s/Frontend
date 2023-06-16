@@ -1,8 +1,12 @@
 import React from 'react';
 import CardsContainerWine from '../components/CardsContainerWine';
 import CardsContainerLiquor from '../components/CardContainesLiquor';
-
 import styles from '../assets/styles/components/views/Home.module.css';
+import calidad from "../assets/img/Calidad.png";
+import atencion from "../assets/img/24_7.png";
+import pago from "../assets/img/Pago.png";
+import domicilio from "../assets/img/Domicilio.png";
+
 const Home = () => {
   return (
     <div className={styles.container}>
@@ -27,6 +31,29 @@ const Home = () => {
 
       <div>
         <CardsContainerLiquor />
+      </div>
+
+      <div className={styles.iconContainer}>
+        <div className={styles.iconItem}>
+          <img src={calidad} alt="calidad" />
+          <h3>Legalidad y Calidad</h3>
+          <p>Productos confiables</p>
+        </div>
+        <div className={styles.iconItem}>
+          <img src={pago} alt="pago" />
+          <h3>Pago online</h3>
+          <p>Pagos protegidos y seguros</p>
+        </div>
+        <div className={styles.iconItem}>
+          <img src={atencion} alt="atencion" />
+          <h3>Atención 24/7</h3>
+          <p>Compra tus productos a cualquier hora</p>
+        </div>
+        <div className={styles.iconItem}>
+        <img src={domicilio} alt="domicilio" />
+          <h3>Entrega a domicilio</h3>
+          <p>Llevamos tu pedido a tu casa</p>
+        </div>
       </div>
 
     </div>
