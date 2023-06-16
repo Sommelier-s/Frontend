@@ -1,0 +1,23 @@
+.carrusel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    overflow: hidden;
+  }
+  
+  .carruselItem {
+    text-align: center;
+    padding: 5px;
+    background-color: #7c7c7c;
+    margin: 0 20px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+    flex: 0 0 calc(25% - 20px); /* Ajusta el ancho de cada tarjeta según tus necesidades */
+    max-width: 200px; /* Ajusta el ancho máximo de las tarjetas según tus necesidades */
+  }
+  
+  .carruselItem:hover {
+    transform: scale(1.05);
+  }
+  

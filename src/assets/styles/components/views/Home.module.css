@@ -1,3 +1,56 @@
-.title{
-    color: white;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+/* Estilos Licor del mes */
+  
+.featuredCard {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+  
+.featuredCard img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+  
+.featuredCardContent {
+    flex-grow: 1;
+}
+  
+.featuredCardTitle {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+  
+.featuredCardDescription {
+    font-size: 16px;
+    color: #777;
+}
+
+.title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: white;
+    font-family: "Copperplate Gothic Light";
+    font-size: 30px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+    position: relative;
+}
+
+
+  
