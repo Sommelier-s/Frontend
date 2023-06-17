@@ -1,0 +1,51 @@
+:root {
+	--color-primary-button: #973333;
+	--color-secondary-button: #d14e4e;
+}
+
+
+.pageNumbers {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.pageNumbers li {
+	padding: 10px;
+	font-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.normal,
+.puntitos {
+	background: #a370f0;
+	color: black;
+	box-shadow: 2px 3px 5px black;
+}
+.active {
+	background: #5804d7;
+	color: white;
+}
+
+.buttonPagination {
+	background: #5804d7;
+	border: none;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 2px 3px 5px black;
+}
+
+.buttonPagination:hover {
+	background: #a370f0;
+	color: black;
+}
+
+.buttonPagination:focus {
+	outline: none;
+}
