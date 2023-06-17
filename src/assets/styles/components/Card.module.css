@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f2f2f2;
+    background-color: #c7c7c777;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0 -10px; /* Ajusta el margen horizontal según tus necesidades */
+    margin: 0 -10px;
     transition: transform 0.3s ease;
-    width: 180px; /* Ajusta el ancho de la tarjeta según tus necesidades */
+    width: 180px;
   }
   
   .card:hover {
@@ -16,8 +16,8 @@
   }
   
   .cardImage {
-    width: 120px; /* Ajusta el ancho de la imagen según tus necesidades */
-    height: 120px; /* Ajusta la altura de la imagen según tus necesidades */
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 10px;
