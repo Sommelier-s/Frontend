@@ -1,65 +1,94 @@
-/* .title{
-    color: white;
-    font-size: 30px;
-    display: flex;
-    
-} */
-
 .title {
   font-size: 30px;
   font-family: felixti, sans-serif;
   color: #ffffff;
-  padding: 30px;
-  padding-bottom: 3px;
+  padding: 20px;
+  text-align: center;
 }
 
 .parrafo {
-  text-align: justify;
-  font-size: 20px;
+  text-align: center;
+  font-size: 24px;
   color: rgb(255, 255, 255);
+  line-height: 1.5;
+  text-align: justify;
 
-  position: relative;
+  /* position: relative; */
+  align-items: center;
+  justify-content: center;
   padding: 40px;
   border-radius: 10px;
-  background-color: rgba(118, 118, 118, 0.3);
-  height: 100%;
-  width: 50%;
+  background-color: rgba(118, 118, 118, 0.2);
+  /* border: 2px solid rgb(251, 3, 3); */
+
+  /* height: 100%;
+  width: 50%; */
 }
 
 .integrantes {
-  font-size: 20px;
+  text-align: center;
+  font-size: 24px;
   color: rgb(255, 255, 255);
-  list-style: none;
 
-  position: relative;
-  top: 12px;
-
-  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
-  background-color: rgba(118, 118, 118, 0.3);
   backdrop-filter: blur(5px);
-  border: 2px solid black;
-  height: 100%;
-  width: 50%;
-  line-height: 40px;
+ 
 }
 
-/* .circle {
-    width: 80px;
-    height: 80px;
-    background-color: white;
-    border-radius: 50%;
-    position: relative;
-    left: 40px;
-    margin-top:-80px;
-    
-  } */
+.item {
+  align-items: center;
+  display: flex;
+  border-radius: 10px;
+  margin: 10px;
+  max-width: auto;
+  background-color: rgba(108, 41, 41, 0.4);
+  width: 20%; /* Establece el ancho para que haya 4 elementos por fila */
+  padding: 10px;
+  /* box-sizing: border-box; */
+  border: #ffffff;
+  justify-content: center;
+}
 
-.copy {
-  font-size: 10px;
-  /* font-family: felixti, sans-serif; */
-  color: #ffffff;
-  padding: 40px;
-  padding-bottom: 3px;
-  text-align: center;
+.image {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.logos {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  border-radius: 20%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+
+
+.tecnologias{
+  display: flex; /* Hace que los elementos se acomoden horizontalmente */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  list-style-type: none; /* Elimina los marcadores/bolitas de la lista */
+  
+}
+
+a {
+  color: blue; /* Color predeterminado para los enlaces */
+}
+
+a:link,
+a:visited {
+  color: rgb(90, 170, 255); /* Color para los enlaces no visitados y visitados */
+}
+
+a:hover,
+a:active {
+  color: rgb(96, 36, 224); /* Color al pasar el mouse por encima o al hacer clic en el enlace */
 }
