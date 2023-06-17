@@ -1,6 +1,12 @@
 import React from "react";
+
+//Importación de json
 import Liguor from "../utils/Liquor.json";
+
+//Importación de la Card de vino
 import CardLiquor from "./CardWine";
+
+//Importación de estilos
 import styles from "../assets/styles/components/CardsContainer.module.css";
 
 const CardsContainerLiquor = () => {
