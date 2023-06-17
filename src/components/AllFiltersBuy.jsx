@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {useState} from "react"
+import { useState } from 'react';
 
 // import {
 // 	filterTemperaments,
@@ -92,9 +92,6 @@ const AllFiltersBuy = () => {
 		window.location.reload();
 	};
 
-
-	
-
 	//para el input
 	const handleValue = (event) => {
 		setSearch(event.target.value);
@@ -109,56 +106,65 @@ const AllFiltersBuy = () => {
 
 	return (
 		<div className={styles.contentMain}>
+			<div className={styles.containerSearch}>
+				<div className={styles.contentSearch}>
+					<input
+						placeholder="Buscar vinos y licores..."
+						onChange={handleValue}
+						className={styles.input}
+						type="text"
+					/>
+					<button className={styles.buttonSearch} onClick={handleSearch}>
+						Buscar
+					</button>
+				</div>
+			</div>
 			<div className={styles.contentButtonFilters}>
 				<div>
-					<h3 className={styles.typesFilter}>Origin:</h3>
 					<select
 						className={styles.selectedFilters}
 						name=""
 						id=""
 						onChange={handleChangeOrigen}
 					>
-						<option value="Default">Select</option>
-						<option value="Creados">Created</option>
-						<option value="Originales">Original</option>
+						<option value="Default">Precio</option>
+						<option value="Creados">Menor</option>
+						<option value="Originales">Mayor</option>
 					</select>
 				</div>
 
 				<div>
-					<h3 className={styles.typesFilter}>Order:</h3>
 					<select
 						className={styles.selectedFilters}
 						name=""
 						id=""
 						onChange={handleChangeOrden}
 					>
-						<option value="Default">Select</option>
-						<option value="A-Z">Upward</option>
-						<option value="Z-A">Falling</option>
+						<option value="Default">Ordenar</option>
+						<option value="A-Z">A - Z</option>
+						<option value="Z-A">Z - A</option>
 					</select>
 				</div>
 				<div>
-					<h3 className={styles.typesFilter}>Weight:</h3>
 					<select
 						className={styles.selectedFilters}
 						name=""
 						id=""
 						onChange={handleChangePeso}
 					>
-						<option value="Default">Select</option>
-						<option value="Máximo">Maximum</option>
-						<option value="Minimo">Minimum</option>
+						<option value="Default">Categorias Licores</option>
+						<option value="Máximo">Licor cremoso</option>
+						<option value="Minimo">Licor dulce</option>
 					</select>
 				</div>
 				<div className={styles.contentFilterTemperaments}>
-					<h3 className={styles.typesFilter}>Temperaments:</h3>
 					<select
 						name=""
 						id=""
 						className={styles.selectedFilters}
 						onChange={handleChangeTemperament}
 					>
-						<option value="Default">Select</option>
+						<option value="Default">Categorias Vinos</option>
 						{allTemperaments.map((temperament) => {
 							return <option key={temperament}>{temperament}</option>;
 						})}
@@ -169,21 +175,7 @@ const AllFiltersBuy = () => {
 					type="button"
 					onClick={resetAll}
 				>
-					Restore
-				</button>
-				<Link to="/form">
-					<button className={styles.buttonCreate}>Create</button>
-				</Link>
-			</div>
-			<div className={styles.contentSearch}>
-				<input
-					placeholder="Search..."
-					onChange={handleValue}
-					className={styles.input}
-					type="text"
-				/>
-				<button className={styles.buttonSearch} onClick={handleSearch}>
-					Search
+					Restaurar
 				</button>
 			</div>
 		</div>

@@ -1,71 +1,19 @@
 :root {
 	--color-primary-button: #973333;
 	--color-secondary-button: #d14e4e;
+	--color-text: white;
 }
 
-.contentMain {
-	display: grid;
-	grid-template-columns: 70% 30%;
-	width: 100%;
-	height: 200px;
-	margin-top: -2%;
-}
-.contentButtonFilters {
-	display: flex;
-	width: 100%;
-	height: 100%;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	gap: 30px;
-}
 
-.searchBar {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	height: 100%;
-	justify-content: center;
-	align-items: center;
-}
-
-.selectedFilters {
-	height: 50px;
-	width: 125px;
-	text-align: center;
-	font-size: 15px;
-	font-family: lemonDays, sans-serif;
-	font-weight: 100;
-	background-color:var(--color-primary-button);
-	border-radius: 15px;
-	color: white;
-}
-
-.selectedFilters option {
-	font-size: 15px;
-	color: black;
-}
-.selectedFilters:hover {
-	color: black;
-	background-color: var(--color-secondary-button);
-	cursor: pointer;
-}
-
-.typesFilter {
-	font-family: lemonDays, sans-serif;
-	font-size: 20px;
-	font-weight: 100;
-}
-
-/* boton de crear */
+/* boton de crear*/
 
 .buttonCreate {
 	position: relative;
 	display: inline-block;
 	margin: 15px;
-	padding: 15px 30px;
+	padding: 10px;
 	text-align: center;
-	font-size: 18px;
+	font-size: 15px;
 	letter-spacing: 1px;
 	text-decoration: none;
 	color: var(--color-primary-button);
@@ -84,25 +32,37 @@
 
 .buttonCreate:active {
 	transform: scale(0.9);
-}
+} 
 
 /* Estilos del SearchBar */
-.contentSearch {
+.containerSearch {
+	display: flex;
 	width: 100%;
 	height: 50px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.contentSearch {
+	width: 70%;
+	height: 100%;
 }
 .contentSearch .input {
-	padding: 18px 10px;
+	width: 70%;
+	padding: 10px;
+	font-size: 15px;
 	letter-spacing: 1px;
 	border-radius: 10px 0px 0px 10px;
 	border: 2px solid var(--color-primary-button);
 }
 .contentSearch .buttonSearch {
+	width: 25%;
 	position: relative;
 	display: inline-block;
-	padding: 15px 30px;
+	padding: 10px;
 	text-align: center;
-	font-size: 18px;
+	font-size: 15px;
 	letter-spacing: 1px;
 	text-decoration: none;
 	color: var(--color-primary-button);
@@ -121,4 +81,60 @@
 
 .contentSearch .buttonSearch:active {
 	transform: scale(0.9);
+}
+
+
+
+
+/*Resto de filtros*/
+
+.contentMain {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: auto;
+	
+}
+
+.contentButtonFilters {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+
+
+.selectedFilters {
+	height: auto;
+	width: auto;
+	text-align: center;
+	font-size: 15px;
+	font-family: lemonDays, sans-serif;
+	font-weight: 100;
+	background-color: var(--color-primary-button);
+	border-radius: 10px;
+	color: white;
+	padding: 10px;
+}
+
+.selectedFilters option {
+	font-size: 15px;
+	color: black;
+}
+.selectedFilters:hover {
+	color: black;
+	background-color: var(--color-secondary-button);
+	cursor: pointer;
+}
+
+.typesFilter {
+	font-family: lemonDays, sans-serif;
+	font-size: 20px;
+	font-weight: 100;
+	color: var(--color-text);
 }

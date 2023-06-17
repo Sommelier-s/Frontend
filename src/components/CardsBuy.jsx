@@ -4,7 +4,8 @@ import styles from "../assets/styles/components/CardsBuy.module.css";
 
 
 const CardsBuy = ({ allDrinks }) => {
-	console.log(allDrinks.length)
+
+	
 	return (
 		<div>
 			<div className={styles.content}>

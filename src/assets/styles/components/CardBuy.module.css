@@ -1,33 +1,38 @@
+:root {
+	--color-primary-button: #973333;
+	--color-secondary-button: #d14e4e;
+	--color-text: white;
+}
 
 
 /* Esto es para el boton */
 /* ##################################### */
 .button {
-  position: relative;
-  display: inline-block;
-  margin: 15px;
-  padding: 15px 30px;
-  text-align: center;
-  font-size: 18px;
-  letter-spacing: 1px;
-  text-decoration: none;
-  color: #725AC1;
-  background: transparent;
-  cursor: pointer;
-  transition: ease-out 0.5s;
-  border: 2px solid #725AC1;
-  border-radius: 10px;
-  box-shadow: inset 0 0 0 0 #725AC1;
+	position: relative;
+	display: inline-block;
+	margin: 15px;
+	padding: 10px;
+	text-align: center;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	color: var(--color-primary-button);
+	background: transparent;
+	cursor: pointer;
+	transition: ease-out 0.5s;
+	border: 2px solid var(--color-secondary-button);
+	border-radius: 10px;
+	box-shadow: inset 0 0 0 0 var(--color-primary-button);
 }
 
 .button:hover {
-  color: white;
-  box-shadow: inset 0 -100px 0 0 #725AC1;
+	color: white;
+	box-shadow: inset 0 -100px 0 0 var(--color-primary-button);
 }
 
 .button:active {
-  transform: scale(0.9);
-}
+	transform: scale(0.9);
+} 
 
 /* ##################################### */
 
@@ -41,57 +46,48 @@
   height: 400px;
   margin-top: 30px;
   overflow: hidden;
-  background: #b891f3;
+  background: rgba(0, 0, 0, 0.705);
   border-radius: 30px;
-  box-shadow: 2px 3px 5px black;
+  box-shadow: 2px 3px 5px rgb(255, 255, 255);
 }
 
 .contentImage{
   width: 100%;
-  height: 200px;
+  height: 400px;
   overflow: hidden;
-  margin-top: -15%;  
+  
 }
 .contentImage .imageCard{
   width: 100%;
   height: 100%;
 }
+
 .contentText{
   width: 80%;
-  height: 150px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .link{
+  color: var(--color-text);
   text-align: center;
   text-decoration: none;
-  margin-top: 12%;
+  
 }
 
-.item{
-  color: black;
-  font-size: 15px;
-  font-family:lemonDays,sans-serif;
-  font-weight: 100;
-
-}
-
-.item:hover{
-  cursor: pointer;
-  color: #5804d7;
-  text-shadow: 2px 1px 5px white;
-}
-
-.spanList{
-  color: black;
+.variety{
+  color: var(--color-text);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
 }
-.temperamentList{
-  text-align: center;
-  margin-top: -2%;
 
+.price{
+  color: var(--color-text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
 }
+ 

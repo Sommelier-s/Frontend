@@ -14,27 +14,27 @@
 
 .pageNumbers li {
 	padding: 10px;
-	font-size: 20px;
+	font-size: 15px;
 	font-family: Arial, Helvetica, sans-serif;
 	border-radius: 5px;
 	cursor: pointer;
 }
 .normal,
 .puntitos {
-	background: #a370f0;
+	background: var(--color-secondary-button);
 	color: black;
 	box-shadow: 2px 3px 5px black;
 }
 .active {
-	background: #5804d7;
+	background: var(--color-primary-button);
 	color: white;
 }
 
 .buttonPagination {
-	background: #5804d7;
+	background: var(--color-primary-button);
 	border: none;
 	color: white;
-	font-size: 20px;
+	font-size: 15px;
 	cursor: pointer;
 	padding: 10px;
 	border-radius: 10px;
@@ -42,7 +42,7 @@
 }
 
 .buttonPagination:hover {
-	background: #a370f0;
+	background: var(--color-secondary-button);
 	color: black;
 }
 
