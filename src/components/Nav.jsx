@@ -17,6 +17,9 @@ const Nav = () => {
 				<Link className={styles.item} to={'/buy'}>
 					Comprar
 				</Link>
+				<Link className={styles.item} to={'/create'}>
+					Crear
+				</Link>
 				
 			</ul>
 		</div>
