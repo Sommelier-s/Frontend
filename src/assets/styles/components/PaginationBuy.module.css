@@ -1,0 +1,51 @@
+:root {
+	--color-primary-button: #973333;
+	--color-secondary-button: #d14e4e;
+}
+
+
+.pageNumbers {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.pageNumbers li {
+	padding: 10px;
+	font-size: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.normal,
+.puntitos {
+	background: var(--color-secondary-button);
+	color: black;
+	box-shadow: 2px 3px 5px black;
+}
+.active {
+	background: var(--color-primary-button);
+	color: white;
+}
+
+.buttonPagination {
+	background: var(--color-primary-button);
+	border: none;
+	color: white;
+	font-size: 15px;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 10px;
+	box-shadow: 2px 3px 5px black;
+}
+
+.buttonPagination:hover {
+	background: var(--color-secondary-button);
+	color: black;
+}
+
+.buttonPagination:focus {
+	outline: none;
+}

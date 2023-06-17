@@ -14,11 +14,11 @@ import Buy from "./views/Buy";
 import Nav from "./components/Nav";
 import axios from "axios";
 
-//Axios configuration
-const desarrolloApp = "http://localhost:3001";
-const produccionApp = "";
+// //Axios configuration
+// const desarrolloApp = "http://localhost:3001";
+// const produccionApp = "";
 
-axios.defaults.baseURL = desarrolloApp;
+// axios.defaults.baseURL = desarrolloApp;
 
 function App() {
 
