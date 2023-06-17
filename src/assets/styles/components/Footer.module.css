@@ -1,0 +1,50 @@
+.footer {
+    background-color: #868585bb;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+  
+  .social {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social a {
+    text-decoration: none;
+    color: #ffffff;
+    position: relative;
+  }
+  
+  .social .socialIconHover {
+    display: none;
+  }
+  
+  .social a:hover .socialIcon {
+    display: none;
+  }
+  
+  .social a:hover .socialIconHover {
+    display: block;
+}
+  
+.social img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+  
+.social img:hover {
+    transform: scale(1.10);
+}
+  
+.contact {
+    margin-right: 10px;
+    color: white;
+}
+  
