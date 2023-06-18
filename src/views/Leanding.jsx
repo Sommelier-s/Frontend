@@ -1,17 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-
+import { generatedUserId } from '../redux/actions';
 
 import styles from '../assets/styles/components/views/Leanding.module.css';
 const Leanding = () => {
 	const navigate = useNavigate();
 
-	
+	const dispatch = useDispatch();
+
 	const Login = async (event) => {
 		event.preventDefault();
 		navigate('/home');
 	};
+
+	useEffect(() => {
+		dispatch(generatedUserId());
+	});
 
 	return (
 		<div className={styles.container}>
@@ -36,7 +43,6 @@ const Leanding = () => {
 						</svg>
 					</div>
 				</button>
-				
 			</div>
 		</div>
 	);

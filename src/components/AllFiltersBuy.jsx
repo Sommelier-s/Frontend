@@ -3,26 +3,27 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-// import {
-// 	filterTemperaments,
-// 	filterOrigen,
-// 	filterOrden,
-// 	filterPeso,
-// } from '../redux/actions';
 import styles from '../assets/styles/components/AllFiltersBuy.module.css';
+import {
+	generatedCopyAllDrinks,
+	filterCategoryWine,
+	filterOrden,
+	filterPrice,
+	filterSearchByName,
+} from '../redux/actions';
 
 const AllFiltersBuy = () => {
 	const dispatch = useDispatch();
 
 	//Trae todos los temperamentos
-	const allTemperaments = [];
+	const allCategoryWine = useSelector((state) => state.categoryWine);
 
 	const [search, setSearch] = useState('');
 
 	//funcion para filtrar por el tipo de temperamento
-	const handleChangeTemperament = (event) => {
-		const value = event.target.value;
-		//dispatch(filterTemperaments(value));
+	const handleChangeCategoryWine = (event) => {
+		const idCategory = event.target.value;
+		dispatch(filterCategoryWine(idCategory));
 	};
 
 	//funcion para filtrar por el origen (BDD / API)
@@ -63,33 +64,31 @@ const AllFiltersBuy = () => {
 				orden = 'Default';
 		}
 
-		//dispatch(filterOrden(orden));
+		dispatch(filterOrden(orden));
 	};
 
 	//funcion para ordenar por el peso
-	const handleChangePeso = (event) => {
+	const handleChangePrecio = (event) => {
 		const value = event.target.value;
 		let orden = '';
 		switch (value) {
-			case 'Default':
-				orden = 'Default';
-				break;
 			case 'Máximo':
-				orden = 'maximo';
+				orden = 'descendente';
 				break;
 			case 'Minimo':
-				orden = 'minimo';
+				orden = 'ascendente';
 				break;
 			default:
 				orden = 'Default';
 		}
 
-		//dispatch(filterPeso(orden));
+		dispatch(filterPrice(orden));
 	};
 	//funcion para recargar la pagina cuando precione restaurar
 	const resetAll = (event) => {
 		event.preventDefault();
-		window.location.reload();
+		dispatch(generatedCopyAllDrinks());
+		//window.location.reload();
 	};
 
 	//para el input
@@ -100,8 +99,7 @@ const AllFiltersBuy = () => {
 	//para el btn cuando hace click
 	const handleSearch = (event) => {
 		event.preventDefault();
-
-		//dispatch(filterSearchByName(search));
+		dispatch(filterSearchByName(search));
 	};
 
 	return (
@@ -125,11 +123,11 @@ const AllFiltersBuy = () => {
 						className={styles.selectedFilters}
 						name=""
 						id=""
-						onChange={handleChangeOrigen}
+						onChange={handleChangePrecio}
 					>
 						<option value="Default">Precio</option>
-						<option value="Creados">Menor</option>
-						<option value="Originales">Mayor</option>
+						<option value="Minimo">Menor</option>
+						<option value="Máximo">Mayor</option>
 					</select>
 				</div>
 
@@ -150,7 +148,7 @@ const AllFiltersBuy = () => {
 						className={styles.selectedFilters}
 						name=""
 						id=""
-						onChange={handleChangePeso}
+						onChange={handleChangePrecio}
 					>
 						<option value="Default">Categorias Licores</option>
 						<option value="Máximo">Licor cremoso</option>
@@ -162,11 +160,15 @@ const AllFiltersBuy = () => {
 						name=""
 						id=""
 						className={styles.selectedFilters}
-						onChange={handleChangeTemperament}
+						onChange={handleChangeCategoryWine}
 					>
 						<option value="Default">Categorias Vinos</option>
-						{allTemperaments.map((temperament) => {
-							return <option key={temperament}>{temperament}</option>;
+						{allCategoryWine.map((categoria) => {
+							return (
+								<option key={categoria.id} value={categoria.id}>
+									{categoria.name}
+								</option>
+							);
 						})}
 					</select>
 				</div>
