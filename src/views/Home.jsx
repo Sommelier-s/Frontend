@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 // Importación de componentes
 import CardsContainerWine from '../components/CardsContainerWine';
-import CardsContainerLiquor from '../components/CardContainesLiquor';
+import CardsContainerLiquor from '../components/CardsContainerLiquor';
+import CardsContainerOffers from '../components/CardsContainerOffers';
 import Footer from '../components/Footer';
 
 //Importación de estilos
@@ -44,6 +45,12 @@ const Home = () => {
 
       <div>
         <CardsContainerLiquor />
+      </div>
+
+      <h1 className={styles.title}>PRODUCTOS EN OFERTA</h1>
+
+      <div>
+        <CardsContainerOffers />
       </div>
 
       <div className={styles.iconContainer}>
