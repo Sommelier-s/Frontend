@@ -7,6 +7,7 @@ import styles from '../assets/styles/components/AllFiltersBuy.module.css';
 import {
 	generatedCopyAllDrinks,
 	filterCategoryWine,
+	filterCategoryLiquor,
 	filterOrden,
 	filterPrice,
 	filterSearchByName,
@@ -17,6 +18,7 @@ const AllFiltersBuy = () => {
 
 	//Trae todos los temperamentos
 	const allCategoryWine = useSelector((state) => state.categoryWine);
+	const allCategoryLiquor = useSelector((state) => state.categoryLiquor);
 
 	const [search, setSearch] = useState('');
 
@@ -24,6 +26,12 @@ const AllFiltersBuy = () => {
 	const handleChangeCategoryWine = (event) => {
 		const idCategory = event.target.value;
 		dispatch(filterCategoryWine(idCategory));
+	};
+
+	//funcion para filtrar por el tipo de temperamento
+	const handleChangeCategoryLiquor = (event) => {
+		const idCategory = event.target.value;
+		dispatch(filterCategoryLiquor(idCategory));
 	};
 
 	//funcion para filtrar por el origen (BDD / API)
@@ -143,18 +151,6 @@ const AllFiltersBuy = () => {
 						<option value="Z-A">Z - A</option>
 					</select>
 				</div>
-				<div>
-					<select
-						className={styles.selectedFilters}
-						name=""
-						id=""
-						onChange={handleChangePrecio}
-					>
-						<option value="Default">Categorias Licores</option>
-						<option value="Máximo">Licor cremoso</option>
-						<option value="Minimo">Licor dulce</option>
-					</select>
-				</div>
 				<div className={styles.contentFilterTemperaments}>
 					<select
 						name=""
@@ -164,6 +160,23 @@ const AllFiltersBuy = () => {
 					>
 						<option value="Default">Categorias Vinos</option>
 						{allCategoryWine.map((categoria) => {
+							return (
+								<option key={categoria.id} value={categoria.id}>
+									{categoria.name}
+								</option>
+							);
+						})}
+					</select>
+				</div>
+				<div className={styles.contentFilterTemperaments}>
+					<select
+						name=""
+						id=""
+						className={styles.selectedFilters}
+						onChange={handleChangeCategoryLiquor}
+					>
+						<option value="Default">Categorias Vinos</option>
+						{allCategoryLiquor.map((categoria) => {
 							return (
 								<option key={categoria.id} value={categoria.id}>
 									{categoria.name}

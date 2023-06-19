@@ -24,7 +24,7 @@ const initialState = {
     copyAllDrinks: [],
     categoryWine: [],
     categoryLiquor: [],
-    userId: "309602f1-2195-4986-b90a-b37dc4043526",
+    userId: "12ecbd41-5c11-4e7e-a88c-18537e85ba0a",
 
 }
 
@@ -93,7 +93,7 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.copyAllDrinks.filter((drink) => drink?.Wine_categoryId === payload)
+                    copyAllDrinks: state.allDrinks.filter((drink) => drink?.Wine_categoryId === payload)
                 }
             } else {
                 return {
@@ -106,7 +106,7 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks.filter((drink) => state.allDrinks.category?.includes(payload))
+                    copyAllDrinks: state.allDrinks.filter((drink) => drink?.Liquor_categoryId === payload)
                 }
             } else {
                 return {
