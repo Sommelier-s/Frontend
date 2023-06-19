@@ -71,7 +71,6 @@ export const generatedCopyAllDrinks = () => {
 export const getAllCategoryWine = () => {
     return async function (dispatch) {
         const response = await axios.get(`${desarrolloApp}/category_wine`)
-
         dispatch({ type: GET_ALL_CATEGORY_WINE, payload: response.data.data })
     }
 }
@@ -79,7 +78,6 @@ export const getAllCategoryWine = () => {
 export const getAllCategoryLiquor = () => {
     return async function (dispatch) {
         const response = await axios.get(`${desarrolloApp}/category_liquor`)
-
         dispatch({ type: GET_ALL_CATEGORY_LIQUOR, payload: response.data.data })
     }
 }

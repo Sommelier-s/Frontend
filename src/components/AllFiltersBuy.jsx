@@ -34,26 +34,6 @@ const AllFiltersBuy = () => {
 		dispatch(filterCategoryLiquor(idCategory));
 	};
 
-	//funcion para filtrar por el origen (BDD / API)
-	const handleChangeOrigen = (event) => {
-		const value = event.target.value;
-		let origen = '';
-		switch (value) {
-			case 'Default':
-				origen = 'Default';
-				break;
-			case 'Creados':
-				origen = 'DB';
-				break;
-			case 'Originales':
-				origen = 'API';
-				break;
-			default:
-				origen = 'Default';
-		}
-		//dispatch(filterOrigen(origen));
-	};
-
 	//funcion para ordenar alfabeticamente en orden Ascendente de Descendente
 	const handleChangeOrden = (event) => {
 		const value = event.target.value;
@@ -95,8 +75,9 @@ const AllFiltersBuy = () => {
 	//funcion para recargar la pagina cuando precione restaurar
 	const resetAll = (event) => {
 		event.preventDefault();
+		setSearch("");
 		dispatch(generatedCopyAllDrinks());
-		//window.location.reload();
+		
 	};
 
 	//para el input
@@ -119,6 +100,7 @@ const AllFiltersBuy = () => {
 						onChange={handleValue}
 						className={styles.input}
 						type="text"
+						value={search}
 					/>
 					<button className={styles.buttonSearch} onClick={handleSearch}>
 						Buscar
@@ -175,7 +157,7 @@ const AllFiltersBuy = () => {
 						className={styles.selectedFilters}
 						onChange={handleChangeCategoryLiquor}
 					>
-						<option value="Default">Categorias Vinos</option>
+						<option value="Default">Categorias Licores</option>
 						{allCategoryLiquor.map((categoria) => {
 							return (
 								<option key={categoria.id} value={categoria.id}>
