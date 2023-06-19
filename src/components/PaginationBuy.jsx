@@ -9,7 +9,6 @@ const PaginationBuy = () => {
 	//Aqui traigo todos los perros, pero uso la copia
 	const allDrinks = useSelector((state) => state.copyAllDrinks);
 
-	
 	//Estados para controlar la paginacion
 	const [currentPage, setCurrentPage] = useState(1);
 	const [itemsPerPage, setItemPerPage] = useState(4);
@@ -23,11 +22,11 @@ const PaginationBuy = () => {
 		setCurrentPage(Number(event.target.id));
 	};
 
-	// useEffect(() => {
-	// 	setMinPageNumerLimit(0);
-	// 	setCurrentPage(1);
-	// 	setItemPerPage(8);
-	// }, [allDogs]);
+	useEffect(() => {
+		setMinPageNumerLimit(0);
+		setCurrentPage(1);
+		setItemPerPage(4);
+	}, [allDrinks]);
 
 	//Este bucle for se encarga de guardar la cantidad de paginas que hay,
 	//para ello se hace un calculo de la cantidad de elementos existentes y los que se mostraran

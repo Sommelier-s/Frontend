@@ -12,6 +12,7 @@ import {
     FILTER_CATEGORY_LIQUOR,
     FILTER_ORDER,
     FILTER_PRICE,
+    GENERATED_USER_ID,
 
 } from "./actions";
 
@@ -23,13 +24,27 @@ const initialState = {
     copyAllDrinks: [],
     categoryWine: [],
     categoryLiquor: [],
+    userId: "309602f1-2195-4986-b90a-b37dc4043526",
 
+}
+
+const setLocalStorage = (id) => {
+    try {
+        window.localStorage.setItem("userId", JSON.stringify(id));
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 //Reducer function
 export default function reducer(state = initialState, { type, payload }) {
     switch (type) {
         //Guarda toda la informacion en el atributo wine del estado global
+        case GENERATED_USER_ID:
+            setLocalStorage(state.userId);
+            return {
+                ...state
+            }
         case GET_ALL_WINE:
             return {
                 ...state,
@@ -78,7 +93,7 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks.filter((drink) => state.allDrinks.category?.includes(payload))
+                    copyAllDrinks: state.copyAllDrinks.filter((drink) => drink?.Wine_categoryId === payload)
                 }
             } else {
                 return {
@@ -103,42 +118,14 @@ export default function reducer(state = initialState, { type, payload }) {
 
         //Retorna la informacion ordenada alfabeticamente, dependiendo del tipo de ordenamiento
         case FILTER_ORDER:
-            if (payload != "Default") {
-                if (payload === "ascendente") {
-                    return {
-                        ...state,
-                        copyDogs: [
-                            ...state.copyDogs.sort(function (a, b) {
-                                return a.name.localeCompare(b.name)
-                            }),
-                        ]
-                    }
-                } else {
-                    return {
-                        ...state,
-                        copyDogs: [
-                            ...state.copyDogs.sort(function (a, b) {
-                                return b.name.localeCompare(a.name)
-                            }),
-                        ]
-                    }
-                }
-            } else {
-                return {
-                    ...state,
-                    copyDogs: state.dogs
-                }
-            }
-        //Retorna la informacion ordenada por peso, dependiendo del tipo de ordenamiento
-        case FILTER_PRICE:
             switch (payload) {
                 case "ascendente":
                     return {
                         ...state,
                         copyAllDrinks: [
                             ...state.copyAllDrinks.sort(function (a, b) {
-                                return a.id - b.id;
-                            })
+                                return a.name.localeCompare(b.name)
+                            }),
                         ]
                     }
                 case "descendente":
@@ -146,14 +133,40 @@ export default function reducer(state = initialState, { type, payload }) {
                         ...state,
                         copyAllDrinks: [
                             ...state.copyAllDrinks.sort(function (a, b) {
-                                return b.id - a.id;
-                            })
+                                return b.name.localeCompare(a.name)
+                            }),
                         ]
                     }
                 default:
                     return {
                         ...state,
-                        copyAllDrinks: state.allDrinks
+                        copyAllDrinks: state.copyAllDrinks
+                    }
+
+            }
+
+        //Retorna la informacion ordenada por peso, dependiendo del tipo de ordenamiento
+        case FILTER_PRICE:
+
+            switch (payload) {
+                case "ascendente":
+                    return {
+                        ...state,
+                        copyAllDrinks: [
+                            ...state.copyAllDrinks.sort((a, b) => a.price - b.price)
+                        ]
+                    }
+                case "descendente":
+                    return {
+                        ...state,
+                        copyAllDrinks: [
+                            ...state.copyAllDrinks.sort((a, b) => b.price - a.price)
+                        ]
+                    }
+                default:
+                    return {
+                        ...state,
+                        copyAllDrinks: state.copyAllDrinks
                     }
             }
         default:

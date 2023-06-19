@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 //Importo lo necesario para toastify
@@ -16,6 +16,8 @@ import {
 	getAllLiquor,
 	getAllDrinks,
 	generatedCopyAllDrinks,
+	getAllCategoryWine,
+	generatedUserId,
 } from '../redux/actions';
 
 import styles from '../assets/styles/components/views/Buy.module.css';
@@ -53,6 +55,7 @@ const Buy = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(generatedUserId());
 		dispatch(getAllWine(WineJson));
 		dispatch(getAllLiquor(LiquorJson));
 		dispatch(getAllDrinks());
@@ -60,15 +63,14 @@ const Buy = () => {
 
 	useEffect(() => {
 		dispatch(generatedCopyAllDrinks());
+		dispatch(getAllCategoryWine());
 	}, [stateGlobal]);
-
-
 
 	return (
 		<div>
 			<AllFiltersBuy />
 			<PaginationBuy />
-			
+
 			{/* Dejar este componente que le pertenece a Toastify */}
 			<ToastContainer />
 		</div>

@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+
+export const GENERATED_USER_ID = "GENERATED_USER_ID";
+
 export const GET_ALL_WINE = "GET_ALL_WINE";
 export const GET_ALL_LIQUOR = "GET_ALL_LIQUOR";
 
@@ -19,17 +22,27 @@ export const FILTER_PRICE = "FILTER_PRICE";
 
 //Variable con la url base
 const desarrolloApp = "http://localhost:3001";
-let wineLocal=[];
-let liquorLocal=[];
+let wineLocal = [];
+let liquorLocal = [];
 
+const userId = window.localStorage.getItem("userId");
+const userIdParseado = JSON.parse(userId);
+
+
+export const generatedUserId = () => {
+    return { type: GENERATED_USER_ID };
+}
 
 export const getAllWine = (wine) => {
-    // return async function (dispatch) {
-    //     const response = await axios.get(`${desarrolloApp}/dogs`)
-    //     dispatch({ type: GET_ALL_DOGS, payload: response.data })
-    // }
-    wineLocal=wine;
-    return {type: GET_ALL_WINE, payload:wine}
+    return async function (dispatch) {
+
+        const response = await axios.get(`${desarrolloApp}/wine`)
+
+        wineLocal = response.data.data;
+        dispatch({ type: GET_ALL_WINE, payload: response.data.data })
+    }
+
+
 }
 
 
@@ -39,8 +52,8 @@ export const getAllLiquor = (liquor) => {
     //     const response = await axios.get(`${desarrolloApp}/dogs`)
     //     dispatch({ type: GET_ALL_DOGS, payload: response.data })
     // }
-    liquorLocal=liquor;
-    return {type: GET_ALL_LIQUOR, payload:liquor};
+    liquorLocal = liquor;
+    return { type: GET_ALL_LIQUOR, payload: liquor };
 }
 
 
@@ -49,7 +62,7 @@ export const getAllDrinks = () => {
     //     const response = await axios.get(`${desarrolloApp}/dogs`)
     //     dispatch({ type: GET_ALL_DOGS, payload: response.data })
     // }
-    const allDrinks = [...wineLocal,...liquorLocal];
+    const allDrinks = [...wineLocal, ...liquorLocal];
     return { type: ALL_DRINKS, payload: allDrinks };
 }
 
@@ -60,16 +73,25 @@ export const generatedCopyAllDrinks = () => {
 }
 
 
+export const getAllCategoryWine = () => {
+    return async function (dispatch) {
+        const response = await axios.get(`${desarrolloApp}/category_wine`)
+
+        dispatch({ type: GET_ALL_CATEGORY_WINE, payload: response.data.data })
+    }
+}
+
+
 export const filterSearchByName = (name) => {
     return async function (dispatch) {
-        const search = await axios.get(`/dogs/names?name=${name}`);
-        dispatch({ type: FILTER_SEARCH_BY_NAME, payload: search.data })
+        const search = await axios.get(`${desarrolloApp}/wine/name?name=${name}`);
+        dispatch({ type: FILTER_SEARCH_BY_NAME, payload: search.data.data })
     }
 }
 
 //Esta action recibe el tipo de categoria de vino a filtrar
-export const filterCategoryWine = (tipo) => {
-    return { type: FILTER_CATEGORY_WINE, payload: tipo }
+export const filterCategoryWine = (category) => {
+    return { type: FILTER_CATEGORY_WINE, payload: category }
 }
 
 //Esta action recibe el tipo de categoria de licor a filtrar
