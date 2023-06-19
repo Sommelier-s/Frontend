@@ -17,6 +17,7 @@ import {
 	getAllDrinks,
 	generatedCopyAllDrinks,
 	getAllCategoryWine,
+	getAllCategoryLiquor,
 	generatedUserId,
 } from '../redux/actions';
 
@@ -56,14 +57,15 @@ const Buy = () => {
 
 	useEffect(() => {
 		dispatch(generatedUserId());
-		dispatch(getAllWine(WineJson));
-		dispatch(getAllLiquor(LiquorJson));
+		dispatch(getAllWine());
+		dispatch(getAllLiquor());
 		dispatch(getAllDrinks());
 	}, []);
 
 	useEffect(() => {
 		dispatch(generatedCopyAllDrinks());
 		dispatch(getAllCategoryWine());
+		dispatch(getAllCategoryLiquor());
 	}, [stateGlobal]);
 
 	return (
