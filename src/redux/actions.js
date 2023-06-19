@@ -33,11 +33,10 @@ export const generatedUserId = () => {
     return { type: GENERATED_USER_ID };
 }
 
-export const getAllWine = (wine) => {
+export const getAllWine = () => {
     return async function (dispatch) {
 
         const response = await axios.get(`${desarrolloApp}/wine`)
-
         wineLocal = response.data.data;
         dispatch({ type: GET_ALL_WINE, payload: response.data.data })
     }
@@ -47,21 +46,17 @@ export const getAllWine = (wine) => {
 
 
 
-export const getAllLiquor = (liquor) => {
-    // return async function (dispatch) {
-    //     const response = await axios.get(`${desarrolloApp}/dogs`)
-    //     dispatch({ type: GET_ALL_DOGS, payload: response.data })
-    // }
-    liquorLocal = liquor;
-    return { type: GET_ALL_LIQUOR, payload: liquor };
+export const getAllLiquor = () => {
+    return async function (dispatch) {
+        const response = await axios.get(`${desarrolloApp}/liquor`)
+        liquorLocal = response.data.data;
+        dispatch({ type: GET_ALL_LIQUOR, payload: response.data.data })
+    }
+        ;
 }
 
 
 export const getAllDrinks = () => {
-    // return async function (dispatch) {
-    //     const response = await axios.get(`${desarrolloApp}/dogs`)
-    //     dispatch({ type: GET_ALL_DOGS, payload: response.data })
-    // }
     const allDrinks = [...wineLocal, ...liquorLocal];
     return { type: ALL_DRINKS, payload: allDrinks };
 }
@@ -81,10 +76,18 @@ export const getAllCategoryWine = () => {
     }
 }
 
+export const getAllCategoryLiquor = () => {
+    return async function (dispatch) {
+        const response = await axios.get(`${desarrolloApp}/category_liquor`)
+
+        dispatch({ type: GET_ALL_CATEGORY_LIQUOR, payload: response.data.data })
+    }
+}
+
 
 export const filterSearchByName = (name) => {
     return async function (dispatch) {
-        const search = await axios.get(`${desarrolloApp}/wine/name?name=${name}`);
+        const search = await axios.get(`${desarrolloApp}/both_drinks/name?name=${name}`);
         dispatch({ type: FILTER_SEARCH_BY_NAME, payload: search.data.data })
     }
 }
@@ -102,7 +105,6 @@ export const filterCategoryLiquor = (tipo) => {
 
 //Esta action recibe el tipo orden alfabetico a ordenar
 export const filterOrden = (orden) => {
-
     return { type: FILTER_ORDER, payload: orden };
 }
 
