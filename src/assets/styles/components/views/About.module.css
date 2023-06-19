@@ -1,42 +1,71 @@
 .title {
   font-size: 30px;
-  font-family: felixti, sans-serif;
+  font-family: "Copperplate Gothic Light";
   color: #ffffff;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
 }
 
-.parrafo {
-  text-align: center;
-  font-size: 24px;
-  color: rgb(255, 255, 255);
-  line-height: 1.5;
-  text-align: justify;
-
-  /* position: relative; */
-  align-items: center;
-  justify-content: center;
+.MainContainer {
+  margin-top: 2%;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 50% 50%;
   padding: 40px;
   border-radius: 10px;
-  background-color: rgba(118, 118, 118, 0.2);
-  /* border: 2px solid rgb(251, 3, 3); */
+  background-color: rgba(155, 155, 155, 0.498);
+}
 
-  /* height: 100%;
-  width: 50%; */
+.title1{
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  font-family: "Copperplate Gothic Light";
+  
+}
+
+.contentimg{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+ .logoPagina {
+width: 30%;
+height: 100%;
+} 
+
+ .parrafo {
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+  line-height: 1.5;
+  text-align: center;
+  margin: 0 auto;
+} 
+
+.TeamContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .integrantes {
   text-align: center;
   font-size: 24px;
-  color: rgb(255, 255, 255);
+  color: rgb(234, 244, 255);
+  font-weight: bold;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  backdrop-filter: blur(5px);
- 
 }
 
 .item {
@@ -45,7 +74,8 @@
   border-radius: 10px;
   margin: 10px;
   max-width: auto;
-  background-color: rgba(108, 41, 41, 0.4);
+  box-shadow: 2px 2px 4px #ffffff;
+  background-color: rgba(83, 9, 20, 0.9); 
   width: 20%; /* Establece el ancho para que haya 4 elementos por fila */
   padding: 10px;
   /* box-sizing: border-box; */
@@ -54,11 +84,24 @@
 }
 
 .image {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background-size: cover;
   border-radius: 50%;
   margin: 0 auto;
+}
+
+.linkedinLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 30%;
+  padding: 1px;
+}
+
+.githubLogo {
+  width: 40px;
+  height: 40px;
+  padding: 1px;
 }
 
 .logos {
@@ -70,25 +113,22 @@
   padding: 10px;
 }
 
+.tecnologias {
+  justify-content: center;
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding: 20px;
+  /* width: 25%; 
+  flex-basis: 25%; */
+  text-align: center; /* Centra el contenido dentro de cada elemento */
+  margin: 10px;
+  max-width: auto;
 
-
-.tecnologias{
-  display: flex; /* Hace que los elementos se acomoden horizontalmente */
-  justify-content: center; /* Centra los elementos horizontalmente */
-  list-style-type: none; /* Elimina los marcadores/bolitas de la lista */
-  
+  display: flex;
+  margin: 10px;
+  justify-content: center;
+  list-style-type: none; 
+  max-width: auto;
 }
 
-a {
-  color: blue; /* Color predeterminado para los enlaces */
-}
 
-a:link,
-a:visited {
-  color: rgb(90, 170, 255); /* Color para los enlaces no visitados y visitados */
-}
-
-a:hover,
-a:active {
-  color: rgb(96, 36, 224); /* Color al pasar el mouse por encima o al hacer clic en el enlace */
-}
