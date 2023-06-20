@@ -11,6 +11,8 @@ import PaginationBuy from '../components/PaginationBuy';
 
 import WineJson from '../utils/Wine.json';
 import LiquorJson from '../utils/Liquor.json';
+
+import Footer from "../components/Footer";
 import {
 	getAllWine,
 	getAllLiquor,
@@ -74,6 +76,7 @@ const Buy = () => {
 			<PaginationBuy />
 
 			{/* Dejar este componente que le pertenece a Toastify */}
+			<Footer/>
 			<ToastContainer />
 		</div>
 	);

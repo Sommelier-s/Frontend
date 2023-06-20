@@ -27,7 +27,7 @@ const Leanding = () => {
 
 				<button className={styles.cssbuttonsIoButton} onClick={Login}>
 					{' '}
-					Ingresar a Home
+					Ingresar a Inicio
 					<div className={styles.icon}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

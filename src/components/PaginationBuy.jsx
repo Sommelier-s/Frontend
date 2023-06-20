@@ -69,7 +69,7 @@ const PaginationBuy = () => {
 	//Esta funcion es para el boton Previous
 	const handlePrevBtn = () => {
 		setCurrentPage(currentPage - 1);
-		if ((currentPage - 1) % pageNumerLimit == 0) {
+		if ((currentPage - 1) % pageNumerLimit === 0) {
 			setMaxPageNumerLimit(maxPageNumerLimit - pageNumerLimit);
 			setMinPageNumerLimit(minPageNumerLimit - pageNumerLimit);
 		}
@@ -106,9 +106,9 @@ const PaginationBuy = () => {
 						Previous
 					</button>
 				</li>
-				{pageDecrementBtn}
+				{/* {pageDecrementBtn} */}
 				{renderPageNumbers}
-				{pageIncrementBtn}
+				{/* {pageIncrementBtn} */}
 				<li>
 					<button
 						onClick={handleNextBtn}
