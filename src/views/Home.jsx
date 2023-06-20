@@ -1,4 +1,16 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+	getAllWine,
+	getAllLiquor,
+	getAllDrinks,
+	generatedCopyAllDrinks,
+	getAllCategoryWine,
+	getAllCategoryLiquor,
+	generatedUserId,
+} from '../redux/actions';
 
 // Importación de componentes
 import CardsContainerWine from '../components/CardsContainerWine';
@@ -21,6 +33,22 @@ const Home = () => {
   const handleIconClick = (icon) => {
     setSelectedIcon(icon === selectedIcon ? null : icon);
   };
+
+  const stateGlobal = useSelector((state) => state.AllDrinks);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(generatedUserId());
+		dispatch(getAllWine());
+		dispatch(getAllLiquor());
+		dispatch(getAllDrinks());
+	}, []);
+
+	useEffect(() => {
+		dispatch(generatedCopyAllDrinks());
+		dispatch(getAllCategoryWine());
+		dispatch(getAllCategoryLiquor());
+	}, [stateGlobal]);
 
   return (
     <div className={styles.container}>
