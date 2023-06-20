@@ -40,7 +40,7 @@ export const getAllWine = () => {
             wineLocal = response.data.data;
             dispatch({ type: GET_ALL_WINE, payload: response.data.data })
         } catch (error) {
-            console.log(`status: ${error.status} message: ${error.message}`);
+            console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
         }
     }
 }
@@ -54,7 +54,7 @@ export const getAllLiquor = () => {
             liquorLocal = response.data.data;
             dispatch({ type: GET_ALL_LIQUOR, payload: response.data.data })
         } catch (error) {
-            console.log(`status: ${error.status} message: ${error.message}`);
+            console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
         }
     };
 
@@ -79,7 +79,7 @@ export const getAllCategoryWine = () => {
             const response = await axios.get(`${desarrolloApp}/category_wine`)
             dispatch({ type: GET_ALL_CATEGORY_WINE, payload: response.data.data })
         } catch (error) {
-            console.log(`status: ${error.status} message: ${error.message}`);
+            console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
         }
     }
 }
@@ -90,7 +90,7 @@ export const getAllCategoryLiquor = () => {
             const response = await axios.get(`${desarrolloApp}/category_liquor`)
             dispatch({ type: GET_ALL_CATEGORY_LIQUOR, payload: response.data.data })
         } catch (error) {
-            console.log(`status: ${error.status} message: ${error.message}`);
+            console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
         }
     }
 }
@@ -102,7 +102,7 @@ export const filterSearchByName = (name) => {
             const search = await axios.get(`${desarrolloApp}/both_drinks/name?name=${name}`);
             dispatch({ type: FILTER_SEARCH_BY_NAME, payload: search.data.data })
         } catch (error) {
-            console.log(`status: ${error.status} message: ${error.message}`);
+            console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
         }
 
 

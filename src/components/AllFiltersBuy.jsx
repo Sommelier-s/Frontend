@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+//Importo lo necesario para toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
@@ -14,11 +19,40 @@ import {
 } from '../redux/actions';
 
 const AllFiltersBuy = () => {
+	//Toastify module for success message
+	const displaySuccessMessage = (mensaje) => {
+		toast.success(mensaje, {
+			position: 'top-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+	};
+
+	// Toastify module for error messages
+	const displayFailedMessage = (mensaje) => {
+		toast.error(mensaje, {
+			position: 'top-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+	};
+
 	const dispatch = useDispatch();
 
 	//Trae todos los temperamentos
 	const allCategoryWine = useSelector((state) => state.categoryWine);
 	const allCategoryLiquor = useSelector((state) => state.categoryLiquor);
+	const allDrinks = useSelector((state) => state.copyAllDrinks);
 
 	const [search, setSearch] = useState('');
 
@@ -75,9 +109,8 @@ const AllFiltersBuy = () => {
 	//funcion para recargar la pagina cuando precione restaurar
 	const resetAll = (event) => {
 		event.preventDefault();
-		setSearch("");
+		setSearch('');
 		dispatch(generatedCopyAllDrinks());
-		
 	};
 
 	//para el input
@@ -86,8 +119,12 @@ const AllFiltersBuy = () => {
 	};
 
 	//para el btn cuando hace click
-	const handleSearch = (event) => {
+	const handleSearch = async (event) => {
 		event.preventDefault();
+		if (search === '') {
+			return displayFailedMessage('No hay nada para buscar');
+		}
+
 		dispatch(filterSearchByName(search));
 	};
 
@@ -175,6 +212,7 @@ const AllFiltersBuy = () => {
 					Restaurar
 				</button>
 			</div>
+			<ToastContainer />
 		</div>
 	);
 };
