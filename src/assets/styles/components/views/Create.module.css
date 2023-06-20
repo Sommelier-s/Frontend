@@ -64,21 +64,26 @@
 
 .formulario button[type="submit"] {
   display: block;
-  background: #0085FF;
+  background-color: #973333;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
   font-weight: 600;
   font-family: 'Open Sans', sans-serif;
-  border: none;
-  cursor: pointer;
   width: 100%;
-  padding: 10px;
   border-radius: 5px;
-  color: #fff;
   font-size: 1rem;
-  transition: .3s ease all;
 }
 
 .formulario button[type="submit"]:hover {
-  background: #0051ff;
+  background-color: #d14e4e;
+}
+
+.formulario .disabled {
+  background-color: gray;
+  cursor: not-allowed;
 }
 
 .formulario .exito {
@@ -88,17 +93,7 @@
   color: #02a802;
 }
 
-.disabledButton {
-	background-color: #ccc;
-	opacity: 0.5;
-	cursor: not-allowed;
-  }
+
   
-  .button {
-	/* Estilos del botón cuando está habilitado */
-  }
-  
-  .button:hover {
-	/* Estilos del botón en hover cuando está habilitado */
-  }
+
 

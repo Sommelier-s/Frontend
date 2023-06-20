@@ -2,23 +2,69 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '.././assets/styles/components/views/Create.module.css'
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCategoryWine, getAllCategoryLiquor } from '../redux/actions';
+import { useEffect } from 'react'
 
 export default function Create() {
+
+  useEffect(() => {
+		dispatch(getAllCategoryWine());
+		dispatch(getAllCategoryLiquor());
+	}, []);
+
+  const dispatch = useDispatch();
+  const userId = window.localStorage.getItem("userId");
+  const userIdParseado = JSON.parse(userId);
+  const allCategoryWine = useSelector((state) => state.categoryWine);
+  const allCategoryLiquor = useSelector((state) => state.categoryLiquor);
+  
+
+  const desarrolloApp = 'http://localhost:3001'
+  const displaySuccessMessage = (mensaje) => {
+		toast.success(mensaje, {
+			position: 'top-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+	};
+
+  const displayFailedMessage = (mensaje) => {
+		toast.error(mensaje, {
+			position: 'top-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+	};
+
     const [formSubmit, setFormSubmit] = useState(false);
     const showAlert = () => {
-      alert('Por favor complete todos los campos antes de enviar el formulario.');
+      displayFailedMessage('Por favor complete todos los campos antes de enviar el formulario.');
     };
   return (
     <>
     <div className={styles.contenedor}>
       <Formik
         initialValues={{
+          product: "vino", // Valor por defecto
           name: '',
           description: '',
           price: '',
           picture: '',
-          variety: '',
           stock: '',
+          category: '',
         }}
         validate={(values) => {
           let errors = {};
@@ -41,10 +87,10 @@ export default function Create() {
             errors.price = "El precio debe ser un número con máximo 2 decimales";
           }
 
-          if (!values.variety) {
-            errors.variety = "Ingrese una variedad";
-          } else if (!/^[\w\s\d.,:]+$/u.test(values.variety)) {
-            errors.variety = "La variedad solo puede contener letras y espacios";
+          if (values.product === "licor" && !values.graduation) {
+            errors.graduation = "Ingrese una graduación";
+          } else if (values.product === "licor" && !/^\d+(\.\d{1,2})?$/.test(values.graduation)) {
+            errors.graduation = "La graduación debe ser un número con máximo 2 decimales";
           }
 
           if (!values.stock) {
@@ -62,48 +108,88 @@ export default function Create() {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+          
+          console.log("Formulario enviado:", values);
+
           if (
             values.name &&
             values.description &&
             values.price &&
-            values.variety &&
             values.stock
           ) {
-            const formData = new FormData();
-            formData.append('name', values.name);
-            formData.append('description', values.description);
-            formData.append('price', values.price);
-            formData.append('variety', values.variety);
-            formData.append('stock', values.stock);
-            formData.append('picture', values.picture);
+            let requestData = {};
+            
+            if (values.product === "vino") {
+              requestData = {
+                name: values.name,
+                description: values.description,
+                price: parseFloat(values.price),
+                stock: parseInt(values.stock),
+                picture: values.picture,
+                wineCategoryId: values.category,
+              };
+              console.log("Enviando solicitud POST a /wine:", requestData);
 
             try {
-              const response = await axios.post('URL_DE_TU_API', formData);
-              console.log('Formulario enviado:', values);
-              console.log('Respuesta del servidor:', response)
+              const response = await axios.post(`${desarrolloApp}/wine`, requestData);
+              console.log('respuesta del servidor:', response)
+
               setSubmitting(false);
               resetForm();
               setFormSubmit(true);
+              displaySuccessMessage('Formulario enviado con exito')
             } catch (error) {
               console.error('Error al enviar el formulario:', error);
               setSubmitting(false);
-
             }
-          } else {
-            showAlert();
-            setSubmitting(false);
+          } else if (values.product === "licor") {
+            requestData = {
+              name: values.name,
+              description: values.description,
+              price: parseFloat(values.price),
+              graduation: parseFloat(values.graduation),
+              stock: parseInt(values.stock),
+              picture: values.picture,
+              liquorCategoryId: values.category,
+            };
+            console.log("Enviando solicitud POST a /liquor:", requestData);
+            try {
+              const response = await axios.post(`${desarrolloApp}/liquor`, requestData);
+              console.log("Respuesta del servidor:", response.data);
+
+              setSubmitting(false);
+              resetForm();
+              setFormSubmit(true);
+              displaySuccessMessage('Formulario enviado con éxito');
+            } catch (error) {
+              console.error('Error al enviar el formulario:', error);
+              setSubmitting(false);
+            }
           }
+        } else {
+          showAlert();
+          setSubmitting(false);
+        }
         }}
       >
         {({ values, errors, touched, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <Form className={styles.formulario} onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="product">Producto:</label>
+              <Field as="select" id="product" name="product">
+                <option value="vino">Vino</option>
+                <option value="licor">Licor</option>
+              </Field>
+            </div>
             <div>
               <label htmlFor="name">Nombre:</label>
               <Field
                 type='text'
                 id='name'
                 name='name'
-                placeholder="Nombre del licor/vino..."
+                placeholder={
+                  values.product === 'vino' ? 'Nombre del vino...' : 'Nombre del licor...'
+                }
               />
               <ErrorMessage name="name" component="div" className={styles.error} />
             </div>
@@ -127,16 +213,18 @@ export default function Create() {
               />
               <ErrorMessage name="price" component="div" className={styles.error} />
             </div>
-            <div>
-              <label htmlFor="variety">Variedad:</label>
-              <Field
-                type='text'
-                id='variety'
-                name='variety'
-                placeholder="Variedad de vino o licor"
-              />
-              <ErrorMessage name="variety" component="div" className={styles.error} />
-            </div>
+            {values.product === "licor" && (
+              <div>
+                <label htmlFor="graduation">Graduación:</label>
+                <Field
+                  type="text"
+                  id="graduation"
+                  name="graduation"
+                  placeholder="Graduación del licor"
+                />
+                <ErrorMessage name="graduation" component="div" className={styles.error} />
+              </div>
+            )}
             <div>
               <label htmlFor="price">Stock:</label>
               <Field
@@ -145,7 +233,7 @@ export default function Create() {
                 name='stock'
                 placeholder="Stock..."
               />
-              <ErrorMessage name="price" component="div" className={styles.error} />
+              <ErrorMessage name="stock" component="div" className={styles.error} />
             </div>
             <div>
               <label htmlFor="picture">Picture URL:</label>
@@ -157,16 +245,46 @@ export default function Create() {
               />
               <ErrorMessage name="picture" component="div" className={styles.error} />
             </div>
+            {values.product === "vino" && (
+                // Mostrar el campo "Categoría" solo si se selecciona "vino" en "Producto"
+                <div>
+                  <label htmlFor="category">Categoría:</label>
+                  <Field as="select" id="category" name="category">
+                    <option value="">Seleccione una categoría</option>
+                    {allCategoryWine.map((categoria) => (
+                      <option key={categoria.id} value={categoria.id}>
+                        {categoria.name}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="category" component="div" className={styles.error} />
+                </div>
+            )}
+
+            {values.product === "licor" && (
+              <div>
+                <label htmlFor="category">Categoría:</label>
+                <Field as="select" id="category" name="category">
+                  <option value="">Seleccione una categoría</option>
+                  {allCategoryLiquor.map((categoria) => (
+                    <option key={categoria.id} value={categoria.id}>
+                      {categoria.name}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage name="category" component="div" className={styles.error} />
+              </div>
+            )}
+
             <button
                 type='submit'
                 disabled={isSubmitting}
+                className={`${styles.btnEnviar} ${isSubmitting ? styles.disabled : ''}`}
                 onClick={() => {
-                  console.log('Botón deshabilitado:', isSubmitting);
                   if (
                     !values.name ||
                     !values.description ||
                     !values.price ||
-                    !values.variety ||
                     !values.stock
                   ) {
                     showAlert();
@@ -180,6 +298,7 @@ export default function Create() {
         )}
       </Formik>
       </div>
+      <ToastContainer />
     </>
   );
 }

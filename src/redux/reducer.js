@@ -93,7 +93,7 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks.filter((drink) => drink?.Wine_categoryId === payload)
+                    copyAllDrinks: state.copyAllDrinks.filter((drink) => drink?.Wine_categoryId === payload)
                 }
             } else {
                 return {
@@ -106,7 +106,7 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks.filter((drink) => drink?.Liquor_categoryId === payload)
+                    copyAllDrinks: state.allDrinks.filter((drink) => state.allDrinks.category?.includes(payload))
                 }
             } else {
                 return {
