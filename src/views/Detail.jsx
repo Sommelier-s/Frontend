@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllDrinks } from '../redux/actions';
@@ -15,6 +15,12 @@ import axios from 'axios';
 const Detail = () => {
 	const dispatch = useDispatch();
 
+	const location = useLocation();
+
+	const previousPath = location?.state?.from || '/home';
+
+	console.log('pagina previa: ', previousPath);
+
 	const [drink, setDrink] = useState({});
 
 	const desarrolloApp = 'http://localhost:3001';
@@ -28,7 +34,8 @@ const Detail = () => {
 			);
 			setDrink(data.data);
 		} catch (error) {
-			console.log(error);
+			displayFailedMessage('Bebida no encontrada');
+			console.log(error.response.error);
 		}
 	};
 
@@ -73,6 +80,18 @@ const Detail = () => {
 	const mostrarMensajeSuccess = (event) => {
 		event.preventDefault();
 		displaySuccessMessage('Vamos a comprar');
+	};
+
+	const handleBack = () => {
+		const from = new URLSearchParams(location.search).get('from');
+
+		if (from === 'home') {
+			navigate('/home');
+		} else if (from === 'buy') {
+			navigate('/buy');
+		} else {
+			navigate('/');
+		}
 	};
 
 	return (
@@ -140,12 +159,7 @@ const Detail = () => {
 					{' '}
 					Comprar{' '}
 				</button>
-				<button
-					className={styles.button}
-					onClick={() => {
-						navigate('/home');
-					}}
-				>
+				<button className={styles.button} onClick={handleBack}>
 					{' '}
 					Volver{' '}
 				</button>

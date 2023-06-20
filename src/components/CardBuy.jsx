@@ -2,13 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../assets/styles/components/CardBuy.module.css';
 
-
-
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 	// Toastify module for success message
@@ -48,8 +44,6 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 		displaySuccessMessage('Vamos a comprar');
 	};
 
-
-
 	return (
 		<div className={styles.content}>
 			<div className={styles.contentImage}>
@@ -61,7 +55,7 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 				/>
 			</div>
 			<div className={styles.contentText}>
-				<Link to={`/detail/${id}`} className={styles.link}>
+				<Link to={`/detail/${id}/?from=buy`} className={styles.link}>
 					{name}
 				</Link>
 				<p className={styles.variety}>{variety}</p>
