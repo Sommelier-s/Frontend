@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 //Importación de json
 import Liguor from "../utils/Liquor.json";
@@ -10,7 +11,8 @@ import CardLiquor from "./CardWine";
 import styles from "../assets/styles/components/CardsContainer.module.css";
 
 const CardsContainerLiquor = () => {
-  const liquors = Liguor;
+  const liquors = useSelector(state => state.liquor)
+  // const liquors = Liguor;
 
   return (
     <div className={styles.carrusel}>
@@ -22,7 +24,7 @@ const CardsContainerLiquor = () => {
             descriptión={liquor.description}
             price={liquor.price}
             picture={liquor.picture}
-            variety={liquor.variety}
+            //liquor_category={liquor.liquor_category.name}
             graduation={liquor.graduation}
             stock={liquor.stock}
             isActive={liquor.isActive}

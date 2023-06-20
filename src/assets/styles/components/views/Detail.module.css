@@ -1,0 +1,94 @@
+.containerDetail {
+    background: rgba(49, 49, 49, 0.719);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 85%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 1em;
+    border-radius: 15px;
+    color: white;
+}
+.nameId {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1px;
+}
+
+.containerDetail img {
+    width: 20%;
+    border-radius: 10px;
+}
+.img {
+    display: flex;
+    justify-content: center;
+  }
+
+.stock {
+    display: flex;
+    justify-content: space-around;
+}
+hr {
+    border: none;
+    height: 4px;
+    background: linear-gradient(to right, transparent, rgb(255, 255, 255), transparent);
+    margin: 10px 0;
+}
+
+/* Loader */
+.dots {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.dot {
+    width: 20px;
+    height: 20px;
+    background-color: rgb(1, 247, 255);
+    border-radius: 50%;
+    animation: 0.3s updown infinite alternate ease-in-out;
+}
+.dot:nth-child(2) {
+    animation-delay: 0.1s;
+}
+@keyframes updown {
+    0% { transform: translateY(15px);}
+}
+.dots h1 {
+    color: rgb(1, 247, 255);
+}
+
+/* Estilo para los botones */
+.btn {
+    display: flex;
+    justify-content: center;
+}
+.button {
+	position: relative;
+	display: inline-block;
+	margin: 15px;
+	padding: 10px;
+	text-align: center;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	color: var(--color-primary-button);
+	background: transparent;
+	cursor: pointer;
+	transition: ease-out 0.5s;
+	border: 2px solid var(--color-secondary-button);
+	border-radius: 10px;
+	box-shadow: inset 0 0 0 0 var(--color-primary-button);
+}
+
+.button:hover {
+	color: white;
+	box-shadow: inset 0 -100px 0 0 var(--color-primary-button);
+}
+
+.button:active {
+	transform: scale(0.9);
+} 
