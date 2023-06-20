@@ -1,10 +1,15 @@
 import React from "react";
-import Wine from "../utils/Wine.json";
+import { useSelector } from "react-redux";
+
+//Importación del componente CardWine
 import CardWine from "./CardWine";
+
+//Importación de estilos
 import styles from "../assets/styles/components/CardsContainer.module.css";
 
 const CardsContainerWine = () => {
-  const wines = Wine;
+  const wines = useSelector(state => state.wine)
+  // const wines = Wine;
 
   return (
     <div className={styles.carrusel}>
@@ -16,7 +21,7 @@ const CardsContainerWine = () => {
             description={wine.description}
             price={wine.price}
             picture={wine.picture}
-            variety={wine.variety}
+            //wine_category={wine.wine_category.name}
             stock={wine.stock}
             isActive={wine.isActive}
           />

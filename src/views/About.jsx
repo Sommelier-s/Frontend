@@ -68,35 +68,45 @@ const About = () => {
 	const tecnologias = [
 		{
 			program: "express",
-			logo: " https://icongr.am/devicon/express-original-wordmark.svg?size=148&color=ffffff"
+			logo: " https://icongr.am/devicon/express-original-wordmark.svg?size=148&color=ffffff",
+			link: "https://es.wikipedia.org/wiki/Express.js"
 		},
 		{
 			program: "sequelize",
-			logo: "https://icongr.am/devicon/sequelize-original.svg?size=148&color=ffffff"
+			logo: "https://icongr.am/devicon/sequelize-original.svg?size=148&color=ffffff",
+			link: "https://sequelize.org/"
 		},
 		{
 			program: "node js",
-			logo: "https://icongr.am/devicon/nodejs-original.svg?size=148&color=a72f2f"
+			logo: "https://icongr.am/devicon/nodejs-original.svg?size=148&color=a72f2f",
+			link: "https://blog.soyhenry.com/que-es-node-js-y-para-que-se-utiliza/"
 		},
 		{
 			program: "postgreSQL",
-			logo: "https://icongr.am/devicon/postgresql-original-wordmark.svg?size=148&color=f7f7f7"
+			logo: "https://icongr.am/devicon/postgresql-original-wordmark.svg?size=148&color=f7f7f7",
+			link: "https://es.wikipedia.org/wiki/PostgreSQL"
 		},
 		{
 			program: "React ",
-			logo: "https://icongr.am/devicon/react-original-wordmark.svg?size=148&color=f7f7f7"
+			logo: "https://icongr.am/devicon/react-original-wordmark.svg?size=148&color=f7f7f7",
+			link: "https://es.wikipedia.org/wiki/React"
 		},
 		{
 			program: "Redux",
-			logo: "https://cdn.iconscout.com/icon/free/png-256/free-redux-3521674-2945118.png"
+			logo: "https://cdn.iconscout.com/icon/free/png-256/free-redux-3521674-2945118.png",
+			link: "https://es.wikipedia.org/wiki/Redux_(JavaScript)"
+
+
 		},
 		{
 			program: "Javascript ",
-			logo: "https://icongr.am/devicon/javascript-original.svg?size=148&color=currentColor"
+			logo: "https://icongr.am/devicon/javascript-original.svg?size=148&color=currentColor",
+			link: "https://es.wikipedia.org/wiki/JavaScript"
 		},
 		{
 			program: "Git ",
-			logo: "https://icongr.am/devicon/git-original.svg?size=148&color=f7f7f7"
+			logo: "https://icongr.am/devicon/git-original.svg?size=148&color=f7f7f7",
+			link: "https://es.wikipedia.org/wiki/Git"
 		},
 
 	];
@@ -116,10 +126,10 @@ const About = () => {
 					<img src={logo} alt={logo} className={styles.logoPagina} />
 				</div>
 
-				<div>
-				<p className={styles.parrafo}>Nos esforzamos por brindarte una experiencia de compra excepcional.  Descubre descripciones detalladas de cada producto y encuentra recomendaciones personalizadas para ayudarte a elegir la opción perfecta. Además, nuestro equipo de expertos está siempre disponible para responder tus preguntas y asesorarte en tu recorrido.</p>
+				<div className={styles.contentparrafo}>
+					<p className={styles.parrafo}>Nos esforzamos por brindarte una experiencia de compra excepcional.  Descubre descripciones detalladas de cada producto y encuentra recomendaciones personalizadas para ayudarte a elegir la opción perfecta. Además, nuestro equipo de expertos está siempre disponible para responder tus preguntas y asesorarte en tu recorrido.</p>
 				</div>
-				
+
 			</div>
 
 			<div>
@@ -155,9 +165,10 @@ const About = () => {
 				<ul className={styles.tecnologias}>
 					{tecnologias.map((tecnologia) => (
 						<li key={tecnologia.program}>
-							<img src={tecnologia.logo} alt={tecnologia.logo} className={styles.logos}></img>
+							<a href={tecnologia.link}>
+								<img src={tecnologia.logo} alt={tecnologia.program} className={styles.logos} />
+							</a>
 						</li>
-
 					))}
 				</ul>
 			</div>

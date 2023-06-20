@@ -24,7 +24,7 @@ const initialState = {
     copyAllDrinks: [],
     categoryWine: [],
     categoryLiquor: [],
-    userId: "051cc6fc-f178-4a9b-931c-98ad2f5f740c",
+    userId: "38555dbb-63cd-4b44-ba9b-965d9019bbcd",
 
 }
 
