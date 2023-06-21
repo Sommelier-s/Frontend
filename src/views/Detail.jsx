@@ -19,7 +19,6 @@ const Detail = () => {
 
 	const previousPath = location?.state?.from || '/home';
 
-	console.log('pagina previa: ', previousPath);
 
 	const [drink, setDrink] = useState({});
 
@@ -155,7 +154,12 @@ const Detail = () => {
 					Agregar{' '}
 				</button>
 
-				<button className={styles.button} onClick={mostrarMensajeSuccess}>
+				<button
+					className={styles.button}
+					onClick={() => {
+						navigate('/payment');
+					}}
+				>
 					{' '}
 					Comprar{' '}
 				</button>
