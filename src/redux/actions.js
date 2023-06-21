@@ -19,6 +19,10 @@ export const FILTER_CATEGORY_LIQUOR = "FILTER_CATEGORY_LIQUOR";
 export const FILTER_ORDER = "FILTER_ORDER";
 export const FILTER_PRICE = "FILTER_PRICE";
 
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
+
 
 //Variable con la url base
 const desarrolloApp = "http://localhost:3001";
@@ -130,4 +134,16 @@ export const filterPrice = (precio) => {
     return { type: FILTER_PRICE, payload: precio };
 }
 
+//Actions para el carro de compras
+export const addToCart = (product) => {
+    return { type: ADD_TO_CART, payload: product};
+}
+
+export const removeFromCart = (productId) => {
+    return { type: REMOVE_FROM_CART, payload: productId};
+}
+
+export const updateQuantity = (productId, quantity) => {
+    return { type: UPDATE_QUANTITY, payload: { productId, quantity },};
+}
 
