@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formulario {
+  width: 50%;
+  max-width: 600px;
+  margin-top: 50px;
+  background: rgba(255, 255, 255, 0.6);
+  margin-bottom: 250px;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.formulario > div {
+  margin-bottom: 20px;
+}
+
+.formulario label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #1f1f1f;
+}
+
+.formulario input,
+.formulario textarea,
+.formulario select {
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #e2e2e2;
+  font-size: 1.2rem;
+  padding: 10px;
+  margin-bottom: 5px;
+  color: #1f1f1f;
+}
+
+.formulario input:focus,
+.formulario textarea:focus,
+.formulario select:focus {
+  outline: none;
+  border: 2px solid #0085FF;
+}
+
+.formulario .error {
+  color: #e92b2d;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.formulario button[type="submit"] {
+  display: block;
+  background-color: #973333;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.formulario button[type="submit"]:hover {
+  background-color: #d14e4e;
+}
+
+.formulario .disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.formulario .exito {
+  text-align: center;
+  font-size: 1.2rem;
+  padding-top: 20px;
+  color: #02a802;
+}
+
+.formulario .row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.formulario .column {
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Opcional: Si deseas que los campos de provincia y localidad estén en la misma fila pero separados por un espacio */
+.formulario .column:nth-child(2) {
+  margin-left: 10px;
+}
+
+.radioGroup {
+    display: flex;
+    align-items: center;
+  }
+  
+  .radioGroup label {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .radioGroup label span {
+    margin-left: 5px;
+  }
+  
