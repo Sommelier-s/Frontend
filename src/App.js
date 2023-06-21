@@ -9,11 +9,8 @@ import About from "./views/About";
 import Leanding from "./views/Leanding";
 import Detail from "./views/Detail";
 import Create from './views/Create';
-import Shipment from './views/Shipment';
 import NotFound from "./views/NotFound";
 import Buy from "./views/Buy";
-import Payment from './components/Payment';
-import Completion from './components/Completion';
 import Nav from "./components/Nav";
 import axios from "axios";
 
@@ -35,12 +32,6 @@ function App() {
       case "/about": return true
       case "/buy": return true
       case "/create": return true
-<<<<<<< Updated upstream
-      case "/payment": return true
-      case "/completion": return true
-=======
-      case "/shipment": return true
->>>>>>> Stashed changes
       case "/detail/:id": return false
       default: return false
     }
@@ -62,12 +53,6 @@ function App() {
         <Route path="/about" element={< About />} />
         <Route path="/buy" element={< Buy />} />
         <Route path="/create" element={< Create />} />
-<<<<<<< Updated upstream
-        <Route path="/payment" element={< Payment />} />
-        <Route path="/completion" element={< Completion />} />
-=======
-        <Route path="/shipment" element={< Shipment />} />
->>>>>>> Stashed changes
         <Route path="/detail/:id" element={< Detail />} />
         <Route path='*' element={<NotFound />} />
 

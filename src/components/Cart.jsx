@@ -41,26 +41,28 @@ const Cart = () => {
         <div className={styles.cartContainer}>
             {cart.length > 0 ? (
                 cart.map((product) => (
-                    <div key={product.id}>
+                    <div key={product.id} className={styles.productContainer}>
                         <h3>{product.name}</h3>
-                        <p>{product.price}</p>
-                        <p>Cantidad: {product.quantity}</p>
-                        <div className={styles.btn}>
-                            <button onClick={() => handleRemoveOneFromCart(product.id, product.quantity)}>
-                                -
-                            </button>
-                            <button onClick={() => handleUpdateQuantity(product.id, product.quantity + 1)}>
-                                +
-                            </button>
+                        <p>Valor unitario: {product.price}</p>
+                        <div className={styles.productDetails}>
+                            <div className={styles.quantity}>
+                                <button className={styles.quantityButton} onClick={() => handleRemoveOneFromCart(product.id, product.quantity)}>
+                                    -
+                                </button>
+                                <p>Cantidad: {product.quantity}</p>
+                                <button className={styles.quantityButton} onClick={() => handleUpdateQuantity(product.id, product.quantity + 1)}>
+                                    +
+                                </button>
+                            </div>
                         </div>
-                        <button onClick={() => handleRemoveFromCart(product.id)}>X</button>
+                        <button className={styles.removeButton} onClick={() => handleRemoveFromCart(product.id)}>Vaciar</button>
                     </div>
                 ))
                 ) : (
                     <p>Carro vacío</p>
                     )}
         </div>
-        <h1 className={styles.total}>Precio Total: {calculateTotal()}</h1>
+        <h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>
         </>
     )
 }
