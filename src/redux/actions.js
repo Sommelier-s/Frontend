@@ -22,6 +22,7 @@ export const FILTER_PRICE = "FILTER_PRICE";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
+export const UPDATE_CART_EMPTY_STATUS = "UPDATE_CART_EMPTY_STATUS";
 
 
 //Variable con la url base
@@ -147,3 +148,6 @@ export const updateQuantity = (productId, quantity) => {
     return { type: UPDATE_QUANTITY, payload: { productId, quantity },};
 }
 
+export const updateCartEmptyStatus = (isEmpty) => ({
+    type: UPDATE_CART_EMPTY_STATUS, payload: isEmpty,
+});

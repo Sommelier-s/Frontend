@@ -16,6 +16,7 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
+    UPDATE_CART_EMPTY_STATUS,
 
 } from "./actions";
 
@@ -28,6 +29,7 @@ const initialState = {
     categoryWine: [],
     categoryLiquor: [],
     cart: [],
+    isCartEmpty: true,
     // Aqui va el id del usuario
     userId: "9d492b49-cc07-4663-8358-ef363d7ae5ce",
 
@@ -216,6 +218,11 @@ export default function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 cart: updatedCart,
+            };
+        case UPDATE_CART_EMPTY_STATUS:
+            return {
+                ...state,
+                isCartEmpty: payload,
             };
 
         default:

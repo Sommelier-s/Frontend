@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, updateQuantity } from '../redux/actions';
+import { removeFromCart, updateQuantity, updateCartEmptyStatus } from '../redux/actions';
 
 //Importación de estilos
 import styles from "../assets/styles/components/Cart.module.css"
@@ -9,8 +9,11 @@ const Cart = () => {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
-    const handleRemoveFromCArt = (productId) => {
+    const handleRemoveFromCart = (productId) => {
         dispatch(removeFromCart(productId));
+        if (cart.length === 1) {
+            dispatch(updateCartEmptyStatus(true));
+        }
     };
 
     const handleUpdateQuantity = (productId, quantity) => {
@@ -34,25 +37,31 @@ const Cart = () => {
     };
 
     return (
+        <>
         <div className={styles.cartContainer}>
-            {cart.map((product) => (
-                <div key={product.id}>
-                    <h3>{product.name}</h3>
-                    <p>{product.price}</p>
-                    <p>Cantidad: {product.quantity}</p>
-                    <div className={styles.btn}>
-                        <button onClick={() => handleRemoveOneFromCart(product.id, product.quantity)}>
-                            -
-                        </button>
-                        <button onClick={() => handleUpdateQuantity(product.id, product.quantity + 1)}>
-                            +
-                        </button>
+            {cart.length > 0 ? (
+                cart.map((product) => (
+                    <div key={product.id}>
+                        <h3>{product.name}</h3>
+                        <p>{product.price}</p>
+                        <p>Cantidad: {product.quantity}</p>
+                        <div className={styles.btn}>
+                            <button onClick={() => handleRemoveOneFromCart(product.id, product.quantity)}>
+                                -
+                            </button>
+                            <button onClick={() => handleUpdateQuantity(product.id, product.quantity + 1)}>
+                                +
+                            </button>
+                        </div>
+                        <button onClick={() => handleRemoveFromCart(product.id)}>X</button>
                     </div>
-                    <button onClick={() => handleRemoveFromCArt(product.id)}>X</button>
-                </div>
-            ))}
-            <p>Precio Total: {calculateTotal()}</p>
+                ))
+                ) : (
+                    <p>Carro vacío</p>
+                    )}
         </div>
+        <h1 className={styles.total}>Precio Total: {calculateTotal()}</h1>
+        </>
     )
 }
 

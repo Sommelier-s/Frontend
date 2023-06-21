@@ -3,7 +3,12 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllDrinks, addToCart } from '../redux/actions';
+
+//Importación del componente cart
 import Cart from '../components/Cart';
+
+//Importación logo carrito
+import carro from '../assets/img/Carro.png';
 
 //Importación de estilos
 import styles from '../assets/styles/components/views/Detail.module.css';
@@ -26,9 +31,18 @@ const Detail = () => {
 
 	const { id } = useParams();
 
+	//Estado para la visibilidad del carrrito de compras
+	const [isCartVisible, setIsCartVisible] = useState(false);
+	//Estado para carrito vacio
+	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty)
+
 	//Manejador para agregar al carro
 	const addToCartHandler = () => {
 		dispatch(addToCart(drink));
+	}
+
+	const toggleCartVisibility = () => {
+		setIsCartVisible(!isCartVisible);
 	}
 
 	const searchDrink = async () => {
@@ -169,7 +183,14 @@ const Detail = () => {
 			</div>
 
 			<div className={styles.cart}>
-				<Cart />
+				<div onClick={toggleCartVisibility}>
+					<img src={carro} alt="carro" />
+				</div>
+				{isCartVisible ? (
+					<div>
+						{isCartEmpty ? <p>Carro vacío</p> : <Cart />}
+					</div>
+				) : null}
 			</div>
 			<ToastContainer />
 		</div>
