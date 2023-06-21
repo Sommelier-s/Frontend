@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/CardBuy.module.css';
 
 //Importo lo necesario para toastify
@@ -7,6 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
+	const navigate = useNavigate();
+
 	// Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -68,7 +70,12 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 					<button className={styles.button} onClick={mostrarMensajeFailed}>
 						Agregar
 					</button>
-					<button className={styles.button} onClick={mostrarMensajeSuccess}>
+					<button
+						className={styles.button}
+						onClick={() => {
+							navigate('/payment');
+						}}
+					>
 						Comprar
 					</button>
 				</div>

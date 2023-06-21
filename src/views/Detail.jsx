@@ -158,7 +158,12 @@ const Detail = () => {
 					Agregar{' '}
 				</button>
 
-				<button className={styles.button} onClick={mostrarMensajeSuccess}>
+				<button
+					className={styles.button}
+					onClick={() => {
+						navigate('/payment');
+					}}
+				>
 					{' '}
 					Comprar{' '}
 				</button>
