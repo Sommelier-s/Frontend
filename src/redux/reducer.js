@@ -13,6 +13,9 @@ import {
     FILTER_ORDER,
     FILTER_PRICE,
     GENERATED_USER_ID,
+    ADD_TO_CART,
+    REMOVE_FROM_CART,
+    UPDATE_QUANTITY,
 
 } from "./actions";
 
@@ -24,6 +27,7 @@ const initialState = {
     copyAllDrinks: [],
     categoryWine: [],
     categoryLiquor: [],
+    cart: [],
     // Aqui va el id del usuario
     userId: "9d492b49-cc07-4663-8358-ef363d7ae5ce",
 
@@ -170,6 +174,50 @@ export default function reducer(state = initialState, { type, payload }) {
                         copyAllDrinks: state.copyAllDrinks
                     }
             }
+        
+        //Agrega un producto al carro de compras
+        case ADD_TO_CART:
+            const existingProduct = state.cart.find((product) => product.id === payload.id);
+            if(existingProduct) {
+                const updatedCart = state.cart.map((product) => {
+                    if (product.id === payload.id) {
+                        return {
+                            ...product, quantity: product.quantity + 1,
+                        };
+                    }
+                    return product;
+                });
+                return {
+                    ...state,
+                    cart: updatedCart,
+                };
+            } else {
+                return {
+                    ...state,
+                    cart: [ ...state.cart, { ...payload, quantity: 1}],
+                };
+            }
+        case REMOVE_FROM_CART:
+            return {
+                ...state,
+                cart: state.cart.filter((product) => product.id !== payload)
+            };
+        case UPDATE_QUANTITY:
+            const { productId, quantity } = payload;
+            const updatedCart = state.cart.map((product) => {
+                if (product.id === productId) {
+                    return {
+                        ...product,
+                        quantity,
+                    };
+                }
+                return product;
+            });
+            return {
+                ...state,
+                cart: updatedCart,
+            };
+
         default:
             return {
                 ...state

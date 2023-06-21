@@ -2,7 +2,8 @@ import React from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllDrinks } from '../redux/actions';
+import { getAllDrinks, addToCart } from '../redux/actions';
+import Cart from '../components/Cart';
 
 //Importación de estilos
 import styles from '../assets/styles/components/views/Detail.module.css';
@@ -14,18 +15,21 @@ import axios from 'axios';
 
 const Detail = () => {
 	const dispatch = useDispatch();
-
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const previousPath = location?.state?.from || '/home';
-
-	console.log('pagina previa: ', previousPath);
 
 	const [drink, setDrink] = useState({});
 
 	const desarrolloApp = 'http://localhost:3001';
 
 	const { id } = useParams();
+
+	//Manejador para agregar al carro
+	const addToCartHandler = () => {
+		dispatch(addToCart(drink));
+	}
 
 	const searchDrink = async () => {
 		try {
@@ -38,8 +42,6 @@ const Detail = () => {
 			console.log(error.response.error);
 		}
 	};
-
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		searchDrink();
@@ -73,10 +75,11 @@ const Detail = () => {
 		});
 	};
 
-	const mostrarMensajeFailed = (event) => {
-		event.preventDefault();
-		displayFailedMessage('Carrito no encontrado');
-	};
+	// const mostrarMensajeFailed = (event) => {
+	// 	event.preventDefault();
+	// 	displayFailedMessage('Carro no encontrado');
+	// };
+	
 	const mostrarMensajeSuccess = (event) => {
 		event.preventDefault();
 		displaySuccessMessage('Vamos a comprar');
@@ -150,7 +153,7 @@ const Detail = () => {
 			)}
 
 			<div className={styles.btn}>
-				<button className={styles.button} onClick={mostrarMensajeFailed}>
+				<button className={styles.button} onClick={addToCartHandler}>
 					{' '}
 					Agregar{' '}
 				</button>
@@ -163,6 +166,10 @@ const Detail = () => {
 					{' '}
 					Volver{' '}
 				</button>
+			</div>
+
+			<div className={styles.cart}>
+				<Cart />
 			</div>
 			<ToastContainer />
 		</div>
