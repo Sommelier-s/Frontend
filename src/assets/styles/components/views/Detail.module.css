@@ -105,3 +105,6 @@ hr {
     border-radius: 15px;
     text-align: center;
 }
+.cart img {
+    width: 70px;
+}
