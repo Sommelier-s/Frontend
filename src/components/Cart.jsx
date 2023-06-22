@@ -1,6 +1,10 @@
-import React from 'react';
+import React,{ useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, updateQuantity, updateCartEmptyStatus } from '../redux/actions';
+import {
+    removeFromCart,
+    updateQuantity,
+    updateCartEmptyStatus,
+} from '../redux/actions';
 
 //Importación de estilos
 import styles from "../assets/styles/components/Cart.module.css"
@@ -16,8 +20,8 @@ const Cart = () => {
         }
     };
 
-    const handleUpdateQuantity = (productId, quantity) => {
-        if (quantity > 0) {
+    const handleUpdateQuantity = (productId, quantity, stock) => {
+        if (quantity <= stock) {
             dispatch(updateQuantity(productId, quantity));
         }
     };
@@ -26,6 +30,13 @@ const Cart = () => {
         if (quantity > 1) {
           dispatch(updateQuantity(productId, quantity - 1));
         }
+    };
+
+    const handleEmptyCart = () => {
+        dispatch(updateCartEmptyStatus(true));
+        cart.forEach((product) => {
+            dispatch(removeFromCart(product.id))
+        });
     };
 
     const calculateTotal = () => {
@@ -50,16 +61,30 @@ const Cart = () => {
                                     -
                                 </button>
                                 <p>Cantidad: {product.quantity}</p>
-                                <button className={styles.quantityButton} onClick={() => handleUpdateQuantity(product.id, product.quantity + 1)}>
+
+                                <button className={styles.quantityButton}
+                                onClick={() =>
+                                    handleUpdateQuantity(
+                                        product.id,
+                                        product.quantity + 1,
+                                        product.stock)}
+                                        disable={product.quantity >= product.stock}
+                                        >
                                     +
                                 </button>
+
                             </div>
                         </div>
-                        <button className={styles.removeButton} onClick={() => handleRemoveFromCart(product.id)}>Vaciar</button>
+                        {cart.length > 1 && (
+                            <button className={styles.removeButton} onClick={() => handleRemoveFromCart(product.id)}> X </button>
+                        )}
                     </div>
                 ))
                 ) : (
                     <p>Carro vacío</p>
+                    )}
+                    {cart.length > 0 && (
+                        <button className={styles.emptyButton} onClick={handleEmptyCart}>Vaciar</button>
                     )}
         </div>
         <h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>

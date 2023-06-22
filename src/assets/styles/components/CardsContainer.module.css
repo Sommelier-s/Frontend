@@ -4,17 +4,17 @@
     align-items: center;
     height: 400px;
     overflow: hidden;
-  }
+}
   
-  .carruselItem {
+.carruselItem {
     text-align: center;
     padding: 5px;
     background-color: #5c5b5bb6;
-    margin: 0 20px;
+    margin: 0 10px;
     border-radius: 5px;
     transition: transform 0.3s ease;
     flex: 0 0 calc(25% - 20px);
     max-width: 200px;
-  }
+}
   
   

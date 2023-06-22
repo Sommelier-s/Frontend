@@ -16,6 +16,9 @@ import Payment from "./components/Payment";
 import Completion from "./components/Completion";
 import Shipment from "./views/Shipment"
 import axios from "axios";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateCartFromLocalStorage } from "./redux/actions";
 
 // //Axios configuration
 // const desarrolloApp = "http://localhost:3001";
@@ -38,13 +41,22 @@ function App() {
       case "/payment": return true
       case "/completion": return true
       case "/shipment": return true
-      case "/detail/:id": return false
+      case "/detail/:id": return true
       default: return false
     }
   }
 
-
-
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    const cart = window.localStorage.getItem("cart");
+    if (cart) {
+      const cartParseado = JSON.parse(cart);
+      if (cartParseado.length != 0) {
+      dispatch(updateCartFromLocalStorage(cartParseado));
+      }
+    }
+  },[])
 
   return (
 

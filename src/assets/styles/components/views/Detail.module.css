@@ -71,13 +71,10 @@
   
   /* Estilos carrrito */
   .cart {
-    background: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
-    width: 10%;
     margin: auto;
     margin-top: 20px;
-    padding: 1em;
     border-radius: 50px;
     text-align: center;
     align-items: center;
@@ -85,8 +82,7 @@
     top: 0px;
     right: 20px;
     z-index: 9999;
-    width: 80px;
-    height: 80px;
+
   }
   
   .cart img {
