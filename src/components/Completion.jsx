@@ -45,7 +45,7 @@ function Completion(props) {
 
 	return (
 		<div>
-			<h1>Completa los campos 🎉</h1>;
+			{alert('Revisa tu correo')}
 			<ToastContainer />
 		</div>
 	);
