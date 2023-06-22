@@ -9,11 +9,8 @@ import About from "./views/About";
 import Leanding from "./views/Leanding";
 import Detail from "./views/Detail";
 import Create from './views/Create';
-import Shipment from './views/Shipment';
 import NotFound from "./views/NotFound";
 import Buy from "./views/Buy";
-import Payment from './components/Payment';
-import Completion from './components/Completion';
 import Nav from "./components/Nav";
 import axios from "axios";
 

@@ -1,8 +1,74 @@
 .cartContainer {
-    color: white;
-    font-size: 30px;
-}
-.total {
-    color: white;
-}
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
 
+  .productContainer {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+  }
+  
+  .productContainer:last-child {
+    border-bottom: none;
+  }
+  
+  .productDetails {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity p {
+    margin: 0 10px;
+  }
+  .quantityButton {
+    margin-left: 10px;
+    background-color: rgba(187, 187, 187, 0.288);
+    border: 1px solid black;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 3px 8px;
+  }
+  .quantityButton:hover {
+    background-color: rgba(187, 187, 187, 0.644);
+  }
+  
+  .removeButton {
+    margin-left: 10px;
+    background-color: rgba(187, 187, 187, 0.288);
+    border: 1px solid black;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 2px 8px;
+  }
+  .removeButton:hover {
+    background-color: rgba(187, 187, 187, 0.644);
+  }
+  
+  .total {
+    color: white;
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    
+  }
+  

@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllDrinks, addToCart } from '../redux/actions';
 
+//Importación de Tippy
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 //Importación del componente cart
 import Cart from '../components/Cart';
 
@@ -89,11 +93,6 @@ const Detail = () => {
 		});
 	};
 
-	// const mostrarMensajeFailed = (event) => {
-	// 	event.preventDefault();
-	// 	displayFailedMessage('Carro no encontrado');
-	// };
-	
 	const mostrarMensajeSuccess = (event) => {
 		event.preventDefault();
 		displaySuccessMessage('Vamos a comprar');
@@ -116,44 +115,34 @@ const Detail = () => {
 			{drink ? (
 				<>
 					<div className={styles.containerDetail}>
-						<div className={styles.nameId}>
-							<div>
-								<h1>Name: {drink.name}</h1>
-							</div>
-							{/* <div>
-								<h1>ID: {drink.id}</h1>
-							</div> */}
-						</div>
-						<hr></hr>
+						
 						<div className={styles.img}>
 							<img src={drink.picture} alt={drink.name} />
 						</div>
-						<hr></hr>
-						<div>
-							<div>
-								{drink.wine_category?.name ? (
-									<h1>Categoria: {drink.wine_category?.name}</h1>
-								) : (
-									<h1>Categoria: {drink.liquor_category?.name}</h1>
-								)}
 
-								<h1>Price: {drink.price}</h1>
-							</div>
-						</div>
-						<hr></hr>
-						<div className={styles.description}>
-							<h1>Description: {drink.description}</h1>
-						</div>
-						<hr></hr>
-						<div>
-							<div className={styles.stock}>
-								<h1>Stock: {drink.stock}</h1>
-								{drink.graduation ? (
-									<h1>Graduacion: {drink.graduation}</h1>
+						<div className={styles.detailsContainer}>
+
+							<div className={styles.details}>
+								<h1>{drink.name}</h1>
+								{drink.wine_category?.name ? (
+									<h2>Categoria: {drink.wine_category?.name}</h2>
 								) : (
-									console.log('')
+									<h2>Categoria: {drink.liquor_category?.name}</h2>
 								)}
+								<div className={styles.description}>
+									<h2>Descripción: {drink.description}</h2>
+								</div>
+								<div>
+									<h2>Stock: {drink.stock}</h2>
+									{drink.graduation ? (
+										<h2>Graduación: {drink.graduation}</h2>
+										) : (
+											console.log('')
+											)}
+								</div>
+								<h1>Precio: ${drink.price}</h1>
 							</div>
+							
 						</div>
 					</div>
 				</>
@@ -168,34 +157,26 @@ const Detail = () => {
 
 			<div className={styles.btn}>
 				<button className={styles.button} onClick={addToCartHandler}>
-					{' '}
-					Agregar{' '}
+					Agregar
 				</button>
 
-				<button
-					className={styles.button}
-					onClick={() => {
-						navigate('/payment');
-					}}
-				>
-					{' '}
-					Comprar{' '}
+				<button className={styles.button} onClick={mostrarMensajeSuccess}>
+					Comprar
 				</button>
 				<button className={styles.button} onClick={handleBack}>
-					{' '}
-					Volver{' '}
+					Volver
 				</button>
 			</div>
 
 			<div className={styles.cart}>
-				<div onClick={toggleCartVisibility}>
+				<Tippy
+					placement={'bottom'}
+					offset={[0, 20]}
+					delay={200}
+					interactive={true}
+					content={<Cart />}>
 					<img src={carro} alt="carro" />
-				</div>
-				{isCartVisible ? (
-					<div>
-						{isCartEmpty ? <p>Carro vacío</p> : <Cart />}
-					</div>
-				) : null}
+				</Tippy>
 			</div>
 			<ToastContainer />
 		</div>
