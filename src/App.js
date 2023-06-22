@@ -12,6 +12,9 @@ import Create from './views/Create';
 import NotFound from "./views/NotFound";
 import Buy from "./views/Buy";
 import Nav from "./components/Nav";
+import Payment from "./components/Payment";
+import Completion from "./components/Completion";
+import Shipment from "./views/Shipment"
 import axios from "axios";
 
 // //Axios configuration
