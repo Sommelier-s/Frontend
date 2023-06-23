@@ -1,4 +1,4 @@
-import React,{ useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     removeFromCart,
@@ -28,7 +28,7 @@ const Cart = () => {
 
     const handleRemoveOneFromCart = (productId, quantity) => {
         if (quantity > 1) {
-          dispatch(updateQuantity(productId, quantity - 1));
+            dispatch(updateQuantity(productId, quantity - 1));
         }
     };
 
@@ -49,45 +49,55 @@ const Cart = () => {
 
     return (
         <>
-        <div className={styles.cartContainer}>
-            {cart.length > 0 ? (
-                cart.map((product) => (
-                    <div key={product.id} className={styles.productContainer}>
-                        <h3>{product.name}</h3>
-                        <p>Valor unitario: {product.price}</p>
-                        <div className={styles.productDetails}>
-                            <div className={styles.quantity}>
-                                <button className={styles.quantityButton} onClick={() => handleRemoveOneFromCart(product.id, product.quantity)}>
-                                    -
-                                </button>
-                                <p>Cantidad: {product.quantity}</p>
+            <div className={styles.cartContainer}>
+                {cart.length > 0 ? (
+                    cart.map((product) => (
+                        <div key={product.id} className={styles.productContainer}>
 
-                                <button className={styles.quantityButton}
-                                onClick={() =>
-                                    handleUpdateQuantity(
-                                        product.id,
-                                        product.quantity + 1,
-                                        product.stock)}
-                                        disable={product.quantity >= product.stock}
-                                        >
-                                    +
-                                </button>
+                            <img src={product.picture} alt={product.name} className={styles.productImage} />
 
+                            <div>
+                                <p>Valor unitario: {product.price}</p>
+                                <h3>{product.name}</h3>
                             </div>
+
+                            <div>
+                                {cart.length > 1 && (
+                                    <button onClick={() => handleRemoveFromCart(product.id)} className={styles.removeButton}> X  </button>
+                                )}
+                            </div>
+
+                            <div className={styles.productDetails}>
+                                <div className={styles.quantity}>
+                                    <button className={styles.quantityButton} onClick={() => handleRemoveOneFromCart(product.id, product.quantity)}>
+                                        -
+                                    </button>
+                                    <p>Cantidad: {product.quantity}</p>
+
+                                    <button className={styles.quantityButton}
+                                        onClick={() =>
+                                            handleUpdateQuantity(
+                                                product.id,
+                                                product.quantity + 1,
+                                                product.stock)}
+                                        disable={product.quantity >= product.stock}
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+                            </div>
+
                         </div>
-                        {cart.length > 1 && (
-                            <button className={styles.removeButton} onClick={() => handleRemoveFromCart(product.id)}> X </button>
-                        )}
-                    </div>
-                ))
+                    ))
                 ) : (
                     <p>Carro vacío</p>
-                    )}
-                    {cart.length > 0 && (
-                        <button className={styles.emptyButton} onClick={handleEmptyCart}>Vaciar</button>
-                    )}
-        </div>
-        <h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>
+                )}
+                {cart.length > 0 && (
+                    <button className={styles.emptyButton} onClick={handleEmptyCart}>Vaciar</button>
+                )}
+            </div>
+            <h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>
         </>
     )
 }
