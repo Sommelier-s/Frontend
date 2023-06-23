@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
     removeFromCart,
     updateQuantity,
@@ -10,6 +11,7 @@ import {
 import styles from "../assets/styles/components/Cart.module.css"
 
 const Cart = () => {
+    const navigate = useNavigate();
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -93,9 +95,16 @@ const Cart = () => {
                 ) : (
                     <p>Carro vacío</p>
                 )}
-                {cart.length > 0 && (
-                    <button className={styles.emptyButton} onClick={handleEmptyCart}>Vaciar</button>
-                )}
+                <div className={styles.buttonContainer}>
+                        {cart.length > 0 && (
+                            <>
+                            <button className={styles.emptyButton} onClick={handleEmptyCart}>Vaciar</button>
+                            <button className={styles.buyButton} onClick={() => {
+                                navigate('/payment');
+                            }}>Comprar</button>
+                            </>
+                        )}
+                    </div>
             </div>
             <h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>
         </>

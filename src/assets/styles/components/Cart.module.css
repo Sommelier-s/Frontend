@@ -119,9 +119,30 @@
   font-size: 20px;
   cursor: pointer;
   padding: 2px 8px;
-}
-.emptyButton:hover {
+  }
+  .emptyButton:hover {
   background-color: rgba(252, 204, 204, 0.644);
   color: red;
   border: 1px solid red;
-}
+  }
+  
+  .buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  }
+  .buyButton {
+  margin-left: 10px;
+  background-color: rgba(187, 187, 187, 0.288);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px 8px;
+  }
+  .buyButton:hover {
+  background-color: rgba(166, 255, 166, 0.555);
+  color: green;
+  border: 1px solid green;
+  }
