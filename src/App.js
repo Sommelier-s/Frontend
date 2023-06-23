@@ -16,6 +16,7 @@ import Payment from "./components/Payment";
 import Completion from "./components/Completion";
 import Shipment from "./views/Shipment"
 import Dashboard from './views/Dashboard';
+import LoginForm from './views/LoginForm';
 import DashboardUser from './views/DashboardUser';
 import axios from "axios";
 import { useEffect } from 'react';
@@ -44,6 +45,7 @@ function App() {
       case "/payment/:id": return false
       case "/completion": return true
       case "/shipment": return true
+      case "/login": return true
       case "/dashboard/:id": return false
       case "/dashboard_user/:id": return false
       case "/detail/:id": return true
@@ -87,6 +89,7 @@ function App() {
         <Route path="/dashboard/:id" element={< Dashboard />} />
         <Route path="/dashboard_user/:id" element={< DashboardUser />} />
         <Route path="/detail/:id" element={< Detail />} />
+        <Route path="/login" element={< LoginForm />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
 
