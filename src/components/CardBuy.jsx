@@ -1,6 +1,9 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/CardBuy.module.css';
+import { addToCart } from '../redux/actions';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	//const [drink, setDrink] = useState({});
 
 	// Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
@@ -46,6 +51,22 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 		displaySuccessMessage('Vamos a comprar');
 	};
 
+	//Estado para la visibilidad del carrrito de compras
+	const [isCartVisible, setIsCartVisible] = useState(false);
+	//Estado para carrito vacio
+	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty)
+
+	//Manejador para agregar al carro
+	const addToCartHandler = (event) => {
+		event.preventDefault();
+		const drink = { id, name, description, price, picture, stock };
+		dispatch(addToCart(drink));
+	}
+
+	const toggleCartVisibility = () => {
+		setIsCartVisible(!isCartVisible);
+	}
+
 	return (
 		<div className={styles.content}>
 			<div className={styles.contentImage}>
@@ -67,7 +88,7 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 					{price}
 				</p>
 				<div>
-					<button className={styles.button} onClick={mostrarMensajeFailed}>
+					<button className={styles.button} onClick={addToCartHandler}>
 						Agregar
 					</button>
 					<button

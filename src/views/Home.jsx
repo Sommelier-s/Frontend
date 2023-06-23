@@ -68,13 +68,13 @@ const Home = () => {
 			</div>
 
 			<br />
-			<h1 className={styles.title}>VINOS MÁS VENDIDOS</h1>
+			<h1 className={styles.title}>VINOS MÁS RECOMENDADOS</h1>
 
 			<div className={styles.contentMoreSales}>
 				<CardsContainerWine />
 			</div>
 
-			<h1 className={styles.title}>LICORES MÁS VENDIDOS</h1>
+			<h1 className={styles.title}>LICORES MÁS RECOMENDADOS</h1>
 
 			<div className={styles.contentMoreSales}>
 				<CardsContainerLiquor />

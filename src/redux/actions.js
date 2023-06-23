@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const GENERATED_USER_ID = "GENERATED_USER_ID";
 
 export const GET_ALL_WINE = "GET_ALL_WINE";
@@ -23,6 +22,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 export const UPDATE_CART_EMPTY_STATUS = "UPDATE_CART_EMPTY_STATUS";
+export const UPDATE_CART_FROM_LOCAL_STORAGE = "UPDATE_CART_FROM_LOCAL_STORAGE";
 
 
 //Variable con la url base
@@ -137,8 +137,8 @@ export const filterPrice = (precio) => {
 
 //Actions para el carro de compras
 export const addToCart = (product) => {
-    return { type: ADD_TO_CART, payload: product};
-}
+    return { type: ADD_TO_CART, payload: product };
+};
 
 export const removeFromCart = (productId) => {
     return { type: REMOVE_FROM_CART, payload: productId};
@@ -148,6 +148,10 @@ export const updateQuantity = (productId, quantity) => {
     return { type: UPDATE_QUANTITY, payload: { productId, quantity },};
 }
 
-export const updateCartEmptyStatus = (isEmpty) => ({
-    type: UPDATE_CART_EMPTY_STATUS, payload: isEmpty,
-});
+export const updateCartEmptyStatus = (isEmpty) => {
+    return { type: UPDATE_CART_EMPTY_STATUS, payload: isEmpty }
+};
+
+export const updateCartFromLocalStorage = (cart) => {
+    return { type: UPDATE_CART_FROM_LOCAL_STORAGE, payload: cart};
+};

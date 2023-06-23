@@ -44,31 +44,48 @@
     font-size: 20px;
     cursor: pointer;
     padding: 3px 8px;
-  }
-  .quantityButton:hover {
-    background-color: rgba(187, 187, 187, 0.644);
-  }
+}
+.quantityButton:hover {
+  background-color: rgba(187, 187, 187, 0.644);
+}
   
-  .removeButton {
-    margin-left: 10px;
-    background-color: rgba(187, 187, 187, 0.288);
-    border: 1px solid black;
-    border-radius: 5px;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    cursor: pointer;
-    padding: 2px 8px;
-  }
-  .removeButton:hover {
-    background-color: rgba(187, 187, 187, 0.644);
-  }
+.removeButton {
+  margin-left: 10px;
+  background-color: rgba(187, 187, 187, 0.288);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.removeButton:hover {
+  background-color: rgba(252, 204, 204, 0.644);
+  color: red;
+  border: 1px solid red;
+}
   
-  .total {
-    color: white;
-    background-color: black;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    
-  }
+.total {
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.emptyButton {
+  margin-left: 10px;
+  background-color: rgba(187, 187, 187, 0.288);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.emptyButton:hover {
+  background-color: rgba(252, 204, 204, 0.644);
+  color: red;
+  border: 1px solid red;
+}
   

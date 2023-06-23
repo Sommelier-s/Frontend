@@ -17,6 +17,7 @@ import {
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     UPDATE_CART_EMPTY_STATUS,
+    UPDATE_CART_FROM_LOCAL_STORAGE
 
 } from "./actions";
 
@@ -31,13 +32,20 @@ const initialState = {
     cart: [],
     isCartEmpty: true,
     // Aqui va el id del usuario
-    userId: "9d492b49-cc07-4663-8358-ef363d7ae5ce",
+    userId: "38555dbb-63cd-4b44-ba9b-965d9019bbcd",
 
 }
 
 const setLocalStorage = (id) => {
     try {
         window.localStorage.setItem("userId", JSON.stringify(id));
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const setLocalStorageCart = (cart) => {
+    try {
+        window.localStorage.setItem("cart", JSON.stringify(cart));
     } catch (error) {
         console.log(error.message)
     }
@@ -189,20 +197,24 @@ export default function reducer(state = initialState, { type, payload }) {
                     }
                     return product;
                 });
+                setLocalStorageCart(updatedCart)
                 return {
                     ...state,
                     cart: updatedCart,
                 };
             } else {
+                setLocalStorageCart([ ...state.cart, { ...payload, quantity: 1}])
                 return {
                     ...state,
                     cart: [ ...state.cart, { ...payload, quantity: 1}],
                 };
             }
         case REMOVE_FROM_CART:
+            const cartRemove = state.cart.filter((product) => product.id !== payload)
+            setLocalStorageCart(cartRemove);
             return {
                 ...state,
-                cart: state.cart.filter((product) => product.id !== payload)
+                cart: cartRemove
             };
         case UPDATE_QUANTITY:
             const { productId, quantity } = payload;
@@ -215,6 +227,7 @@ export default function reducer(state = initialState, { type, payload }) {
                 }
                 return product;
             });
+            setLocalStorageCart(updatedCart);
             return {
                 ...state,
                 cart: updatedCart,
@@ -223,6 +236,11 @@ export default function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 isCartEmpty: payload,
+            };
+        case UPDATE_CART_FROM_LOCAL_STORAGE:
+            return {
+                ...state,
+                cart: payload,
             };
 
         default:
