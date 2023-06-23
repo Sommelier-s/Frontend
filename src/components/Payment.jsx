@@ -8,6 +8,8 @@ import axios from 'axios';
 import styles from '../assets/styles/components/Payment.module.css';
 import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
+
+
 function Payment(props) {
 	const desarrolloApp = 'http://localhost:3001';
 
@@ -63,7 +65,7 @@ function Payment(props) {
 			<main className={styles.content}>
 				<div className={styles.contentCancel}>
 					<h2 className={styles.titleCancel}>
-						Para cancelar la compra precione{' '}
+						Para cancelar la compra presione{' '}
 					</h2>
 					<button onClick={handleCancelBuy} className={styles.button}>
 						Aqui

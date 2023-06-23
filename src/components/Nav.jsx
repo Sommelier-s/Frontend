@@ -3,7 +3,7 @@ import { useState, useEfecct } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
@@ -14,6 +14,7 @@ import Cart from '../components/Cart';
 
 //Importación logo carrito
 import carro from '../assets/img/Carro.png';
+import { removeFromCart, updateCartEmptyStatus } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/Nav.module.css';
 
@@ -22,9 +23,10 @@ const Nav = () => {
 	const [isCartVisible, setIsCartVisible] = useState(false);
 	//Estado para carrito vacio
 	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
+	const cart = useSelector((state) => state.cart);
 
 	const navigate = useNavigate();
-
+	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user);
 
 	const toggleCartVisibility = () => {
@@ -33,14 +35,16 @@ const Nav = () => {
 
 	const handleLogOut = (event) => {
 		event.preventDefault();
-		alert('Saliste');
+		dispatch(updateCartEmptyStatus(true));
+		cart.forEach((product) => {
+			dispatch(removeFromCart(product.id));
+		});
 		navigate('/');
 	};
 
 	const handleLogIn = (event) => {
 		event.preventDefault();
-		alert('Fuiste al login');
-		navigate('/about');
+		return navigate('/login');
 	};
 
 	const showSetting = () => {

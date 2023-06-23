@@ -8,6 +8,7 @@ import {
 	updateAmount,
 } from '../redux/actions';
 
+import swal from 'sweetalert';
 //Importación de estilos
 import styles from '../assets/styles/components/Cart.module.css';
 
@@ -17,11 +18,19 @@ const Cart = () => {
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 
+	const displaySweetAlert = (mensaje, tipo) => {
+		swal({
+			text: `${mensaje}`,
+			icon: `${tipo}`,
+			buttons: 'aceptar',
+		});
+	};
+
 	const handleRemoveFromCart = (productId) => {
 		// Obtener la URL completa
 		const fullUrl = `${location.origin}${location.pathname}${location.search}${location.hash}`;
 		if (fullUrl.toLocaleLowerCase().includes('payment')) {
-			return alert('Use el boton cancelar compra');
+			return displaySweetAlert('Use el boton cancelar compra', 'warning');
 		}
 		dispatch(removeFromCart(productId));
 		if (cart.length === 1) {
@@ -33,7 +42,7 @@ const Cart = () => {
 		// Obtener la URL completa
 		const fullUrl = `${location.origin}${location.pathname}${location.search}${location.hash}`;
 		if (fullUrl.toLocaleLowerCase().includes('payment')) {
-			return alert('Use el boton cancelar compra');
+			return displaySweetAlert('Use el boton cancelar compra', 'warning');
 		}
 		if (quantity <= stock) {
 			dispatch(updateQuantity(productId, quantity));
@@ -44,7 +53,7 @@ const Cart = () => {
 		// Obtener la URL completa
 		const fullUrl = `${location.origin}${location.pathname}${location.search}${location.hash}`;
 		if (fullUrl.toLocaleLowerCase().includes('payment')) {
-			return alert('Use el boton cancelar compra');
+			return displaySweetAlert('Use el boton cancelar compra', 'warning');
 		}
 		if (quantity > 1) {
 			dispatch(updateQuantity(productId, quantity - 1));
@@ -55,7 +64,7 @@ const Cart = () => {
 		// Obtener la URL completa
 		const fullUrl = `${location.origin}${location.pathname}${location.search}${location.hash}`;
 		if (fullUrl.toLocaleLowerCase().includes('payment')) {
-			return alert('Use el boton cancelar compra');
+			return displaySweetAlert('Use el boton cancelar compra', 'warning');
 		}
 		dispatch(updateCartEmptyStatus(true));
 		cart.forEach((product) => {
@@ -66,12 +75,12 @@ const Cart = () => {
 	const hadleBuyCart = (event) => {
 		event.preventDefault();
 		if (user.id && !user.isAdmin) {
-			navigate(`/payment/${user.id}`);
+			return navigate(`/payment/${user.id}`);
 		}
 		if (user.isAdmin) {
-			return alert('El administrador no puede comprar');
+			return displaySweetAlert('El administrador no puede comprar', 'error');
 		}
-		return alert('Usted no esta registrado');
+		return displaySweetAlert('Usted no esta registrado', 'error');
 	};
 
 	const location = useLocation();
@@ -138,7 +147,7 @@ const Cart = () => {
 											{' '}
 											X{' '}
 										</button>
-									):(
+									) : (
 										<div className={styles.notButtonRemove}></div>
 									)}
 								</div>

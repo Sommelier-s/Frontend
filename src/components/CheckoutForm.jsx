@@ -9,11 +9,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
 
+import swal from 'sweetalert';
 import styles from '../assets/styles/components/CheckoutForm.module.css';
 
 export default function CheckoutForm() {
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
+
+	const displaySweetAlert = (mensaje, tipo) => {
+		swal({
+			text: `${mensaje}`,
+			icon: `${tipo}`,
+			buttons: 'aceptar',
+		});
+	};
+
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -56,7 +66,6 @@ export default function CheckoutForm() {
 	};
 
 	const handleCancelBuy = () => {
-		
 		dispatch(updateCartEmptyStatus(true));
 		cart.forEach((product) => {
 			dispatch(removeFromCart(product.id));
@@ -76,7 +85,7 @@ export default function CheckoutForm() {
 
 		try {
 			if (homeDelivery === 'true') {
-				alert('Revisa tu correo, te llego la boleta');
+				displaySweetAlert('Revisa tu correo, te llego la boleta', 'success');
 				const { error } = await stripe.confirmPayment({
 					elements,
 					confirmParams: {
@@ -85,7 +94,6 @@ export default function CheckoutForm() {
 					//redirect: 'if_required',
 				});
 			} else {
-				
 				const { error } = await stripe.confirmPayment({
 					elements,
 					confirmParams: {

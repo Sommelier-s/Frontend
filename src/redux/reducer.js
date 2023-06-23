@@ -43,7 +43,7 @@ const initialState = {
 
 }
 
-// const setLocalStorage = (user) => {
+// const setLocalStorage = (user) =>n {
 //     try {
 //         window.localStorage.setItem("user", JSON.stringify(user));
 //     } catch (error) {
