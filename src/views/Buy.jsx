@@ -12,7 +12,7 @@ import PaginationBuy from '../components/PaginationBuy';
 import WineJson from '../utils/Wine.json';
 import LiquorJson from '../utils/Liquor.json';
 
-import Footer from "../components/Footer";
+import Footer from '../components/Footer';
 import {
 	getAllWine,
 	getAllLiquor,
@@ -54,21 +54,31 @@ const Buy = () => {
 		});
 	};
 
-	const stateGlobal = useSelector((state) => state.AllDrinks);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(generatedUserId());
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
-		dispatch(getAllDrinks());
 	}, []);
 
+	const stateLiquor = useSelector((state) => state && state.liquor);
+
 	useEffect(() => {
-		dispatch(generatedCopyAllDrinks());
+		dispatch(getAllDrinks());
+	}, [stateLiquor && stateLiquor.length > 0]);
+
+
+	const stateGlobal = useSelector((state) => state && state.allDrinks);
+
+	useEffect(() => {
 		dispatch(getAllCategoryWine());
 		dispatch(getAllCategoryLiquor());
-	}, [stateGlobal]);
+		dispatch(generatedCopyAllDrinks());
+	}, [
+		stateGlobal && stateGlobal.length > 0,
+	]);
+
 
 	return (
 		<div>
@@ -76,7 +86,7 @@ const Buy = () => {
 			<PaginationBuy />
 
 			{/* Dejar este componente que le pertenece a Toastify */}
-			<Footer/>
+			<Footer />
 			<ToastContainer />
 		</div>
 	);

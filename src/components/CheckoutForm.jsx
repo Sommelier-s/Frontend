@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { PaymentElement } from '@stripe/react-stripe-js';
+import { useSelector, useDispatch } from 'react-redux';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
+
+import styles from '../assets/styles/components/CheckoutForm.module.css';
+
 export default function CheckoutForm() {
+	const cart = useSelector((state) => state.cart);
+	const dispatch = useDispatch();
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -48,6 +55,14 @@ export default function CheckoutForm() {
 		setHomeDelivery(option);
 	};
 
+	const handleCancelBuy = () => {
+		
+		dispatch(updateCartEmptyStatus(true));
+		cart.forEach((product) => {
+			dispatch(removeFromCart(product.id));
+		});
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -57,17 +72,20 @@ export default function CheckoutForm() {
 
 		setIsProcessing(true);
 
+		handleCancelBuy();
+
 		try {
-			
 			if (homeDelivery === 'true') {
+				alert('Revisa tu correo, te llego la boleta');
 				const { error } = await stripe.confirmPayment({
 					elements,
 					confirmParams: {
-						return_url: `${window.location.origin}/completion`,
+						return_url: `${window.location.origin}/`,
 					},
 					//redirect: 'if_required',
 				});
 			} else {
+				
 				const { error } = await stripe.confirmPayment({
 					elements,
 					confirmParams: {
@@ -86,12 +104,15 @@ export default function CheckoutForm() {
 	return (
 		<form id="payment-form" onSubmit={handleSubmit}>
 			<PaymentElement />
-			<h2 styles="color: white">Retira en Local?</h2>
-			<select onChange={handleDelivery}>
-				<option value="true">Si</option>
-				<option value="false">No</option>
-			</select>
-			<button disabled={isProcessing} id="submit">
+			<div className={styles.contentOption}>
+				<h2 className={styles.title}>Retira en Local?</h2>
+				<select className={styles.select} onChange={handleDelivery}>
+					<option value="true">Si</option>
+					<option value="false">No</option>
+				</select>
+			</div>
+
+			<button className={styles.button} disabled={isProcessing} id="submit">
 				<span id="button-text">
 					{isProcessing ? 'Processing ... ' : 'Pay now'}
 				</span>
