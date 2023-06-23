@@ -18,7 +18,8 @@ export default function Create() {
 
 	const dispatch = useDispatch();
 	const userId = window.localStorage.getItem('userId');
-	const userIdParseado = JSON.parse(userId);
+	//const userIdParseado = JSON.parse(userId);
+	const userIdParseado = 'no hay ';
 	const allCategoryWine = useSelector((state) => state.categoryWine);
 	const allCategoryLiquor = useSelector((state) => state.categoryLiquor);
 

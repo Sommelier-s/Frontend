@@ -1,43 +1,29 @@
-.content {
+.container {
 	width: 100%;
-	height: 60px;
-	/* background: rgba(143, 143, 143, 0.473); */
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	height: 100%;
 }
 
-.menu {
+.content {
+	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	gap: 10px;
 }
-
-.item {
-	text-align: center;
-	text-decoration: none;
-	font-size: 20px;
-	font-family: Arial, Helvetica, sans-serif;
-	color: white;
-}
-
-.item:hover {
-	cursor: pointer;
-	color: rgb(197, 79, 79);
-	transition: all 300ms;
-}
-
-.contentImage {
-	width: 30px;
-	height: 30px;
-	overflow: hidden;
-}
-
-.contentImage img {
+.contentCancel {
 	width: 100%;
-	height: 100%;
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.titleCancel {
+	font-size: 30px;
+	color: white;
 }
 
 .button {
@@ -65,4 +51,36 @@
 
 .button:active {
 	transform: scale(0.9);
+}
+
+.contentPayment {
+	width: 45%;
+	height: auto;
+    padding: 20px;
+}
+
+.contentCart {
+	width: 50%;
+	height: auto;
+	overflow: hidden;
+	background-color: rgba(128, 128, 128, 0.678);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.subTotal {
+	font-size: 20px;
+	color: white;
+}
+
+.total {
+	font-size: 30px;
+	color: white;
+	border-top: 2px dashed rgb(0, 0, 0);
+	border-bottom: 2px dashed rgb(0, 0, 0);
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllDrinks, addToCart } from '../redux/actions';
+import { getAllDrinks, addToCart, updateAmount } from '../redux/actions';
 
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
@@ -38,16 +38,26 @@ const Detail = () => {
 	//Estado para la visibilidad del carrrito de compras
 	const [isCartVisible, setIsCartVisible] = useState(false);
 	//Estado para carrito vacio
-	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty)
+	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
+	const user = useSelector((state) => state && state.user);
+	const amount = useSelector((state) => state.amount);
 
 	//Manejador para agregar al carro
 	const addToCartHandler = () => {
 		dispatch(addToCart(drink));
-	}
+		displaySuccessMessage('Producto agregado');
+	};
+
+	//Manejador para agregar al carro e ir a payment
+	const addToCartHandlerBuy = () => {
+		dispatch(addToCart(drink));
+		dispatch(updateAmount(amount + drink.price));
+		navigate(`/payment/${user.id}`);
+	};
 
 	const toggleCartVisibility = () => {
 		setIsCartVisible(!isCartVisible);
-	}
+	};
 
 	const searchDrink = async () => {
 		try {
@@ -93,21 +103,49 @@ const Detail = () => {
 		});
 	};
 
-	const mostrarMensajeSuccess = (event) => {
-		event.preventDefault();
-		displaySuccessMessage('Vamos a comprar');
-	};
-
 	const handleBack = () => {
 		const from = new URLSearchParams(location.search).get('from');
 
-		if (from === 'home') {
-			navigate('/home');
-		} else if (from === 'buy') {
+		if (from === 'buy') {
 			navigate('/buy');
 		} else {
 			navigate('/');
 		}
+	};
+
+	const displayButtonBuy = () => {
+		if (!user.id) {
+			return (
+				<button className={styles.button} onClick={notAllowed}>
+					Comprar
+				</button>
+			);
+		}
+		if (user.id && !user.isAdmin) {
+			return (
+				<div className={styles.buyViewQuantity}>
+					<Tippy
+						placement={'right'}
+						offset={[0, 20]}
+						delay={200}
+						interactive={true}
+						content={<span>Con esta opcion solo podrá comprar una unidad</span>}
+					>
+						<button className={styles.button} onClick={addToCartHandlerBuy}>
+							Comprar
+						</button>
+					</Tippy>
+				</div>
+			);
+		}
+		if (user.id && user.isAdmin) {
+			return <div></div>;
+		}
+	};
+	const notAllowed = (event) => {
+		event.preventDefault();
+		alert('Logeate');
+		navigate('/');
 	};
 
 	return (
@@ -115,13 +153,11 @@ const Detail = () => {
 			{drink ? (
 				<>
 					<div className={styles.containerDetail}>
-						
 						<div className={styles.img}>
 							<img src={drink.picture} alt={drink.name} />
 						</div>
 
 						<div className={styles.detailsContainer}>
-
 							<div className={styles.details}>
 								<h1>{drink.name}</h1>
 								{drink.wine_category?.name ? (
@@ -136,13 +172,12 @@ const Detail = () => {
 									<h2>Stock: {drink.stock}</h2>
 									{drink.graduation ? (
 										<h2>Graduación: {drink.graduation}</h2>
-										) : (
-											console.log('')
-											)}
+									) : (
+										console.log('')
+									)}
 								</div>
 								<h1>Precio: ${drink.price}</h1>
 							</div>
-							
 						</div>
 					</div>
 				</>
@@ -159,18 +194,13 @@ const Detail = () => {
 				<button className={styles.button} onClick={addToCartHandler}>
 					Agregar
 				</button>
-
-				<button className={styles.button} onClick={() => {
-					navigate('/payment');
-					}}>
-					Comprar
-				</button>
+				{displayButtonBuy()}
 				<button className={styles.button} onClick={handleBack}>
 					Volver
 				</button>
 			</div>
 
-			<div className={styles.cart}>
+			{/* <div className={styles.cart}>
 				<Tippy
 					placement={'bottom'}
 					offset={[0, 20]}
@@ -179,7 +209,7 @@ const Detail = () => {
 					content={<Cart />}>
 					<img src={carro} alt="carro" />
 				</Tippy>
-			</div>
+			</div> */}
 			<ToastContainer />
 		</div>
 	);

@@ -1,51 +1,106 @@
+.container{
+  width: 400px;
+  max-height: 500px;
+  display: flex;
+  justify-content: flex-start;
+  overflow-y:auto;
+}
+
+.cartEmpty{
+	width: 290px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.titleEmpty{
+	font-size: 20px;
+	color: black;
+}
+
 .cartContainer {
+	display: flex;
+	flex-direction: column;
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	border-radius: 10px 10px 0px 0px;
+	width: 100%;
+	padding: 20px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+
+.productContainer {
+	border-bottom: 1px dashed black;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.productContainer:last-child {
+	border-bottom: none;
+}
+
+.contentImage {
+	width: 38%;
+	height: 100%;
+  overflow: hidden;
+  margin-right: 8px;
+}
+
+.contentImage img {
+	width: 100%;
+	height: 100%;
+}
+
+.contentText {
+	width: 65%;
+	height: 100%;
+	overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  border-radius: 10px;
-  width: 300px;
-  padding: 20px;
   justify-content: center;
   align-items: center;
 }
 
-.productContainer {
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  width: 80%;
-
-  display: flex;
-  flex-direction: column; 
-  align-items: flex-start; 
+.name {
+	font-size: 20px;
+	color: black;
 }
 
-.productContainer:last-child {
-  border-bottom: none;
+.price {
+	font-size: 12px;
+	color: black;
 }
 
 .productDetails {
-  display: flex;
-  align-items: center;
-
-  flex-direction: row; 
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+  margin-top: 10px;
 }
 
 .quantity {
-  align-items: center;
-  display: flex;
-  align-items: center;
+	align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .quantity p {
-  margin: 0 10px;
+	margin: 0 10px;
 }
 
-
 .quantityButton {
-  /* margin-left: 10px;
+	/* margin-left: 10px;
     background-color: rgba(187, 187, 187, 0.288);
     border: 1px solid black;
     border-radius: 5px;
@@ -53,96 +108,128 @@
     font-size: 20px;
     cursor: pointer;
     padding: 3px 8px; */
-  box-shadow: inset 0px 1px 0px 0px #f5978e;
-  background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
-  background-color: #f24537;
-  border-radius: 6px;
-  border: 1px solid #d02718;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 6px 12px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #810e05;
+	box-shadow: inset 0px 1px 0px 0px #f5978e;
+	background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background-color: #f24537;
+	border-radius: 6px;
+	border: 1px solid #d02718;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 6px 12px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #810e05;
 }
 .quantityButton:hover {
-  /* background-color: rgba(187, 187, 187, 0.644); */
-  background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
-  background-color: #c62d1f;
+	/* background-color: rgba(187, 187, 187, 0.644); */
+	background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background-color: #c62d1f;
+}
+
+.contentButtonRemove{
+  width: 5%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+.notButtonRemove{
+	width: 30px;
+
 }
 
 
-.productImage {
-  width: 100px;
-  height: 100px;
-  background-size: cover;
-  border-radius: 50%;
-
-  margin-right: 10px; 
+.button {
+	position: relative;
+	display: inline-block;
+	margin: 15px;
+	padding: 5px;
+	text-align: center;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	color: var(--color-primary-button);
+	background: transparent;
+	cursor: pointer;
+	transition: ease-out 0.5s;
+	border: 2px solid var(--color-secondary-button);
+	border-radius: 5px;
+	box-shadow: inset 0 0 0 0 var(--color-primary-button);
 }
 
-.removeButton {
-  margin-left: 10px;
-  background-color: rgba(187, 187, 187, 0.288);
-  border: 1px solid black;
-  border-radius: 5px;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  cursor: pointer;
-  padding: 2px 8px;
+.button:hover {
+	color: white;
+	box-shadow: inset 0 -100px 0 0 var(--color-primary-button);
+}
+
+.button:active {
+	transform: scale(0.9);
+}
+
+/* .removeButton {
+	margin-left: 10px;
+	background-color: rgba(187, 187, 187, 0.288);
+	border: 1px solid black;
+	border-radius: 5px;
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	cursor: pointer;
+	padding: 2px 8px;
 }
 .removeButton:hover {
-  font-size: 20px;
-  color:#810e05;
-  background-color: rgba(252, 204, 204, 0.644);
-  color: red;
-  border: 1px solid red;
-}
+	font-size: 20px;
+	color: #810e05;
+	background-color: rgba(252, 204, 204, 0.644);
+	color: red;
+	border: 1px solid red;
+} */
 
 .total {
-  color: white;
-  background-color: black;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
+	color: white;
+	background-color: black;
+	padding: 10px;
+	border-radius: 0px 0px 10px 10px;
+	text-align: center;
 }
 
 .emptyButton {
-  margin-left: 10px;
-  background-color: rgba(187, 187, 187, 0.288);
-  border: 1px solid black;
-  border-radius: 5px;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  cursor: pointer;
-  padding: 2px 8px;
-  }
-  .emptyButton:hover {
-  background-color: rgba(252, 204, 204, 0.644);
-  color: red;
-  border: 1px solid red;
-  }
-  
-  .buttonContainer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  }
-  .buyButton {
-  margin-left: 10px;
-  background-color: rgba(187, 187, 187, 0.288);
-  border: 1px solid black;
-  border-radius: 5px;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  cursor: pointer;
-  padding: 2px 8px;
-  }
-  .buyButton:hover {
-  background-color: rgba(166, 255, 166, 0.555);
-  color: green;
-  border: 1px solid green;
-  }
+	margin-left: 10px;
+	background-color: rgba(187, 187, 187, 0.288);
+	border: 1px solid black;
+	border-radius: 5px;
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	cursor: pointer;
+	padding: 2px 8px;
+}
+.emptyButton:hover {
+	background-color: rgba(252, 204, 204, 0.644);
+	color: red;
+	border: 1px solid red;
+}
+
+.buttonContainer {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+}
+.buyButton {
+	margin-left: 10px;
+	background-color: rgba(187, 187, 187, 0.288);
+	border: 1px solid black;
+	border-radius: 5px;
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	cursor: pointer;
+	padding: 2px 8px;
+}
+.buyButton:hover {
+	background-color: rgba(166, 255, 166, 0.555);
+	color: green;
+	border: 1px solid green;
+}
