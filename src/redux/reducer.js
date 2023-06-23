@@ -5,6 +5,7 @@ import {
     GET_ALL_LIQUOR,
     GET_ALL_CATEGORY_WINE,
     GET_ALL_CATEGORY_LIQUOR,
+    GET_ALL_USERS,
     ALL_DRINKS,
     GENERATED_COPY_ALL_DRINKS,
     FILTER_SEARCH_BY_NAME,
@@ -24,6 +25,7 @@ import {
 const initialState = {
     wine: [],
     liquor: [],
+    users: [],
     allDrinks: [],
     copyAllDrinks: [],
     categoryWine: [],
@@ -31,7 +33,7 @@ const initialState = {
     cart: [],
     isCartEmpty: true,
     // Aqui va el id del usuario
-    userId: "9d492b49-cc07-4663-8358-ef363d7ae5ce",
+    userId: "051cc6fc-f178-4a9b-931c-98ad2f5f740c",
 
 }
 
@@ -62,6 +64,12 @@ export default function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 liquor: payload
+            }
+        //Guarda toda la informacion en el atributo users del estado global
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                users: payload
             }
         case ALL_DRINKS:
             return {

@@ -15,6 +15,7 @@ import Nav from "./components/Nav";
 import Payment from "./components/Payment";
 import Completion from "./components/Completion";
 import Shipment from "./views/Shipment"
+import Dashboard from './views/Dashboard';
 import axios from "axios";
 
 // //Axios configuration
@@ -38,6 +39,7 @@ function App() {
       case "/payment": return true
       case "/completion": return true
       case "/shipment": return true
+      case "/dashboard": return true
       case "/detail/:id": return false
       default: return false
     }
@@ -62,9 +64,8 @@ function App() {
         <Route path="/payment" element={< Payment />} />
         <Route path="/completion" element={< Completion />} />
         <Route path="/shipment" element={< Shipment />} />
-        <Route path="/detail/:id" element={< Detail />} />
+        <Route path="/dashboard" element={< Dashboard />} />
         <Route path='*' element={<NotFound />} />
-
       </Routes>
 
     </div>

@@ -1,0 +1,16 @@
+.dashboard-container {
+    display: flex;
+    margin: 20px;
+  }
+  
+  .dashboard-menu-container {
+    width: 200px;
+    margin-right: 20px;
+  }
+  
+  .dashboard-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  
