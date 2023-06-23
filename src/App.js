@@ -65,6 +65,7 @@ function App() {
         <Route path="/completion" element={< Completion />} />
         <Route path="/shipment" element={< Shipment />} />
         <Route path="/dashboard" element={< Dashboard />} />
+        <Route path="/detail/:id" element={< Detail />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
 
