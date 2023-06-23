@@ -54,6 +54,11 @@ const Nav = () => {
 						</div>
 					</Tippy>
 				</div>
+				{/* Esto luego se eliminara cuando esten las rutas protegidas para usuarios y admin */}
+				<Link  className={styles.item} to={'/dashboard'}>
+				    Dashboard 
+				</Link>
+				
 			</ul>
 		</div>
 	);

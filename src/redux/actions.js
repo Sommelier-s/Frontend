@@ -4,6 +4,7 @@ export const GENERATED_USER_ID = "GENERATED_USER_ID";
 
 export const GET_ALL_WINE = "GET_ALL_WINE";
 export const GET_ALL_LIQUOR = "GET_ALL_LIQUOR";
+export const GET_ALL_USERS = "GET_ALL_USERS";
 
 export const GET_ALL_CATEGORY_WINE = "GET_ALL_CATEGORY_WINE";
 export const GET_ALL_CATEGORY_LIQUOR = "GET_ALL_CATEGORY_LIQUOR";
@@ -29,6 +30,7 @@ export const UPDATE_CART_FROM_LOCAL_STORAGE = "UPDATE_CART_FROM_LOCAL_STORAGE";
 const desarrolloApp = "http://localhost:3001";
 let wineLocal = [];
 let liquorLocal = [];
+let userLocal = [];
 
 const userId = window.localStorage.getItem("userId");
 const userIdParseado = JSON.parse(userId);
@@ -36,6 +38,18 @@ const userIdParseado = JSON.parse(userId);
 
 export const generatedUserId = () => {
     return { type: GENERATED_USER_ID };
+}
+
+export const getAllUsers = () => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`${desarrolloApp}/auth/user`)
+            userLocal = response.data.data;
+            dispatch({ type: GET_ALL_USERS, payload: response.data.data})
+        } catch (error) {
+            console.log(`status: ${error.response.data.status} messege: ${error.response.data.error}`)
+        }
+    }
 }
 
 export const getAllWine = () => {

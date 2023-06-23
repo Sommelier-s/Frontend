@@ -5,6 +5,7 @@ import {
     GET_ALL_LIQUOR,
     GET_ALL_CATEGORY_WINE,
     GET_ALL_CATEGORY_LIQUOR,
+    GET_ALL_USERS,
     ALL_DRINKS,
     GENERATED_COPY_ALL_DRINKS,
     FILTER_SEARCH_BY_NAME,
@@ -25,6 +26,7 @@ import {
 const initialState = {
     wine: [],
     liquor: [],
+    users: [],
     allDrinks: [],
     copyAllDrinks: [],
     categoryWine: [],
@@ -70,6 +72,12 @@ export default function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 liquor: payload
+            }
+        //Guarda toda la informacion en el atributo users del estado global
+        case GET_ALL_USERS:
+            return {
+                ...state,
+                users: payload
             }
         case ALL_DRINKS:
             return {
