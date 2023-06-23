@@ -16,6 +16,7 @@ import Payment from "./components/Payment";
 import Completion from "./components/Completion";
 import Shipment from "./views/Shipment"
 import Dashboard from './views/Dashboard';
+import LoginForm from './views/LoginForm';
 import axios from "axios";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -43,7 +44,8 @@ function App() {
       case "/completion": return true
       case "/shipment": return true
       case "/dashboard": return true
-      case "/detail/:id": return true
+      case "/login": return true
+      case "/detail/:id": return false
       default: return false
     }
   }
@@ -78,6 +80,7 @@ function App() {
         <Route path="/shipment" element={< Shipment />} />
         <Route path="/dashboard" element={< Dashboard />} />
         <Route path="/detail/:id" element={< Detail />} />
+        <Route path="/login" element={< LoginForm />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
 

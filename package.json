@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^2.16.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "^5.0.0-alpha.134",
     "@mui/material": "^5.13.5",
+    "@mui/x-date-pickers": "^6.9.0",
     "@stripe/react-stripe-js": "^2.1.1",
     "@stripe/stripe-js": "^1.54.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,6 +17,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@tippyjs/react": "^4.2.6",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "formik": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,7 +30,8 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
