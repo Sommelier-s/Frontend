@@ -9,27 +9,27 @@
     margin: 0 5px;
     transition: transform 0.3s ease;
     width: 180px;
-  }
+}
   
-  .card:hover {
+.card:hover {
     transform: scale(1.05);
-  }
+}
   
-  .cardImage {
+.cardImage {
     width: 120px;
     height: 120px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 50%;
     margin-bottom: 10px;
-  }
+}
   
-  .cardTitle {
+.cardTitle {
     font-size: 18px;
     margin-bottom: 5px;
-  }
+}
   
-  .cardPrice {
+.cardPrice {
     font-size: 14px;
     color: #ffffff;
-  }
+}
   

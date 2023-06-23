@@ -1,9 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-//Importación de json
-import Liguor from '../utils/Liquor.json';
-
 //Importación de la Card de vino
 import CardLiquor from './CardWine';
 
@@ -19,7 +16,7 @@ const CardsContainerLiquor = () => {
 		<div className={styles.carrusel}>
 			{liquors?.map((liquor) => {
 				contador++;
-				if (contador < 5) {
+				if (contador < 6) {
 					return (
 						<div className={styles.carruselItem} key={liquor.id}>
 							<CardLiquor

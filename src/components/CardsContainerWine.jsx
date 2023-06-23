@@ -17,7 +17,7 @@ const CardsContainerWine = () => {
 		<div className={styles.carrusel}>
 			{wines?.map((wine) => {
 				contador++;
-				if (contador < 5) {
+				if (contador < 6) {
 					return (
 						<div className={styles.carruselItem} key={wine.id}>
 							<CardWine
