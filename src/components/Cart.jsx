@@ -86,81 +86,88 @@ const Cart = () => {
 	};
 
 	return (
-		<>
-			<div className={styles.cartContainer}>
-				{cart.length > 0 ? (
-					cart.map((product) => (
-						<div key={product.id} className={styles.productContainer}>
-							<img
-								src={product.picture}
-								alt={product.name}
-								className={styles.productImage}
-							/>
+		<div className={styles.container}>
+			<div>
+				<div className={styles.cartContainer}>
+					{cart.length > 0 ? (
+						cart.map((product) => (
+							<div key={product.id} className={styles.productContainer}>
+								<div className={styles.contentImage}>
+									<img src={product.picture} alt={product.name} />
+								</div>
+								<div className={styles.contentText}>
+									<h3 className={styles.name}>{product.name}</h3>
+									<p className={styles.price}>
+										Valor unitario: {product.price}
+									</p>
 
-							<div>
-								<p>Valor unitario: {product.price}</p>
-								<h3>{product.name}</h3>
-							</div>
+									<div className={styles.productDetails}>
+										<div className={styles.quantity}>
+											<button
+												className={styles.quantityButton}
+												onClick={() =>
+													handleRemoveOneFromCart(product.id, product.quantity)
+												}
+											>
+												-
+											</button>
+											<p>{product.quantity}</p>
 
-							<div>
-								{cart.length > 1 && (
-									<button
-										onClick={() => handleRemoveFromCart(product.id)}
-										className={styles.removeButton}
-									>
-										{' '}
-										X{' '}
-									</button>
-								)}
-							</div>
-
-							<div className={styles.productDetails}>
-								<div className={styles.quantity}>
-									<button
-										className={styles.quantityButton}
-										onClick={() =>
-											handleRemoveOneFromCart(product.id, product.quantity)
-										}
-									>
-										-
-									</button>
-									<p>Cantidad: {product.quantity}</p>
-
-									<button
-										className={styles.quantityButton}
-										onClick={() =>
-											handleUpdateQuantity(
-												product.id,
-												product.quantity + 1,
-												product.stock,
-											)
-										}
-										disable={product.quantity >= product.stock}
-									>
-										+
-									</button>
+											<button
+												className={styles.quantityButton}
+												onClick={() =>
+													handleUpdateQuantity(
+														product.id,
+														product.quantity + 1,
+														product.stock,
+													)
+												}
+												disable={product.quantity >= product.stock}
+											>
+												+
+											</button>
+										</div>
+									</div>
+								</div>
+								<div className={styles.contentButtonRemove}>
+									{cart.length > 1 ? (
+										<button
+											onClick={() => handleRemoveFromCart(product.id)}
+											className={styles.button}
+										>
+											{' '}
+											X{' '}
+										</button>
+									):(
+										<div className={styles.notButtonRemove}></div>
+									)}
 								</div>
 							</div>
+						))
+					) : (
+						<div className={styles.cartEmpty}>
+							<p className={styles.titleEmpty}>Carro vacío</p>
 						</div>
-					))
-				) : (
-					<p>Carro vacío</p>
-				)}
-				<div className={styles.buttonContainer}>
-					{cart.length > 0 && (
-						<>
-							<button className={styles.emptyButton} onClick={handleEmptyCart}>
-								Vaciar
-							</button>
-							<button className={styles.buyButton} onClick={hadleBuyCart}>
-								Comprar
-							</button>
-						</>
 					)}
+					<div className={styles.buttonContainer}>
+						{cart.length > 0 && (
+							<>
+								<button
+									className={styles.emptyButton}
+									onClick={handleEmptyCart}
+								>
+									Vaciar
+								</button>
+								<button className={styles.buyButton} onClick={hadleBuyCart}>
+									Comprar
+								</button>
+							</>
+						)}
+					</div>
 				</div>
+				<h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>
 			</div>
-			<h1 className={styles.total}>Precio Total: ${calculateTotal()}</h1>
-		</>
+		</div>
 	);
 };
 
