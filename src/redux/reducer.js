@@ -18,7 +18,8 @@ import {
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     UPDATE_CART_EMPTY_STATUS,
-    UPDATE_CART_FROM_LOCAL_STORAGE
+    UPDATE_CART_FROM_LOCAL_STORAGE,
+    UPDATE_AMOUNT
 
 } from "./actions";
 
@@ -32,19 +33,22 @@ const initialState = {
     categoryWine: [],
     categoryLiquor: [],
     cart: [],
+    amount: 0,
     isCartEmpty: true,
     // Aqui va el id del usuario
-    userId: "38555dbb-63cd-4b44-ba9b-965d9019bbcd",
+    user: {
+        
+    },
 
 }
 
-const setLocalStorage = (id) => {
-    try {
-        window.localStorage.setItem("userId", JSON.stringify(id));
-    } catch (error) {
-        console.log(error.message)
-    }
-}
+// const setLocalStorage = (user) => {
+//     try {
+//         window.localStorage.setItem("user", JSON.stringify(user));
+//     } catch (error) {
+//         console.log(error.message)
+//     }
+// }
 const setLocalStorageCart = (cart) => {
     try {
         window.localStorage.setItem("cart", JSON.stringify(cart));
@@ -57,11 +61,11 @@ const setLocalStorageCart = (cart) => {
 export default function reducer(state = initialState, { type, payload }) {
     switch (type) {
         //Guarda toda la informacion en el atributo wine del estado global
-        case GENERATED_USER_ID:
-            setLocalStorage(state.userId);
-            return {
-                ...state
-            }
+        // case GENERATED_USER_ID:
+        //     setLocalStorage(state.userId);
+        //     return {
+        //         ...state
+        //     }
         case GET_ALL_WINE:
             return {
                 ...state,
@@ -192,11 +196,11 @@ export default function reducer(state = initialState, { type, payload }) {
                         copyAllDrinks: state.copyAllDrinks
                     }
             }
-        
+
         //Agrega un producto al carro de compras
         case ADD_TO_CART:
             const existingProduct = state.cart.find((product) => product.id === payload.id);
-            if(existingProduct) {
+            if (existingProduct) {
                 const updatedCart = state.cart.map((product) => {
                     if (product.id === payload.id) {
                         return {
@@ -211,11 +215,16 @@ export default function reducer(state = initialState, { type, payload }) {
                     cart: updatedCart,
                 };
             } else {
-                setLocalStorageCart([ ...state.cart, { ...payload, quantity: 1}])
+                setLocalStorageCart([...state.cart, { ...payload, quantity: 1 }])
                 return {
                     ...state,
-                    cart: [ ...state.cart, { ...payload, quantity: 1}],
+                    cart: [...state.cart, { ...payload, quantity: 1 }],
                 };
+            }
+        case UPDATE_AMOUNT:
+            return {
+                ...state,
+                amount: payload
             }
         case REMOVE_FROM_CART:
             const cartRemove = state.cart.filter((product) => product.id !== payload)

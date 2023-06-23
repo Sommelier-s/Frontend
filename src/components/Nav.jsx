@@ -14,7 +14,7 @@ import Cart from '../components/Cart';
 
 //Importación logo carrito
 import carro from '../assets/img/Carro.png';
-
+import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/Nav.module.css';
 
 const Nav = () => {
@@ -23,13 +23,45 @@ const Nav = () => {
 	//Estado para carrito vacio
 	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
 
+	const navigate = useNavigate();
+
+	const user = useSelector((state) => state.user);
+
 	const toggleCartVisibility = () => {
 		setIsCartVisible(!isCartVisible);
+	};
+
+	const handleLogOut = (event) => {
+		event.preventDefault();
+		alert('Saliste');
+		navigate('/');
+	};
+
+	const handleLogIn = (event) => {
+		event.preventDefault();
+		alert('Fuiste al login');
+		navigate('/about');
+	};
+
+	const showSetting = () => {
+		if (user.id && user.isAdmin)
+			return (
+				<Link className={styles.item} to={`/dashboard/${user.id}`}>
+					Admin
+				</Link>
+			);
+		if (user.id)
+			return (
+				<Link className={styles.item} to={`/dashboard_user/${user.id}`}>
+					User
+				</Link>
+			);
+		else return <Link className={styles.item} to={'/'}></Link>;
 	};
 	return (
 		<div className={styles.content}>
 			<ul className={styles.menu}>
-				<Link className={styles.item} to={'/home'}>
+				<Link className={styles.item} to={'/'}>
 					Inicio
 				</Link>
 				<Link className={styles.item} to={'/about'}>
@@ -38,9 +70,7 @@ const Nav = () => {
 				<Link className={styles.item} to={'/buy'}>
 					Comprar
 				</Link>
-				<Link className={styles.item} to={'/create'}>
-					Crear
-				</Link>
+
 				<div className={styles.cart}>
 					<Tippy
 						placement={'bottom'}
@@ -55,10 +85,16 @@ const Nav = () => {
 					</Tippy>
 				</div>
 				{/* Esto luego se eliminara cuando esten las rutas protegidas para usuarios y admin */}
-				<Link  className={styles.item} to={'/dashboard'}>
-				    Dashboard 
-				</Link>
-				
+				{showSetting()}
+				{!user.id ? (
+					<button onClick={handleLogIn} className={styles.button}>
+						Iniciar sesión
+					</button>
+				) : (
+					<button onClick={handleLogOut} className={styles.button}>
+						Cerrar sesión
+					</button>
+				)}
 			</ul>
 		</div>
 	);

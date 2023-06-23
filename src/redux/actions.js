@@ -24,6 +24,7 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 export const UPDATE_CART_EMPTY_STATUS = "UPDATE_CART_EMPTY_STATUS";
 export const UPDATE_CART_FROM_LOCAL_STORAGE = "UPDATE_CART_FROM_LOCAL_STORAGE";
+export const UPDATE_AMOUNT ="UPDATE_AMOUNT";
 
 
 //Variable con la url base
@@ -32,8 +33,8 @@ let wineLocal = [];
 let liquorLocal = [];
 let userLocal = [];
 
-const userId = window.localStorage.getItem("userId");
-const userIdParseado = JSON.parse(userId);
+// const userId = window.localStorage.getItem("userId");
+// const userIdParseado = JSON.parse(userId);
 
 
 export const generatedUserId = () => {
@@ -45,7 +46,7 @@ export const getAllUsers = () => {
         try {
             const response = await axios.get(`${desarrolloApp}/auth/user`)
             userLocal = response.data.data;
-            dispatch({ type: GET_ALL_USERS, payload: response.data.data})
+            dispatch({ type: GET_ALL_USERS, payload: response.data.data })
         } catch (error) {
             console.log(`status: ${error.response.data.status} messege: ${error.response.data.error}`)
         }
@@ -155,11 +156,11 @@ export const addToCart = (product) => {
 };
 
 export const removeFromCart = (productId) => {
-    return { type: REMOVE_FROM_CART, payload: productId};
+    return { type: REMOVE_FROM_CART, payload: productId };
 }
 
 export const updateQuantity = (productId, quantity) => {
-    return { type: UPDATE_QUANTITY, payload: { productId, quantity },};
+    return { type: UPDATE_QUANTITY, payload: { productId, quantity }, };
 }
 
 export const updateCartEmptyStatus = (isEmpty) => {
@@ -167,5 +168,9 @@ export const updateCartEmptyStatus = (isEmpty) => {
 };
 
 export const updateCartFromLocalStorage = (cart) => {
-    return { type: UPDATE_CART_FROM_LOCAL_STORAGE, payload: cart};
+    return { type: UPDATE_CART_FROM_LOCAL_STORAGE, payload: cart };
 };
+
+export const updateAmount = (monto) => {
+    return { type: UPDATE_AMOUNT, payload: monto };
+}
