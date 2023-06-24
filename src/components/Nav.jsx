@@ -100,6 +100,7 @@ const Nav = () => {
 						</Tippy>
 					</div>
 				</div>
+				
 				{/* Esto luego se eliminara cuando esten las rutas protegidas para usuarios y admin */}
 				{showSetting()}
 				{!user.id ? (
