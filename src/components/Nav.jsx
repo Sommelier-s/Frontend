@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEfecct } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -24,6 +24,8 @@ const Nav = () => {
 	//Estado para carrito vacio
 	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
 	const cart = useSelector((state) => state.cart);
+
+	const [cartCount, setCartCount] = useState(0);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -62,6 +64,11 @@ const Nav = () => {
 			);
 		else return <Link className={styles.item} to={'/'}></Link>;
 	};
+
+	useEffect(() => {
+		setCartCount(cart.length);
+	}, [cart]);
+
 	return (
 		<div className={styles.content}>
 			<ul className={styles.menu}>
@@ -76,17 +83,22 @@ const Nav = () => {
 				</Link>
 
 				<div className={styles.cart}>
-					<Tippy
-						placement={'bottom'}
-						offset={[0, 20]}
-						delay={200}
-						interactive={true}
-						content={<Cart />}
-					>
-						<div className={styles.contentImage}>
-							<img src={carro} className={styles.carro} alt="carro" />
-						</div>
-					</Tippy>
+					<div className={styles.cartContainer}>
+						<Tippy
+							placement={'bottom'}
+							offset={[0, 20]}
+							delay={200}
+							interactive={true}
+							content={<Cart />}
+						>
+							<div className={styles.contentImage}>
+								<img src={carro} className={styles.carro} alt="carro" />
+								{cartCount >= 0 && (
+									<div className={styles.cartCount}>{cartCount}</div>
+								)}
+							</div>
+						</Tippy>
+					</div>
 				</div>
 				{/* Esto luego se eliminara cuando esten las rutas protegidas para usuarios y admin */}
 				{showSetting()}
