@@ -66,3 +66,25 @@
 .button:active {
 	transform: scale(0.9);
 }
+
+.cartCount {
+	position: absolute;
+	top: 0;
+	right: -10px;
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	color: white;
+	font-weight: bold;
+}
+.cartContainer {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+  }

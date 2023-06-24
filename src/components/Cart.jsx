@@ -17,6 +17,7 @@ const Cart = () => {
 	const user = useSelector((state) => state.user);
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
+	const location = useLocation();
 
 	const displaySweetAlert = (mensaje, tipo) => {
 		swal({
@@ -83,7 +84,6 @@ const Cart = () => {
 		return displaySweetAlert('Usted no esta registrado', 'error');
 	};
 
-	const location = useLocation();
 
 	const calculateTotal = () => {
 		let total = 0;
@@ -93,6 +93,8 @@ const Cart = () => {
 		dispatch(updateAmount(total));
 		return total;
 	};
+
+	const cartQuantity = cart.reduce((total, product) => total + product.quantity, 0);
 
 	return (
 		<div className={styles.container}>
