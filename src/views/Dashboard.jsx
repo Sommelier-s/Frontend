@@ -18,11 +18,11 @@ export default function Dashboard() {
 
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
-	const allUsers = useSelector((state) => state.users);
+	const user = useSelector((state) => state.user);
 
-	console.log('Vinos:', allWine);
-	console.log('Licores:', allLiquor);
-	console.log('Users:', allUsers);
+	// console.log('Vinos:', allWine);
+	// console.log('Licores:', allLiquor);
+	// console.log('Users:', allUsers);
 
 	let filteredData;
 	switch (selectedOption) {
@@ -33,7 +33,7 @@ export default function Dashboard() {
 			filteredData = allLiquor;
 			break;
 		case 'users':
-			filteredData = allUsers;
+			filteredData = user;
 			break;
 		default:
 			filteredData = [];
@@ -50,6 +50,13 @@ export default function Dashboard() {
 				<DashboardMenu onClick={handleMenu} />
 			</div>
 			<button onClick={() => navigate('/')}>Volver</button>
+			<button
+				onClick={() => {
+					navigate(`/create/${user.id}`);
+				}}
+			>
+				Crear Producto
+			</button>
 			{selectedOption && ( // Renderiza las cards solo si se ha seleccionado una  opción
 				<div className={styles['dashboard-card-container']}>
 					{filteredData.map((item) => (
