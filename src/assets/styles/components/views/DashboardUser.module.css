@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  margin: 10px;
+}
+
+.menuContainer {
+  margin-right: 20px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.cardContainer > * {
+  margin: 10px;
+}
+
+.boton {
+  align-self: flex-start;
+  width: 70px;
+  margin-left: 80px;
+  margin-top: 10px;
+  font-size: 20px;
+}
