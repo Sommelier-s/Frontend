@@ -54,8 +54,8 @@ const Login = ({ handleChange }) => {
 
 	const paperStyle = {
 		padding: 20,
-		height: '73vh',
-		width: 500,
+		minHeight: '80vh',
+		width: 400,
 		margin: '0 auto',
 	};
 	const avatarStyle = { backgroundColor: '#1bbd7e', fontFamily: 'felixti' };
@@ -140,12 +140,6 @@ const Login = ({ handleChange }) => {
 								helperText={<ErrorMessage name="password" />}
 								error={props.errors.password && props.touched.password}
 								style={marginTop}
-							/>
-							<Field
-								as={FormControlLabel}
-								name="remember"
-								control={<Checkbox color="primary" />}
-								label="Recuérdame"
 							/>
 							<br />
 							<Button

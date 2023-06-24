@@ -67,20 +67,20 @@ const Register = () => {
 
 	const paperStyle = {
 		padding: 20,
-		height: '73vh',
-		width: 500,
+		minHeight: '80vh',
+		width: 400,
 		margin: '0 auto',
 	};
 	const headerStyle = { margin: 0 };
 	const avatarStyle = { backgroundColor: '#1bbd7e', fontFamily: 'felixti' };
 	const marginTop = { marginTop: 10 };
+  const btnstyle = { margin: '8px 0', fontFamily: 'felixti' };
 
 	const validateForm = () => {
 		const {
 			name,
 			lastName,
 			email,
-			phoneNumber,
 			password,
 			confirmPassword,
 			acceptTerms,
@@ -98,11 +98,6 @@ const Register = () => {
 
 		if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
 			errors.email = 'Dirección de correo electrónico inválida.';
-		}
-
-		if (!phoneNumber.match(/^\d+$/)) {
-			errors.phoneNumber =
-				'Número de teléfono inválido. Solo se permiten dígitos.';
 		}
 
 		if (
@@ -190,12 +185,6 @@ const Register = () => {
 					fieldErrors.email = 'Dirección de correo electrónico inválida.';
 				}
 				break;
-			case 'phoneNumber':
-				if (!value.match(/^\d+$/)) {
-					fieldErrors.phoneNumber =
-						'Número de teléfono inválido. Solo se permiten dígitos.';
-				}
-				break;
 			case 'password':
 				if (value.length < 6 || !/\d/.test(value) || !/[A-Z]/.test(value)) {
 					fieldErrors.password =
@@ -279,24 +268,11 @@ const Register = () => {
 								<TextField
 									fullWidth
 									type="date"
-									label="Fecha de Nacimiento"
 									name="dateOfBirth"
 									value={formData.dateOfBirth}
 									onChange={handleChange}
 									error={Boolean(errors.dateOfBirth)}
 									helperText={errors.dateOfBirth}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									fullWidth
-									label="Número de Teléfono"
-									placeholder="Ingrese su número de teléfono"
-									name="phoneNumber"
-									value={formData.phoneNumber}
-									onChange={handleChange}
-									error={Boolean(errors.phoneNumber)}
-									helperText={errors.phoneNumber}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -347,6 +323,7 @@ const Register = () => {
 									fullWidth
 									variant="contained"
 									color="primary"
+                  style={btnstyle}
 								>
 									Registrarse
 								</Button>
