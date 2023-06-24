@@ -1,0 +1,12 @@
+.cart {
+    width: 300px;
+}
+.productImage {
+    max-height: 200px;
+    width: auto;
+}
+.imageItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
