@@ -37,8 +37,8 @@ const initialState = {
     isCartEmpty: true,
     // Aqui va el id del usuario
     user: {
-        id: "38555dbb-63cd-4b44-ba9b-965d9019bbcd",
-        isAdmin: false
+        id: "cbcef469-ae14-4bf1-8ef3-a93cfc0ef9f3",
+        isAdmin: true
     },
 
 }

@@ -94,6 +94,128 @@
 }
 
 
+/* Estilos para el cloudinary */
+
+.contentPicture{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  
+}
+
+.contentBox{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  
+}
+
+.contentDropzone{
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:5px;
+  background: rgba(241, 82, 82, 0.781);
+  border: 2px dashed black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.contentImageFolder{
+  width: 100px;
+  height: 100px;
+  margin-left: 30%;
+  overflow: hidden;
+}
+
+.contentImageFolder img{
+  width: 100%;
+  height: 100%;
+}
+
+.contentImagePreviewEmpty{
+  background: none;
+  border: none;
+}
+.contentImagePreview{
+  width: 50%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 165, 0, 0.493);
+  border: 1px dashed black;
+  border-radius: 10px;
+}
+
+.imagePreview{
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.imagePreview img{
+  width: 100%;
+  height: 100%;
+}
+
+.contentLoading{
+  width: 100%;
+  height: 100%;
+  padding: 20px 5px 20px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textLoadingImage{
+font-size: 20px;
+color: black;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+
+  .button {
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--color-primary-button);
+    background: transparent;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 2px solid var(--color-secondary-button);
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 var(--color-primary-button);
+  }
+  
+  .button:hover {
+    color: white;
+    box-shadow: inset 0 -100px 0 0 var(--color-primary-button);
+  }
+  
+  .button:active {
+    transform: scale(0.9);
+  }
   
 
 

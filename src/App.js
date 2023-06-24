@@ -41,7 +41,7 @@ function App() {
       case "/": return true
       case "/about": return true
       case "/buy": return true
-      case "/create": return true
+      case "/create/:id": return true
       case "/payment/:id": return false
       case "/completion": return true
       case "/shipment": return true
@@ -82,7 +82,7 @@ function App() {
         <Route path="/" element={< Home />} />
         <Route path="/about" element={< About />} />
         <Route path="/buy" element={< Buy />} />
-        <Route path="/create" element={< Create />} />
+        <Route path="/create/:id" element={< Create />} />
         <Route path="/payment/:id" element={< Payment />} />
         <Route path="/completion" element={< Completion />} />
         <Route path="/shipment" element={< Shipment />} />
