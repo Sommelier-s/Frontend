@@ -14,7 +14,7 @@ import Cart from '../components/Cart';
 
 //Importación logo carrito
 import carro from '../assets/img/Carro.png';
-import { removeFromCart, updateCartEmptyStatus } from '../redux/actions';
+import { logOutUer, removeFromCart, updateCartEmptyStatus } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/Nav.module.css';
 
@@ -41,6 +41,7 @@ const Nav = () => {
 		cart.forEach((product) => {
 			dispatch(removeFromCart(product.id));
 		});
+		dispatch(logOutUer());
 		navigate('/');
 	};
 
