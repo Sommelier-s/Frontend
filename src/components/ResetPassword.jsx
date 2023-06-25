@@ -8,8 +8,8 @@ import axios from 'axios';
 const ResetPassword = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [stepOne, setStepOne] = useState(false);
-	const [stepTwo, setStepTwo] = useState(false);
+	const [stepOne, setStepOne] = useState(true);
+	const [stepTwo, setStepTwo] = useState(true);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -31,17 +31,18 @@ const ResetPassword = () => {
 					onClick={() => {
 						navigate('/');
 					}}
+					className={styles.cancelar}
 				>
 					Cancelar
 				</button>
 
-				<div>
+				<div className={styles.steptwo}>
 					{!stepTwo && (
 						<div className={styles.contentStepOne}>
-							<h4>Paso 1</h4>
-							<p>Ingresa tu email para enviar una verificacion</p>
-							<div>
-								<label htmlFor="email">Email:</label>
+							<h4 className={styles.titulo} >Paso 1</h4>
+							<p className={styles.parrafo}>Ingresa tu email para enviar una verificacion</p>
+							<div className={styles.contentStepOne} >
+								<label htmlFor="email" className={styles.email}>Email:</label>
 								<input
 									type="text"
 									name="email"
@@ -50,16 +51,16 @@ const ResetPassword = () => {
 									id=""
 								/>
 							</div>
-							<button>Enviar</button>
+							<button className={styles.botonEnviar} >Enviar</button>
 						</div>
 					)}
 
 					{stepOne && (
 						<div className={styles.contentStepTwo}>
-							<h4>Paso 2</h4>
-							<p>Ingresa tu nueva contraseña</p>
-							<div>
-								<label htmlFor="password">Password:</label>
+							<h4 className={styles.titulo} >Paso 2</h4>
+							<p className={styles.parrafo}>Ingresa tu nueva contraseña</p>
+							<div  className={styles.contentStepOne} >
+								<label htmlFor="password" className={styles.email}>Password:</label>
 								<input
 									type="text"
 									name="password"
@@ -68,7 +69,7 @@ const ResetPassword = () => {
 									id=""
 								/>
 							</div>
-							<button>Confirmar</button>
+							<button className={styles.botonEnviar}>Confirmar</button>
 						</div>
 					)}
 				</div>
