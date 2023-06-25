@@ -36,7 +36,7 @@ const ResetPassword = () => {
 					Cancelar
 				</button>
 
-				<div>
+				<div className={styles.steptwo}>
 					{!stepTwo && (
 						<div className={styles.contentStepOne}>
 							<h4 className={styles.titulo} >Paso 1</h4>
