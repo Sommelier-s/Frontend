@@ -30,7 +30,7 @@ export default function Create() {
 
 	const getAllDataCloudinary = async () => {
 		try {
-			const { data } = await axios.get(`${desarrolloApp}/cloudinary/data`);
+			const { data } = await axios.get(`/cloudinary/data`);
 			setApyKey(data.data.apy_key);
 			setNameCloud(data.data.name_cloud);
 		} catch (error) {
@@ -283,7 +283,7 @@ export default function Create() {
 
 								try {
 									const response = await axios.post(
-										`${desarrolloApp}/wine/?id=${userIdParseado}`,
+										`/wine/?id=${userIdParseado}`,
 										requestData,
 									);
 

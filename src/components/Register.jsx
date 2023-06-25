@@ -23,11 +23,10 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Register = () => {
-	const desarrolloApp = 'http://localhost:3001';
+	
 
 	const navigate = useNavigate();
 
-	
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -122,18 +121,19 @@ const Register = () => {
 		return Object.keys(errors).length === 0;
 	};
 
+	const [acess, setAcess] = useState(false);
 	const registerInBdd = async (user) => {
 		try {
-			const response = await axios.post(`${desarrolloApp}/auth/register`, user);
+			const response = await axios.post(`/auth/register`, user);
 			displaySuccessMessage(response.data.message);
-			
+			setAcess(true);
 		} catch (error) {
 			displayFailedMessage(error.response.data.error);
 		}
 	};
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 		if (validateForm()) {
 			const newUser = {
 				first_name: formData.name,
@@ -143,12 +143,25 @@ const Register = () => {
 				password: formData.password,
 			};
 
-			registerInBdd(newUser);
+			await registerInBdd(newUser);
+			if (acess) {
+				setFormData({
+					name: '',
+					lastName: '',
+					email: '',
+					dateOfBirth: '',
+					phoneNumber: '',
+					password: '',
+					confirmPassword: '',
+					acceptTerms: false,
+				});
+				
+			}
 			//const resultado = await dispatch(registerUser(newUser));
 
 			// Aquí puedes realizar el envío del formulario
 		} else {
-			displayFailedMessage('Hubo un error');
+			displayFailedMessage('Todos los campos son obligatorios');
 		}
 	};
 
@@ -322,7 +335,6 @@ const Register = () => {
 									variant="contained"
 									color="primary"
 									style={btnstyle}
-									
 								>
 									Registrarse
 								</Button>

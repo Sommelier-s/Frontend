@@ -22,17 +22,19 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveUser } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import styles from '../assets/styles/components/views/Login.module.css';
+import googleLogo from '../assets/img/google.png';
 
 const Login = ({ handleChange }) => {
 	const user = useSelector((state) => state.user);
+	const [acess, setAcess] = useState(false);
 	useEffect(() => {
 		if (user.id) {
 			navigate('/');
 		}
 	}, [user]);
 
-	const desarrolloApp = 'http://localhost:3001';
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	//Toastify module for success message
@@ -86,27 +88,27 @@ const Login = ({ handleChange }) => {
 
 	const loginInBdd = async (user) => {
 		try {
-			const response = await axios.post(`${desarrolloApp}/auth/login`, user);
+			const response = await axios.post(`/auth/login`, user);
 			const userLogin = response.data.data;
 			dispatch(saveUser(userLogin));
+			setAcess(true);
 		} catch (error) {
-			console.log(error);
-			//displayFailedMessage(error.response.data.error);
+			displayFailedMessage(error.response.data.error);
 		}
 	};
 
-	const onSubmit = (values, props) => {
+	const onSubmit = async (values, props) => {
 		const newUser = {
 			email: values.email,
 			password: values.password,
 		};
 
-		loginInBdd(newUser);
-		navigate('/');
-		setTimeout(() => {
+		await loginInBdd(newUser);
+		if (acess) {
 			props.resetForm();
 			props.setSubmitting(false);
-		}, 2000);
+			navigate('/');
+		}
 	};
 
 	return (
@@ -174,6 +176,15 @@ const Login = ({ handleChange }) => {
 					</Link>
 				</Typography>
 			</Paper>
+			<div className={styles.contentGoogle}>
+				<div className={styles.contentLogoGoogle}>
+					<img
+						src="https://icongr.am/devicon/chrome-original.svg?size=148&color=currentColor"
+						alt=""
+					/>
+				</div>
+				<h4 className={styles.titleGoogle}>Continuar con Google</h4>
+			</div>
 			<ToastContainer />
 		</Grid>
 	);

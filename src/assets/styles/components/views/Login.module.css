@@ -1,0 +1,44 @@
+.contentGoogle {
+	width: 300px;
+	height: 80px;
+	border: 1px dashed black;
+	border-radius: 20px;
+	margin-top: -25%;
+	margin-bottom: 15px;
+	margin-left: 13%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	cursor: pointer;
+}
+
+.titleGoogle {
+	font-size: 18px;
+}
+
+.contentGoogle:hover {
+	background: #91c8ff;
+    transition: all 300ms ;
+}
+
+.contentGoogle:hover .titleGoogle {
+	font-size: 20px;
+}
+
+.contentLogoGoogle {
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	
+}
+
+.contentLogoGoogle img {
+	width: 90%;
+	height: 90%;
+}

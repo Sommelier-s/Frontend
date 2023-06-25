@@ -26,14 +26,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   updateCartFromLocalStorage,
-  saveUser
+  saveUser,
+  updateAmount
 } from "./redux/actions";
 
-// //Axios configuration
-// const desarrolloApp = "http://localhost:3001";
-// const produccionApp = "";
+//Axios configuration
+const desarrolloApp = "http://localhost:3001";
+const produccionApp = "https://server-sommeliers.onrender.com";
 
-// axios.defaults.baseURL = desarrolloApp;
+axios.defaults.baseURL = desarrolloApp;
 
 function App() {
 
@@ -80,6 +81,13 @@ function App() {
         dispatch(saveUser(userParseado));
       }
     }
+
+    const amount = window.localStorage.getItem("amount");
+    if (typeof amount === "string") {
+      dispatch(updateAmount(parseInt(amount)));
+
+    }
+
   }, [])
 
 
