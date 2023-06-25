@@ -1,18 +1,22 @@
 import React from 'react';
 import {
-	Grid,
-	Paper,
-	Avatar,
-	TextField,
-	Button,
-	Typography,
-	Link,
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  Button,
+  Typography,
+  Link,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -37,6 +41,8 @@ const Login = ({ handleChange }) => {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const desarrolloApp = 'http://localhost:3001';
+  const [showPassword, setShowPassword] = useState(false);
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -140,17 +146,29 @@ const Login = ({ handleChange }) => {
 								style={marginTop}
 							/>
 							<Field
-								as={TextField}
-								label="Contraseña"
-								name="password"
-								placeholder="Ingrese su contraseña"
-								type="password"
-								fullWidth
-								required
-								helperText={<ErrorMessage name="password" />}
-								error={props.errors.password && props.touched.password}
-								style={marginTop}
-							/>
+                as={TextField}
+                label="Contraseña"
+                name="password"
+                placeholder="Ingrese su contraseña"
+                type={showPassword ? 'text' : 'password'}
+                fullWidth
+                required
+                helperText={<ErrorMessage name="password" />}
+                error={props.errors.password && props.touched.password}
+                style={marginTop}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
 							<br />
 							<Button
 								type="submit"

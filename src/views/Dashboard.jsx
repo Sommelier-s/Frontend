@@ -52,19 +52,12 @@ export default function Dashboard() {
 
 	return (
 		<div className={styles['dashboard-container']}>
+			<div>
+			<button onClick={() => navigate('/')}>Volver</button>
+			</div>
 			<div className={styles['dashboard-menu-container']}>
 				<DashboardMenu onClick={handleMenu} />
 			</div>
-			<button onClick={() => navigate('/')}>Volver</button>
-			<button
-				onClick={() => {
-					navigate(`/create/${user.id}`);
-				}}
-			>
-				Crear Producto
-			</button>
-			<button onClick={displayCreateCategory}>Crear categorias</button>
-
 			{selectedOption && ( // Renderiza las cards solo si se ha seleccionado una  opción
 				<div className={styles['dashboard-card-container']}>
 					{filteredData.map((item) => (
