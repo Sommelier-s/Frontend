@@ -30,11 +30,11 @@ import {
   updateAmount
 } from "./redux/actions";
 
-// //Axios configuration
-// const desarrolloApp = "http://localhost:3001";
-// const produccionApp = "";
+//Axios configuration
+const desarrolloApp = "http://localhost:3001";
+const produccionApp = "https://server-sommeliers.onrender.com";
 
-// axios.defaults.baseURL = desarrolloApp;
+axios.defaults.baseURL = desarrolloApp;
 
 function App() {
 

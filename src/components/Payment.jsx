@@ -24,7 +24,7 @@ function Payment(props) {
 
 	const getPublishKey = async () => {
 		try {
-			const { data } = await axios.get(`${desarrolloApp}/payment/config`);
+			const { data } = await axios.get(`/payment/config`);
 			setStripePromise(loadStripe(data.data));
 		} catch (error) {
 			console.log(
@@ -35,7 +35,7 @@ function Payment(props) {
 
 	const createPurchase = async () => {
 		try {
-			const { data } = await axios.post(`${desarrolloApp}/payment`, { amount });
+			const { data } = await axios.post(`/payment`, { amount });
 			setClientSecret(data.data);
 		} catch (error) {
 			console.log(

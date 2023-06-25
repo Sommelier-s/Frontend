@@ -8,13 +8,13 @@ const ConfirmedUser = () => {
 
 	const { id } = useParams();
 
-	const desarrolloApp = 'http://localhost:3001';
+	
 
 	const [message, setMessage] = useState('');
 
 	const getConfirmed = async () => {
 		try {
-			const { data } = await axios.get(`${desarrolloApp}/auth/confirmar/${id}`);
+			const { data } = await axios.get(`/auth/confirmar/${id}`);
 			setMessage(data.message);
 		} catch (error) {
 			console.log(error.message);
