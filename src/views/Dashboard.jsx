@@ -5,6 +5,7 @@ import DashboardMenu from '../components/DashboardMenu';
 import DashboardCard from '../components/DashboardCard';
 import styles from '../assets/styles/components/views/Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
+import CreateCategory from '../components/CreateCategory';
 
 export default function Dashboard() {
 	const dispatch = useDispatch();
@@ -44,6 +45,11 @@ export default function Dashboard() {
 		setSelectedOption(option);
 	};
 
+	const displayCreateCategory = (event) => {
+		event.preventDefault();
+		return navigate(`/create_category/${user.id}`);
+	};
+
 	return (
 		<div className={styles['dashboard-container']}>
 			<div className={styles['dashboard-menu-container']}>
@@ -57,6 +63,8 @@ export default function Dashboard() {
 			>
 				Crear Producto
 			</button>
+			<button onClick={displayCreateCategory}>Crear categorias</button>
+
 			{selectedOption && ( // Renderiza las cards solo si se ha seleccionado una  opción
 				<div className={styles['dashboard-card-container']}>
 					{filteredData.map((item) => (

@@ -12,16 +12,22 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { registerUser } from '../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Register = () => {
 	const desarrolloApp = 'http://localhost:3001';
+
+	const navigate = useNavigate();
+
+	
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -74,17 +80,11 @@ const Register = () => {
 	const headerStyle = { margin: 0 };
 	const avatarStyle = { backgroundColor: '#1bbd7e', fontFamily: 'felixti' };
 	const marginTop = { marginTop: 10 };
-  const btnstyle = { margin: '8px 0', fontFamily: 'felixti' };
+	const btnstyle = { margin: '8px 0', fontFamily: 'felixti' };
 
 	const validateForm = () => {
-		const {
-			name,
-			lastName,
-			email,
-			password,
-			confirmPassword,
-			acceptTerms,
-		} = formData;
+		const { name, lastName, email, password, confirmPassword, acceptTerms } =
+			formData;
 		const errors = {};
 
 		if (!name.match(/^[a-zA-Z ]*$/)) {
@@ -126,9 +126,7 @@ const Register = () => {
 		try {
 			const response = await axios.post(`${desarrolloApp}/auth/register`, user);
 			displaySuccessMessage(response.data.message);
-			setFormData({});
-			// userLocal = response.data.data;
-			// dispatch({ type: GET_ALL_USERS, payload: response.data.data })
+			
 		} catch (error) {
 			displayFailedMessage(error.response.data.error);
 		}
@@ -323,7 +321,8 @@ const Register = () => {
 									fullWidth
 									variant="contained"
 									color="primary"
-                  style={btnstyle}
+									style={btnstyle}
+									
 								>
 									Registrarse
 								</Button>

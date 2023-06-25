@@ -14,16 +14,27 @@ import Checkbox from '@mui/material/Checkbox';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { useDispatch } from 'react-redux';
-
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveUser } from '../redux/actions';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Login = ({ handleChange }) => {
+	const user = useSelector((state) => state.user);
+	useEffect(() => {
+		if (user.id) {
+			navigate('/');
+		}
+	}, [user]);
+
 	const desarrolloApp = 'http://localhost:3001';
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -76,10 +87,8 @@ const Login = ({ handleChange }) => {
 	const loginInBdd = async (user) => {
 		try {
 			const response = await axios.post(`${desarrolloApp}/auth/login`, user);
-
 			const userLogin = response.data.data;
-			displaySuccessMessage(response.data.message);
-			return userLogin;
+			dispatch(saveUser(userLogin));
 		} catch (error) {
 			console.log(error);
 			//displayFailedMessage(error.response.data.error);
@@ -92,9 +101,8 @@ const Login = ({ handleChange }) => {
 			password: values.password,
 		};
 
-		const userLogin = loginInBdd(newUser);
-		console.log(userLogin);
-
+		loginInBdd(newUser);
+		navigate('/');
 		setTimeout(() => {
 			props.resetForm();
 			props.setSubmitting(false);
@@ -157,7 +165,7 @@ const Login = ({ handleChange }) => {
 				</Formik>
 				<br />
 				<Typography>
-					<Link href="#">¿Olvidaste tu contraseña?</Link>
+					<Link href="/reset_password">¿Olvidaste tu contraseña?</Link>
 				</Typography>
 				<Typography>
 					¿No tienes una cuenta?

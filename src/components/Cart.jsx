@@ -81,9 +81,19 @@ const Cart = () => {
 		if (user.isAdmin) {
 			return displaySweetAlert('El administrador no puede comprar', 'error');
 		}
-		return displaySweetAlert('Usted no esta registrado', 'error');
+		return notAllowed();
 	};
 
+	const notAllowed = () => {
+		
+		swal({
+			title: 'Usuario No registrado',
+			icon: 'error',
+			text: 'No podés realizar la compra hasta tener una cuenta',
+			buttons: 'aceptar',
+		});
+		navigate('/login');
+	};
 
 	const calculateTotal = () => {
 		let total = 0;
@@ -94,7 +104,10 @@ const Cart = () => {
 		return total;
 	};
 
-	const cartQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+	const cartQuantity = cart.reduce(
+		(total, product) => total + product.quantity,
+		0,
+	);
 
 	return (
 		<div className={styles.container}>

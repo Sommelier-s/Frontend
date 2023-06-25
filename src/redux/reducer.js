@@ -19,7 +19,9 @@ import {
     UPDATE_QUANTITY,
     UPDATE_CART_EMPTY_STATUS,
     UPDATE_CART_FROM_LOCAL_STORAGE,
-    UPDATE_AMOUNT
+    UPDATE_AMOUNT,
+    SAVE_USER,
+    LOG_OUT_USER
 
 } from "./actions";
 
@@ -27,7 +29,6 @@ import {
 const initialState = {
     wine: [],
     liquor: [],
-    users: [],
     allDrinks: [],
     copyAllDrinks: [],
     categoryWine: [],
@@ -35,21 +36,21 @@ const initialState = {
     cart: [],
     amount: 0,
     isCartEmpty: true,
-    // Aqui va el id del usuario
+    // Aqui el usuario
     user: {
-        id: "cbcef469-ae14-4bf1-8ef3-a93cfc0ef9f3",
-        isAdmin: true
+
     },
 
 }
 
-// const setLocalStorage = (user) =>n {
-//     try {
-//         window.localStorage.setItem("user", JSON.stringify(user));
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+const setLocalStorage = (user) => {
+    try {
+        window.localStorage.setItem("user", JSON.stringify(user));
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 const setLocalStorageCart = (cart) => {
     try {
         window.localStorage.setItem("cart", JSON.stringify(cart));
@@ -62,11 +63,18 @@ const setLocalStorageCart = (cart) => {
 export default function reducer(state = initialState, { type, payload }) {
     switch (type) {
         //Guarda toda la informacion en el atributo wine del estado global
-        // case GENERATED_USER_ID:
-        //     setLocalStorage(state.userId);
-        //     return {
-        //         ...state
-        //     }
+        case SAVE_USER:
+            setLocalStorage(payload);
+            return {
+                ...state,
+                user: payload
+            }
+        case LOG_OUT_USER:
+            setLocalStorage({});
+            return {
+                ...state,
+                user: {}
+            }
         case GET_ALL_WINE:
             return {
                 ...state,
