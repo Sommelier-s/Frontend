@@ -32,7 +32,7 @@ import {
 
 //Axios configuration
 const desarrolloApp = "http://localhost:3001";
-const produccionApp = "https://sommeliers-oficial.vercel.app";
+const produccionApp = "https://backend-production-22db.up.railway.app";
 
 axios.defaults.baseURL = produccionApp;
 
