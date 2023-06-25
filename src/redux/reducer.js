@@ -51,6 +51,14 @@ const setLocalStorage = (user) => {
     }
 }
 
+const setLocalStorageAmount = (amount) => {
+    try {
+        window.localStorage.setItem("amount", JSON.stringify(amount));
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 const setLocalStorageCart = (cart) => {
     try {
         window.localStorage.setItem("cart", JSON.stringify(cart));
@@ -231,6 +239,7 @@ export default function reducer(state = initialState, { type, payload }) {
                 };
             }
         case UPDATE_AMOUNT:
+            setLocalStorageAmount(payload);
             return {
                 ...state,
                 amount: payload

@@ -26,7 +26,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   updateCartFromLocalStorage,
-  saveUser
+  saveUser,
+  updateAmount
 } from "./redux/actions";
 
 // //Axios configuration
@@ -80,6 +81,13 @@ function App() {
         dispatch(saveUser(userParseado));
       }
     }
+
+    const amount = window.localStorage.getItem("amount");
+    if (typeof amount === "string") {
+      dispatch(updateAmount(parseInt(amount)));
+
+    }
+
   }, [])
 
 

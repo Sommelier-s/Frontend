@@ -14,7 +14,11 @@ import Cart from '../components/Cart';
 
 //Importación logo carrito
 import carro from '../assets/img/Carro.png';
-import { logOutUer, removeFromCart, updateCartEmptyStatus } from '../redux/actions';
+import {
+	logOutUer,
+	removeFromCart,
+	updateCartEmptyStatus,
+} from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/Nav.module.css';
 
@@ -53,15 +57,25 @@ const Nav = () => {
 	const showSetting = () => {
 		if (user.id && user.isAdmin)
 			return (
-				<Link className={styles.item} to={`/dashboard/${user.id}`}>
-					Admin
-				</Link>
+				<div className={styles.contentProfile}>
+					<div className={styles.contentPicture}>
+						<img src={user.profile_picture} alt="" />
+					</div>
+					<Link className={styles.item} to={`/dashboard/${user.id}`}>
+						Perfil
+					</Link>
+				</div>
 			);
 		if (user.id)
 			return (
-				<Link className={styles.item} to={`/dashboard_user/${user.id}`}>
-					User
-				</Link>
+				<div className={styles.contentProfile}>
+					<div className={styles.contentPicture}>
+						<img src={user.profile_picture} alt="" />
+					</div>
+					<Link className={styles.item} to={`/dashboard_user/${user.id}`}>
+						Perfil
+					</Link>
+				</div>
 			);
 		else return <Link className={styles.item} to={'/'}></Link>;
 	};
@@ -71,48 +85,50 @@ const Nav = () => {
 	}, [cart]);
 
 	return (
-		<div className={styles.content}>
-			<ul className={styles.menu}>
-				<Link className={styles.item} to={'/'}>
-					Inicio
-				</Link>
-				<Link className={styles.item} to={'/about'}>
-					Nosotros
-				</Link>
-				<Link className={styles.item} to={'/buy'}>
-					Comprar
-				</Link>
+		<div className={styles.container}>
+			<div className={styles.content}>
+				<ul className={styles.menu}>
+					<Link className={styles.item} to={'/'}>
+						Inicio
+					</Link>
+					<Link className={styles.item} to={'/about'}>
+						Nosotros
+					</Link>
+					<Link className={styles.item} to={'/buy'}>
+						Comprar
+					</Link>
 
-				<div className={styles.cart}>
-					<div className={styles.cartContainer}>
-						<Tippy
-							placement={'bottom'}
-							offset={[0, 20]}
-							delay={200}
-							interactive={true}
-							content={<Cart />}
-						>
-							<div className={styles.contentImage}>
-								<img src={carro} className={styles.carro} alt="carro" />
-								{cartCount >= 0 && (
-									<div className={styles.cartCount}>{cartCount}</div>
-								)}
-							</div>
-						</Tippy>
+					<div className={styles.cart}>
+						<div className={styles.cartContainer}>
+							<Tippy
+								placement={'bottom'}
+								offset={[0, 20]}
+								delay={200}
+								interactive={true}
+								content={<Cart />}
+							>
+								<div className={styles.contentImage}>
+									<img src={carro} className={styles.carro} alt="carro" />
+									{cartCount >= 0 && (
+										<div className={styles.cartCount}>{cartCount}</div>
+									)}
+								</div>
+							</Tippy>
+						</div>
 					</div>
-				</div>
-				{/* Esto luego se eliminara cuando esten las rutas protegidas para usuarios y admin */}
-				{showSetting()}
-				{!user.id ? (
-					<button onClick={handleLogIn} className={styles.button}>
-						Iniciar sesión
-					</button>
-				) : (
-					<button onClick={handleLogOut} className={styles.button}>
-						Cerrar sesión
-					</button>
-				)}
-			</ul>
+					{/* Esto luego se eliminara cuando esten las rutas protegidas para usuarios y admin */}
+					{showSetting()}
+					{!user.id ? (
+						<button onClick={handleLogIn} className={styles.button}>
+							Iniciar sesión
+						</button>
+					) : (
+						<button onClick={handleLogOut} className={styles.button}>
+							Cerrar sesión
+						</button>
+					)}
+				</ul>
+			</div>
 		</div>
 	);
 };
