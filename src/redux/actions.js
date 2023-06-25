@@ -30,7 +30,9 @@ export const REGISTER_USER = "REGISTER_USER";
 
 
 //Variable con la url base
-const desarrolloApp = "http://localhost:3001";
+export const desarrolloApp = "http://localhost:3001";
+//export const desarrolloApp = 'https://server-sommeliers.onrender.com'
+
 let wineLocal = [];
 let liquorLocal = [];
 let userLocal = [];

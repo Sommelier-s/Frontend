@@ -16,8 +16,10 @@ import swal from 'sweetalert';
 import folder from '../assets/img/folder-filled.png';
 import Footer from '../components/Footer';
 
+import { desarrolloApp } from '../redux/actions';
+
 export default function Create() {
-	const desarrolloApp = 'http://localhost:3001';
+	//const desarrolloApp = 'http://localhost:3001';
 
 	const dispatch = useDispatch();
 	const userId = window.localStorage.getItem('userId');

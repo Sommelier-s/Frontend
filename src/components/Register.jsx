@@ -18,10 +18,12 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { desarrolloApp } from '../redux/actions';
+
 import axios from 'axios';
 
 const Register = () => {
-	const desarrolloApp = 'http://localhost:3001';
+	//const desarrolloApp = 'http://localhost:3001';
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {

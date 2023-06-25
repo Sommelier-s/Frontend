@@ -8,10 +8,10 @@ import axios from 'axios';
 import styles from '../assets/styles/components/Payment.module.css';
 import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
-
+import { desarrolloApp } from '../redux/actions';
 
 function Payment(props) {
-	const desarrolloApp = 'http://localhost:3001';
+	//const desarrolloApp = 'http://localhost:3001';
 
 	const [stripePromise, setStripePromise] = useState(null);
 	const [clientSecret, setClientSecret] = useState('');

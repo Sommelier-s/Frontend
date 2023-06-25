@@ -22,6 +22,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
+import { desarrolloApp } from '../redux/actions';
+
 const Detail = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -31,7 +33,7 @@ const Detail = () => {
 
 	const [drink, setDrink] = useState({});
 
-	const desarrolloApp = 'http://localhost:3001';
+	//const desarrolloApp = 'http://localhost:3001';
 
 	const { id } = useParams();
 

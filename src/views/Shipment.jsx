@@ -5,9 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import { desarrolloApp } from '../redux/actions';
 
 export default function Shipment() {
-    const desarrolloApp = 'http://localhost:3001';
+    //const desarrolloApp = 'http://localhost:3001';
     const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
 			position: 'top-right',
