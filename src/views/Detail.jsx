@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllDrinks, addToCart, updateAmount } from '../redux/actions';
+import swal from 'sweetalert';
 
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
@@ -146,8 +147,13 @@ const Detail = () => {
 	};
 	const notAllowed = (event) => {
 		event.preventDefault();
-		alert('Logeate');
-		navigate('/');
+		swal({
+			title: 'Usuario No registrado',
+			icon:"error",
+			text: 'No podés realizar la compra hasta tener una cuenta',
+			buttons: 'aceptar',
+		});
+		navigate('/login');
 	};
 
 	return (

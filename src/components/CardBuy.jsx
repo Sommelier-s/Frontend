@@ -7,6 +7,7 @@ import { addToCart, updateAmount } from '../redux/actions';
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import swal from 'sweetalert';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -103,8 +104,13 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 	};
 	const notAllowed = (event) => {
 		event.preventDefault();
-		alert('Logeate');
-		navigate('/');
+		swal({
+			title: 'Usuario No registrado',
+			icon: 'error',
+			text: 'No podés realizar la compra hasta tener una cuenta',
+			buttons: 'aceptar',
+		});
+		navigate('/login');
 	};
 	return (
 		<div className={styles.content}>

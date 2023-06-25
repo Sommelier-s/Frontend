@@ -26,7 +26,8 @@ export const UPDATE_CART_EMPTY_STATUS = "UPDATE_CART_EMPTY_STATUS";
 export const UPDATE_CART_FROM_LOCAL_STORAGE = "UPDATE_CART_FROM_LOCAL_STORAGE";
 export const UPDATE_AMOUNT = "UPDATE_AMOUNT";
 
-export const REGISTER_USER = "REGISTER_USER";
+export const SAVE_USER = "SAVE_USER";
+export const LOG_OUT_USER="LOG_OUT_USER";
 
 
 //Variable con la url base
@@ -40,11 +41,12 @@ let userLocal = [];
 // const userId = window.localStorage.getItem("userId");
 // const userIdParseado = JSON.parse(userId);
 
-export const registerUser = (user) => {
-    return async function (dispatch) {
-       
-    }
+export const saveUser = (user) => {
+    return { type: SAVE_USER, payload: user };
+}
 
+export const logOutUer = () => {
+    return { type: LOG_OUT_USER }
 }
 
 export const generatedUserId = () => {

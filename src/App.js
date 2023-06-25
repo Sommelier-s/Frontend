@@ -18,11 +18,15 @@ import Shipment from "./views/Shipment"
 import Dashboard from './views/Dashboard';
 import LoginForm from './views/LoginForm';
 import DashboardUser from './views/DashboardUser';
+import CreateCategory from './components/CreateCategory';
+import ConfirmedUser from './components/ConfirmedUser';
+import ResetPassword from './components/ResetPassword';
 import axios from "axios";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  updateCartFromLocalStorage
+  updateCartFromLocalStorage,
+  saveUser
 } from "./redux/actions";
 
 // //Axios configuration
@@ -49,6 +53,8 @@ function App() {
       case "/dashboard/:id": return false
       case "/dashboard_user/:id": return false
       case "/detail/:id": return true
+      case "/create_category/:id": return false
+      case "/reset_password": return false
       default: return false
     }
   }
@@ -64,6 +70,14 @@ function App() {
       const cartParseado = JSON.parse(cart);
       if (cartParseado.length != 0) {
         dispatch(updateCartFromLocalStorage(cartParseado));
+      }
+    }
+
+    const user = window.localStorage.getItem("user");
+    if (user) {
+      const userParseado = JSON.parse(user);
+      if (userParseado.length != 0) {
+        dispatch(saveUser(userParseado));
       }
     }
   }, [])
@@ -88,8 +102,13 @@ function App() {
         <Route path="/shipment" element={< Shipment />} />
         <Route path="/dashboard/:id" element={< Dashboard />} />
         <Route path="/dashboard_user/:id" element={< DashboardUser />} />
+        <Route path="/create_category/:id" element={< CreateCategory />} />
         <Route path="/detail/:id" element={< Detail />} />
         <Route path="/login" element={< LoginForm />} />
+        <Route path="/auth/confirmar/:id" element={< ConfirmedUser />} />
+        <Route path="/reset_password" element={< ResetPassword />} />
+
+
         <Route path='*' element={<NotFound />} />
       </Routes>
 
