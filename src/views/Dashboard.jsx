@@ -60,6 +60,13 @@ export default function Dashboard() {
 			<div className={styles['dashboard-menu-container']}>
 				<DashboardMenu onClick={handleMenu} />
 			</div>
+			<button
+				onClick={() => {
+					navigate(`create/${user.id}`);
+				}}
+			>
+				Cargar producto
+			</button>
 			{selectedOption && ( // Renderiza las cards solo si se ha seleccionado una  opción
 				<div className={styles['dashboard-card-container']}>
 					{filteredData.map((item) => (
