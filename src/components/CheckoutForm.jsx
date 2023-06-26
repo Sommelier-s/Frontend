@@ -11,10 +11,12 @@ import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
 
 import swal from 'sweetalert';
 import styles from '../assets/styles/components/CheckoutForm.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm() {
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const displaySweetAlert = (mensaje, tipo) => {
 		swal({
@@ -64,12 +66,13 @@ export default function CheckoutForm() {
 		const option = event.target.value;
 		setHomeDelivery(option);
 	};
-
-	const handleCancelBuy = () => {
+	const handleCancelBuy = (event) => {
+		event.preventDefault();
 		dispatch(updateCartEmptyStatus(true));
 		cart.forEach((product) => {
 			dispatch(removeFromCart(product.id));
 		});
+		navigate('/');
 	};
 
 	const handleSubmit = async (e) => {
@@ -81,15 +84,12 @@ export default function CheckoutForm() {
 
 		setIsProcessing(true);
 
-		handleCancelBuy();
-
 		try {
 			if (homeDelivery === 'true') {
-				displaySweetAlert('Revisa tu correo, te llego la boleta', 'success');
 				const { error } = await stripe.confirmPayment({
 					elements,
 					confirmParams: {
-						return_url: `${window.location.origin}/`,
+						return_url: `${window.location.origin}/completion`,
 					},
 					//redirect: 'if_required',
 				});
@@ -105,9 +105,10 @@ export default function CheckoutForm() {
 
 			setIsProcessing(false);
 		} catch (error) {
-			displayFailedMessage('Hubo un error');
+			displaySweetAlert('Hubo un error', 'error');
 		}
 	};
+	
 
 	return (
 		<form id="payment-form" onSubmit={handleSubmit}>
@@ -119,10 +120,25 @@ export default function CheckoutForm() {
 					<option value="false">No</option>
 				</select>
 			</div>
+			{homeDelivery == 'false' && (
+				<div className={styles.notaImportante}>
+					<h3>Aviso importante</h3>
+					<p>
+						El envio a domicilio tiene un monto que no se considera en la
+						compra, ese monto lo deberá abonar una vez llegado el producto a su
+						domicilio
+					</p>
+				</div>
+			)}
 
-			<button className={styles.button} disabled={isProcessing} id="submit">
+			<button
+				className={styles.button}
+				disabled={isProcessing}
+				
+				id="submit"
+			>
 				<span id="button-text">
-					{isProcessing ? 'Processing ... ' : 'Pay now'}
+					{isProcessing ? 'Procesando pago ... ' : 'Pagar ahora'}
 				</span>
 			</button>
 		</form>

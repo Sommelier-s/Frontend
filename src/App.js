@@ -48,8 +48,8 @@ function App() {
       case "/buy": return true
       case "/create/:id": return true
       case "/payment/:id": return false
-      case "/completion": return true
-      case "/shipment": return true
+      case "/completion": return false
+      case "/shipment": return false
       case "/login": return true
       case "/dashboard/:id": return false
       case "/dashboard_user/:id": return false

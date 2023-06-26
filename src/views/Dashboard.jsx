@@ -11,15 +11,17 @@ export default function Dashboard() {
 	const dispatch = useDispatch();
 	const [selectedOption, setSelectedOption] = useState(''); // Estado para almacenar la opción seleccionada del menú
 
-	const navigate = useNavigate();
-	useEffect(() => {
-		dispatch(getAllWine());
-		dispatch(getAllLiquor());
-	}, []);
-
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (!user.isAdmin) {
+			navigate('/');
+		}
+		dispatch(getAllWine());
+		dispatch(getAllLiquor());
+	}, []);
 
 	// console.log('Vinos:', allWine);
 	// console.log('Licores:', allLiquor);
@@ -53,7 +55,7 @@ export default function Dashboard() {
 	return (
 		<div className={styles['dashboard-container']}>
 			<div>
-			<button onClick={() => navigate('/')}>Volver</button>
+				<button onClick={() => navigate('/')}>Volver</button>
 			</div>
 			<div className={styles['dashboard-menu-container']}>
 				<DashboardMenu onClick={handleMenu} />
