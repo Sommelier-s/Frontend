@@ -152,6 +152,7 @@ const validate = (values) => {
 
 return (
     <>
+    <h3 className={styles.title}>Ahora completa los campos para el envio!</h3>
     <div className={styles.contenedor}>
     <div className={styles.formulario}>
         <Formik
