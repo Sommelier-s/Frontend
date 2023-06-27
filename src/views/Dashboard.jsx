@@ -3,17 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllWine, getAllLiquor } from '../redux/actions';
 import DashboardMenu from '../components/DashboardMenu';
 import DashboardCard from '../components/DashboardCard';
+import DashboardCardAdmin from '../components/DashboardCardAdmin';
+import DashboardCardAdminUsers from '../components/DashboardCardAdminUsers';
 import styles from '../assets/styles/components/views/Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 import CreateCategory from '../components/CreateCategory';
+import imageBack from "../assets/img/imageBack.png";
 
 export default function Dashboard() {
 	const dispatch = useDispatch();
-	const [selectedOption, setSelectedOption] = useState(''); // Estado para almacenar la opción seleccionada del menú
+	const [selectedOption, setSelectedOption] = useState('profile'); // Estado para almacenar la opción seleccionada del menú
 
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
+
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (!user.isAdmin) {
@@ -23,10 +27,6 @@ export default function Dashboard() {
 		dispatch(getAllLiquor());
 	}, []);
 
-	// console.log('Vinos:', allWine);
-	// console.log('Licores:', allLiquor);
-	// console.log('Users:', allUsers);
-
 	let filteredData;
 	switch (selectedOption) {
 		case 'wine':
@@ -35,8 +35,14 @@ export default function Dashboard() {
 		case 'liquor':
 			filteredData = allLiquor;
 			break;
+		case 'monthlyProducts':
+			filteredData = allLiquor;
+			break;
+		case 'discountedProducts':
+			filteredData = allLiquor;
+			break;
 		case 'users':
-			filteredData = user;
+			filteredData = [user];
 			break;
 		default:
 			filteredData = [];
@@ -54,20 +60,33 @@ export default function Dashboard() {
 
 	return (
 		<div className={styles['dashboard-container']}>
-			<div>
-				<button onClick={() => navigate('/')}>Volver</button>
-			</div>
 			<div className={styles['dashboard-menu-container']}>
+
+				<button className={styles.botonBack} onClick={() => navigate('/')}>
+					<img className={styles.imageBack} src={imageBack} alt="Volver" />
+				</button>
+				
 				<DashboardMenu onClick={handleMenu} />
+				
 			</div>
-			<button
-				onClick={() => {
-					navigate(`create/${user.id}`);
-				}}
-			>
-				Cargar producto
-			</button>
-			{selectedOption && ( // Renderiza las cards solo si se ha seleccionado una  opción
+			{selectedOption === 'profile' && (
+				<DashboardCardAdmin
+					profile_picture = {user.profile_picture}
+					name={`${user.first_name} ${user.last_name}`}
+					email = {user.email}
+					date_birth = {user.date_birth}
+					password = "**********"
+				/>
+			)}
+			{selectedOption === 'users' && ( // Renderiza las cards solo si se ha seleccionado una  opción
+				<DashboardCardAdminUsers
+					profile_picture = {user.profile_picture}
+					name={`${user.first_name} ${user.last_name}`}
+					email = {user.email}
+					date_birth = {user.date_birth}
+				/>
+			)}	
+			{selectedOption !== "users" && filteredData.length > 0 && (
 				<div className={styles['dashboard-card-container']}>
 					{filteredData.map((item) => (
 						<DashboardCard
