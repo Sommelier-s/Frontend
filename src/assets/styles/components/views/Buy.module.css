@@ -1,0 +1,13 @@
+.content{
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: var(--color-fourth);
+}

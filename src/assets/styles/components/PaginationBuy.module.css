@@ -1,7 +1,3 @@
-:root {
-	--color-primary-button: #973333;
-	--color-secondary-button: #d14e4e;
-}
 
 
 .pageNumbers {
@@ -21,17 +17,17 @@
 }
 .normal,
 .puntitos {
-	background: var(--color-secondary-button);
+	background: var(--color-second);
 	color: black;
 	box-shadow: 2px 3px 5px black;
 }
 .active {
-	background: var(--color-primary-button);
+	background: var(--color-second);
 	color: white;
 }
 
 .buttonPagination {
-	background: var(--color-primary-button);
+	background: var(--color-first);
 	border: none;
 	color: white;
 	font-size: 15px;
@@ -42,7 +38,7 @@
 }
 
 .buttonPagination:hover {
-	background: var(--color-secondary-button);
+	background: var(--color-second);
 	color: black;
 }
 

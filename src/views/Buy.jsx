@@ -81,13 +81,15 @@ const Buy = () => {
 
 
 	return (
-		<div>
-			<AllFiltersBuy />
-			<PaginationBuy />
+		<div className={styles.container}>
+			<main className={styles.content}>
+				<AllFiltersBuy />
+				<PaginationBuy />
 
-			{/* Dejar este componente que le pertenece a Toastify */}
-			<Footer />
-			<ToastContainer />
+				{/* Dejar este componente que le pertenece a Toastify */}
+				<Footer />
+				<ToastContainer />
+			</main>
 		</div>
 	);
 };
