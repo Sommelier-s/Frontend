@@ -9,8 +9,10 @@
   height: 400px;
   margin-top: 30px;
   overflow: hidden;
-  background: var(--color-fifth);
+  background: rgba(0, 0, 0, 0.692);
+  /* background: var(--color-fifth); */
   border-radius: 30px;
+  box-shadow: 2px 2px 5px white;
   /* box-shadow: 2px 3px 5px rgb(255, 255, 255); */
 }
 
@@ -50,20 +52,23 @@
 
 
 .link{
-  color: var(--color-text);
+  color: white;
+  /* color: var(--color-text); */
   text-align: center;
   text-decoration: none;
   
 }
 
 .variety{
-  color: var(--color-text);
+  color: white;
+  /* color: var(--color-text); */
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
 }
 
 .price{
-  color: var(--color-text);
+  color: white;
+  /* color: var(--color-text); */
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
 }
