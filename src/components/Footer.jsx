@@ -29,15 +29,10 @@ const Footer = () => {
           <img src={twitter} alt="Twitter" className={styles.socialIcon} />
           <img src={twitterColor} alt="Twitter_Color" className={styles.socialIconHover} />
         </a>
-        <a href="https://whatsapp.com">
-          <img src={whatsapp} alt="whatsapp" className={styles.socialIcon} />
-          <img src={whatsappColor} alt="Whatsapp_Color" className={styles.socialIconHover} />
-        </a>
+        
       </div>
         <div className={styles.contact}>
           <h2>Contáctanos</h2>
-          <p>Call Center: 123-456-789</p>
-          <p>WhatsApp: 123-456-789</p>
           <p>Email: sommeliersproject@gmail.com</p>
           <p>Dirección: Cr. 48 #21-16</p>
         </div>

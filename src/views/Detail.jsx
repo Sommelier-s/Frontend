@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllDrinks, addToCart, updateAmount } from '../redux/actions';
 import swal from 'sweetalert';
+import { Rating } from '@mui/material';
 
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
@@ -27,10 +28,11 @@ const Detail = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
+	const [rating, setRating] = useState(3);
 
 	const previousPath = location?.state?.from || '/home';
 
-	const [drink, setDrink] = useState({});
+	const [drink, setDrink] = useState();
 
 	const desarrolloApp = 'http://localhost:3001';
 
@@ -126,7 +128,7 @@ const Detail = () => {
 			return (
 				<div className={styles.buyViewQuantity}>
 					<Tippy
-						placement={'right'}
+						placement={'top'}
 						offset={[0, 20]}
 						delay={200}
 						interactive={true}
@@ -147,7 +149,7 @@ const Detail = () => {
 		event.preventDefault();
 		swal({
 			title: 'Usuario No registrado',
-			icon:"error",
+			icon: 'error',
 			text: 'No podés realizar la compra hasta tener una cuenta',
 			buttons: 'aceptar',
 		});
@@ -155,67 +157,135 @@ const Detail = () => {
 	};
 
 	return (
-		<div>
-			{drink ? (
-				<>
-					<div className={styles.containerDetail}>
-						<div className={styles.img}>
-							<img src={drink.picture} alt={drink.name} />
-						</div>
+		<div className={styles.container}>
+			<main className={styles.content}>
+				<div className={styles.contentTitle}>
+					<div className={styles.contentIconReturn} onClick={handleBack}>
+						<img
+							src="https://icongr.am/clarity/undo.svg?size=147&color=ffffff"
+							alt=""
+							title="Volver atras"
+						/>
+					</div>
 
-						<div className={styles.detailsContainer}>
-							<div className={styles.details}>
-								<h1>{drink.name}</h1>
-								{drink.wine_category?.name ? (
-									<h2>Categoria: {drink.wine_category?.name}</h2>
-								) : (
-									<h2>Categoria: {drink.liquor_category?.name}</h2>
-								)}
-								<div className={styles.description}>
-									<h2>Descripción: {drink.description}</h2>
+					<h3 className={styles.title}>Project details</h3>
+				</div>
+
+				{drink ? (
+					<>
+						<div className={styles.containerDetail}>
+							<div className={styles.contentImage}>
+								<img src={drink.picture} alt={drink.name} />
+							</div>
+
+							<div className={styles.contentText}>
+								<div className={styles.boxText}>
+									<h1 className={styles.name}>{drink.name}</h1>
+									<div className={styles.boxDescriptionProduct}>
+										{drink.wine_category?.name ? (
+											<h2 className={styles.category}>
+												Categoria:{' '}
+												<span className={styles.span}>
+													{' '}
+													{drink.wine_category?.name}{' '}
+												</span>
+											</h2>
+										) : (
+											<h2 className={styles.category}>
+												Categoria:{' '}
+												<span className={styles.span}>
+													{' '}
+													{drink.liquor_category?.name}
+												</span>
+											</h2>
+										)}
+										<div className={styles.boxDescription}>
+											<h2 className={styles.description}>
+												Descripción:{' '}
+												<span className={styles.span}>
+													{' '}
+													{drink.description}
+												</span>{' '}
+											</h2>
+										</div>
+
+										<h2 className={styles.stock}>
+											Cantidad:{' '}
+											<span className={styles.span}>{drink.stock}</span>{' '}
+										</h2>
+										{drink.graduation && (
+											<h2 className={styles.graduation}>
+												Graduación:{' '}
+												<span className={styles.span}> {drink.graduation}</span>
+											</h2>
+										)}
+
+										<h1 className={styles.price}>
+											Precio:{' '}
+											<span className={styles.span}> ${drink.price}</span>{' '}
+										</h1>
+									</div>
 								</div>
-								<div>
-									<h2>Stock: {drink.stock}</h2>
-									{drink.graduation ? (
-										<h2>Graduación: {drink.graduation}</h2>
-									) : (
-										console.log('')
-									)}
+								<div className={styles.boxButton}>
+									<button className={styles.button} onClick={addToCartHandler}>
+										Agregar
+									</button>
+									{displayButtonBuy()}
 								</div>
-								<h1>Precio: ${drink.price}</h1>
 							</div>
 						</div>
+					</>
+				) : (
+					<div className={styles.productNotFound}>
+						<span className={styles.loader}></span>
 					</div>
-				</>
-			) : (
-				<div className={styles.dots}>
-					<h1>Loading </h1>
-					<div className={styles.dot}></div>
-					<div className={styles.dot}></div>
-					<div className={styles.dot}></div>
-				</div>
-			)}
+				)}
+				{drink && (
+					<div className={styles.contentRating}>
+						<h1 className={styles.titleComent}>Comentarios y puntuaciones</h1>
 
-			<div className={styles.btn}>
-				<button className={styles.button} onClick={addToCartHandler}>
-					Agregar
-				</button>
-				{displayButtonBuy()}
-				<button className={styles.button} onClick={handleBack}>
-					Volver
-				</button>
-			</div>
+						<div className={styles.boxRating}>
+							<Rating
+								name="product-rating"
+								value={rating}
+								className={styles.rating}
+								// onChange={(event, value) => handleRatingChange(value)}
+								size="large"
+							/>
 
-			{/* <div className={styles.cart}>
-				<Tippy
-					placement={'bottom'}
-					offset={[0, 20]}
-					delay={200}
-					interactive={true}
-					content={<Cart />}>
-					<img src={carro} alt="carro" />
-				</Tippy>
-			</div> */}
+							<p className={styles.comment}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+								fuga veritatis autem natus dolor fugit numquam ut mollitia id
+								iure adipisci ab ea sint vitae voluptatibus, ad consequatur
+								quasi delectus. Lorem ipsum dolor sit amet consectetur,
+								adipisicing elit. Rerum autem maxime, sapiente sunt sint quos
+								eligendi neque doloremque pariatur recusandae laudantium
+								officiis, possimus molestias ut ad maiores eaque enim accusamus.
+							</p>
+						</div>
+						<div className={styles.boxRating}>
+							<Rating
+								name="product-rating"
+								value={rating}
+								className={styles.rating}
+								// onChange={(event, value) => handleRatingChange(value)}
+								size="large"
+							/>
+
+							<p className={styles.comment}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+								fuga veritatis autem natus dolor fugit numquam ut mollitia id
+								iure adipisci ab ea sint vitae voluptatibus, ad consequatur
+								quasi delectus. Lorem ipsum dolor sit amet consectetur,
+								adipisicing elit. Rerum autem maxime, sapiente sunt sint quos
+								eligendi neque doloremque pariatur recusandae laudantium
+								officiis, possimus molestias ut ad maiores eaque enim accusamus.
+							</p>
+						</div>
+					</div>
+				)}
+			</main>
+
 			<ToastContainer />
 		</div>
 	);

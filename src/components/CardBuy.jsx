@@ -8,6 +8,9 @@ import { addToCart, updateAmount } from '../redux/actions';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import swal from 'sweetalert';
+import {
+	Rating,
+} from '@mui/material';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,6 +20,13 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	//const [drink, setDrink] = useState({});
+
+	const [rating, setRating] = useState(3);
+
+	const handleRatingChange = (value) => {
+		setRating(value);
+	};
+
 
 	// Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
@@ -85,7 +95,7 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 			return (
 				<div className={styles.buyViewQuantity}>
 					<Tippy
-						placement={'right'}
+						placement={'top'}
 						offset={[0, 20]}
 						delay={200}
 						interactive={true}
@@ -123,20 +133,35 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 				/>
 			</div>
 			<div className={styles.contentText}>
-				<Link to={`/detail/${id}/?from=buy`} className={styles.link}>
-					{name}
-				</Link>
-				<p className={styles.variety}>{variety}</p>
+				<div className={styles.textsBox}>
+					<h2 className={styles.link}>{name}</h2>
+					<p className={styles.variety}>{variety}</p>
 
-				<p className={styles.price}>
-					<span className={styles.spanList}>$</span>
-					{price}
-				</p>
-				<div>
+					<p className={styles.price}>
+						<span className={styles.spanList}>$</span>
+						{price}
+					</p>
+					<Rating
+						name="product-rating"
+						value={rating}
+						className={styles.rating}
+						// onChange={(event, value) => handleRatingChange(value)}
+						size="large"
+					/>
+				</div>
+				<div className={styles.contentButton}>
 					<button className={styles.button} onClick={addToCartHandler}>
 						Agregar
 					</button>
 					{displayButtonBuy()}
+					<button
+						className={styles.button}
+						onClick={() => {
+							navigate(`/detail/${id}/?from=buy`);
+						}}
+					>
+						Detalles
+					</button>
 				</div>
 			</div>
 			<ToastContainer />
