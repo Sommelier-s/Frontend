@@ -12,6 +12,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import styles from "../assets/styles/components/DashboardCard.module.css";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -51,13 +52,14 @@ export default function RecipeReviewCard({name, picture, description, stock}) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="194"
-        image= {picture}
-        alt="Imagen del vino"
-      />
+    <Card className={styles.mainContainer}>
+      <div className={styles.imageContainer}>
+        <CardMedia
+          component="img"
+          image= {picture}
+          alt="Imagen del vino"
+        />
+      </div>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name || 'Nombre del producto'}

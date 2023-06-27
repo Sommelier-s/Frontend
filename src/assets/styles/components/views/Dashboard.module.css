@@ -4,7 +4,7 @@
   }
   
   .dashboard-menu-container {
-    width: 200px;
+    width: 240px;
     margin-right: 20px;
   }
   
@@ -13,4 +13,23 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
   }
+
+.botonBack {
+  align-self: flex-start;
+  width: 60px;
+  margin-top: 10px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  padding: 10px;
+}
+.botonBack:hover {
+  transform: scale(1.10);
+}
+
+.imageBack {
+  width: 30px;
+  height: 30px;
+  padding-right: 4px;
+}
   

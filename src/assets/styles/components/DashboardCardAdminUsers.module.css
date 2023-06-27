@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    width: 800px;
+    flex-direction: column;
+}
+
+.InfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.contentProfile {
+	width: 200px;
+	height: 200px;
+	border-radius: 50px;
+	overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.contentPicture img {
+	width: 100%;
+	height: 100%;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.info > * {
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.buttons button {
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px;
+}
