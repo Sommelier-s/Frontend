@@ -55,7 +55,8 @@
 	font-size: 15px;
 	letter-spacing: 1px;
 	text-decoration: none;
-	color: var(--color-first);
+	color: white;
+	/* color: var(--color-first); */
 	background: transparent;
 	cursor: pointer;
 	transition: ease-out 0.5s;

@@ -9,5 +9,6 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    background: var(--color-fourth);
+    /* background: black; */
+    /* background: var(--color-fourth); */
 }
