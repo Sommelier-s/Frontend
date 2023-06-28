@@ -15,9 +15,22 @@ import Dropzone from 'react-dropzone';
 import swal from 'sweetalert';
 import folder from '../assets/img/folder-filled.png';
 import Footer from '../components/Footer';
+import {
+    Grid,
+    Paper,
+    Avatar,
+    Typography,
+    TextField,
+    Button,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+  } from '@mui/material';
+  import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export default function Create() {
-	const desarrolloApp = 'http://localhost:3001';
+    const desarrolloApp = 'http://localhost:3001';
 
 	const dispatch = useDispatch();
 	const userId = window.localStorage.getItem('userId');
@@ -27,6 +40,161 @@ export default function Create() {
 	const allCategoryLiquor = useSelector((state) => state.categoryLiquor);
 	const [apyKey, setApyKey] = useState('');
 	const [nameCloud, setNameCloud] = useState('');
+
+    const [formData, setFormData] = useState({
+    product: 'vino',    
+		name: '',
+		description: '',
+		price: '',
+		stock: '',
+		category: '',
+	});
+
+    const [errors, setErrors] = useState({});
+
+    const validateForm = () => {
+        const { name, description, price, stock } = formData;
+        const errors = {};
+      
+        if (!name.trim()) {
+          errors.name = 'El nombre es requerido.';
+        }
+      
+        if (!description.trim()) {
+          errors.description = 'La descripción es requerida.';
+        }
+      
+        if (!price) {
+          errors.price = 'El precio es requerido.';
+        } else if (isNaN(price) || parseFloat(price) <= 0) {
+          errors.price = 'El precio debe ser un número válido y mayor que cero.';
+        }
+      
+        if (!stock) {
+          errors.stock = 'El stock es requerido.';
+        } else if (isNaN(stock) || parseInt(stock) <= 0) {
+          errors.stock = 'El stock debe ser un número válido y mayor que cero.';
+        }
+      
+        setErrors(errors);
+      
+        return Object.keys(errors).length === 0;
+      };
+
+      const validateField = (fieldName, value) => {
+        const fieldErrors = {};
+      
+        switch (fieldName) {
+          case 'name':
+            if (!value.trim().match(/^[a-zA-Z ]*$/)) {
+              fieldErrors.name = 'Nombre inválido. Solo se permiten letras y espacios.';
+            }
+            break;
+          case 'description':
+            if (!value.trim()) {
+              fieldErrors.description = 'Descripción requerida.';
+            }
+            break;
+          case 'price':
+            if (isNaN(value) || Number(value) <= 0) {
+              fieldErrors.price = 'Precio inválido. Debe ser un número mayor a cero.';
+            }
+            break;
+          case 'stock':
+            if (isNaN(value) || Number(value) < 0) {
+              fieldErrors.stock = 'Stock inválido. Debe ser un número mayor o igual a cero.';
+            }
+            break;
+          default:
+            break;
+        }
+      
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: fieldErrors[fieldName],
+        }));
+      };
+      
+      
+
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+        validateForm();
+        if (
+          formData.name &&
+          formData.description &&
+          formData.price &&
+          formData.stock
+        ) {
+          let requestData = {};
+          if (formData.product === 'vino') {
+            requestData = {
+              name: formData.name,
+              description: formData.description,
+              price: parseFloat(formData.price),
+              stock: parseInt(formData.stock),
+              picture: image.array[0],
+              wineCategoryId: formData.category,
+            };
+            console.log('Datos enviados:', requestData)
+            try {
+              const response = await axios.post(`/wine/?id=${userIdParseado}`, requestData);
+              setFormData({
+                name: '',
+                description: '',
+                price: '',
+                stock: '',
+                product: '',
+                category: '',
+              })
+              setFormSubmit(true);
+              displaySuccessMessage('Formulario enviado con éxito');
+            } catch (error) {
+              displayFailedMessage('Hubo un error, no se cargó el producto');
+              console.log('Error al enviar el formulario:', error.response.data.error);
+            }
+          } else if (formData.product === 'licor') {
+            requestData = {
+              name: formData.name,
+              description: formData.description,
+              price: parseFloat(formData.price),
+              graduation: parseFloat(formData.graduation),
+              stock: parseInt(formData.stock),
+              picture: image.array[0],
+              liquorCategoryId: formData.category,
+            };
+            try {
+              const response = await axios.post(`${desarrolloApp}/liquor/?id=${userIdParseado}`, requestData);
+              setFormData({
+                name: '',
+                description: '',
+                price: '',
+                stock: '',
+                product: '',
+                category: '',
+                graduation: '',
+              })
+              setFormSubmit(true);
+              displaySuccessMessage('Formulario enviado con éxito');
+            } catch (error) {
+              displayFailedMessage('Hubo un error, no se cargó el producto');
+              console.log('Error al enviar el formulario:', error.response.data.error);
+            }
+          } else {
+            showAlert();
+          }
+        }
+      };
+      
+
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		setFormData((prevFormData) => ({
+			...prevFormData,
+			[name]: value,
+		}));
+        validateField(event.target.name, event.target.value);
+	};
 
 	const getAllDataCloudinary = async () => {
 		try {
@@ -69,28 +237,29 @@ export default function Create() {
 		});
 	};
 
-	const [formSubmit, setFormSubmit] = useState(false);
-	const showAlert = () => {
-		displayFailedMessage('Completa todos los campos del formulario.');
-	};
 
-	/**********************************************************************/
-	/*******************Codigo de Cloudinary**************************/
+    const [formSubmit, setFormSubmit] = useState(false);
+        const showAlert = () => {
+            displayFailedMessage('Completa todos los campos del formulario.');
+        };
 
-	//estado para guardar los links de las imagenes que se cargan en cloudinary
-	const [image, setImage] = useState({ array: [] });
-	//Estado que se activa y desactiva dependiendo de si se completo la carga
-	const [loading, setLoading] = useState('');
+        /**********************************************************************/
+        /*******************Codigo de Cloudinary**************************/
 
-	//Funcion para verificar el tipo de archivo
-	const checkingType = (string) => {
-		if (string.toLowerCase().includes('png')) return true;
-		if (string.toLowerCase().includes('jpg')) return true;
-		if (string.toLowerCase().includes('jpeg')) return true;
-		if (string.toLowerCase().includes('bpm')) return true;
-		if (string.toLowerCase().includes('tiff')) return true;
-		return false;
-	};
+        //estado para guardar los links de las imagenes que se cargan en cloudinary
+        const [image, setImage] = useState({ array: [] });
+        //Estado que se activa y desactiva dependiendo de si se completo la carga
+        const [loading, setLoading] = useState('');
+
+        //Funcion para verificar el tipo de archivo
+        const checkingType = (string) => {
+            if (string.toLowerCase().includes('png')) return true;
+            if (string.toLowerCase().includes('jpg')) return true;
+            if (string.toLowerCase().includes('jpeg')) return true;
+            if (string.toLowerCase().includes('bpm')) return true;
+            if (string.toLowerCase().includes('tiff')) return true;
+            return false;
+        };
 
 	const displayOptions = () => {
 		//para el icono solo debes poner el tipo, hay 4
@@ -200,240 +369,168 @@ export default function Create() {
 		}
 	};
 
-	/**********************************************************************/
-	return (
-		<>
-			<div className={styles.contenedor}>
-				<Formik
-					initialValues={{
-						product: 'vino', // Valor por defecto
-						name: '',
-						description: '',
-						price: '',
-						picture: '',
-						stock: '',
-						category: '',
-					}}
-					validate={(values) => {
-						let errors = {};
+    const paperStyle = {
+		padding: '30px 20px',
+		width: 500,
+		margin: '20px auto',
+	};
+	const avatarStyle = {
+		backgroundColor: '#1bbd7e',
+	};
+	const headerStyle = {
+		margin: '10px 0',
+	};
+	const marginTop = {
+		marginTop: 10,
+	};
+	const btnstyle = {
+		marginTop: 15,
+	};
 
-						if (!values.name) {
-							errors.name = 'Ingrese un nombre';
-						} else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-							errors.name = 'El nombre solo puede contener letras y espacios';
-						}
 
-						if (!values.description) {
-							errors.description = 'Ingrese una descripción';
-						} else if (!/^[\w\s\d.,:]+$/u.test(values.description)) {
-							errors.description =
-								'La descripción solo puede contener letras, números, espacios y los caracteres . , :';
-						}
+    return (
+        <Grid container>
+          <Grid item xs={12} sm={8} md={6}>
+            <Paper style={paperStyle}>
+              <Grid align="center">
+                <Avatar style={avatarStyle}>
+                  <AddCircleOutlineIcon />
+                </Avatar>
+                <Typography variant="h5" style={headerStyle}>
+                  Nuevo producto
+                </Typography>
+                <Typography variant="subtitle2">
+                  Complete los campos para crear su nuevo producto
+                </Typography>
+              </Grid>
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={2} style={marginTop}>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel>Seleccione un producto</InputLabel>
+                      <Select
+                        name="product"
+                        label="Seleccione un producto"
+                        value={formData.product}
+                        onChange={handleChange}
+                        error={Boolean(errors.product)}
+                      >
+                        <MenuItem value="vino">Vino</MenuItem>
+                        <MenuItem value="licor">Licor</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label={
+                        formData.product === 'vino'
+                          ? 'Nombre del vino'
+                          : 'Nombre del licor'
+                      }
+                      placeholder={
+                        formData.product === 'vino'
+                          ? 'Nombre del vino'
+                          : 'Nombre del licor'
+                      }
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      error={Boolean(errors.name)}
+                      helperText={errors.name ? errors.name : ''}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Descripción"
+                      placeholder="Ingrese la descripción"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      error={Boolean(errors.description)}
+                      helperText={errors.description ? errors.description : ''}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Precio"
+                      placeholder="Ingrese el precio"
+                      name="price"
+                      value={formData.price}
+                      onChange={handleChange}
+                      error={Boolean(errors.price)}
+                      helperText={errors.price ? errors.price : ''}
+                    />
+                  </Grid>
+                  {formData.product === 'licor' && (
+                    <Grid item xs={12}>
+                      <TextField 
+                        fullWidth
+                        label="Graduación"
+                        placeholder="Ingrese la graduación"
+                        name="graduation"
+                        value={formData.graduation}
+                        onChange={handleChange}
+                        error={Boolean(errors.graduation)}
+                        helperText={errors.graduation ? errors.graduation : ''}
+                      />
+                    </Grid>
+                  )}
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Stock"
+                      placeholder="Ingrese el stock"
+                      name="stock"
+                      value={formData.stock}
+                      onChange={handleChange}
+                      error={Boolean(errors.stock)}
+                      helperText={errors.stock ? errors.stock : ''}
+                    />
+                  </Grid>
+      
+                  {formData.product === 'vino' && (
+                    <Grid item xs={12}>
+                      <FormControl fullWidth>
+                        <InputLabel>Categoría</InputLabel>
+                        <Select
+                          name="category"
+                          value={formData.category}
+                          label='Categoría'
+                          onChange={handleChange}
+                          error={Boolean(errors.category)}
+                        >
+                          {allCategoryWine.map((categoria) => (
+                            <MenuItem value={categoria.id}>{categoria.name}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  )}
+      
+                  {formData.product === 'licor' && (
+                    <Grid item xs={12}>
+                      <FormControl fullWidth>
+                        <InputLabel>Categoría</InputLabel>
+                        <Select
+                          name="category"
+                          value={formData.category}
+                          label='Categoría'
+                          onChange={handleChange}
+                          error={Boolean(errors.category)}
+                        >
+                          {allCategoryLiquor.map((categoria) => (
+                            <MenuItem value={categoria.id}>{categoria.name}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  )}
 
-						if (!values.price) {
-							errors.price = 'Ingrese un precio';
-						} else if (!/^\d+(\.\d{1,2})?$/.test(values.price)) {
-							errors.price =
-								'El precio debe ser un número con máximo 2 decimales';
-						}
-
-						if (values.product === 'licor' && !values.graduation) {
-							errors.graduation = 'Ingrese una graduación';
-						} else if (
-							values.product === 'licor' &&
-							!/^\d+(\.\d{1,2})?$/.test(values.graduation)
-						) {
-							errors.graduation =
-								'La graduación debe ser un número con máximo 2 decimales';
-						}
-
-						if (!values.stock) {
-							errors.stock = 'Ingrese el stock';
-						} else if (!/^\d+$/.test(values.stock)) {
-							errors.stock = 'El stock solo puede contener números';
-						}
-
-						if (!values.picture) {
-							errors.picture = 'Ingrese la URL de la imagen';
-						} else if (!/^https?:\/\/\S+$/.test(values.picture)) {
-							errors.picture = 'Ingrese una URL de imagen válida';
-						}
-
-						return errors;
-					}}
-					onSubmit={async (values, { setSubmitting, resetForm }) => {
-						if (
-							values.name &&
-							values.description &&
-							values.price &&
-							image.array[0] &&
-							values.stock
-						) {
-							let requestData = {};
-
-							if (values.product === 'vino') {
-								requestData = {
-									name: values.name,
-									description: values.description,
-									price: parseFloat(values.price),
-									stock: parseInt(values.stock),
-									picture: image.array[0],
-									wineCategoryId: values.category,
-								};
-
-								try {
-									const response = await axios.post(
-										`/wine/?id=${userIdParseado}`,
-										requestData,
-									);
-
-									setSubmitting(false);
-									resetForm();
-									setFormSubmit(true);
-									displaySuccessMessage('Formulario enviado con exito');
-								} catch (error) {
-									displayFailedMessage(
-										'Hubo un error, no se cargó el producto',
-									);
-									console.log(
-										'Error al enviar el formulario:',
-										error.response.data.error,
-									);
-									setSubmitting(false);
-								}
-							} else if (values.product === 'licor') {
-								requestData = {
-									name: values.name,
-									description: values.description,
-									price: parseFloat(values.price),
-									graduation: parseFloat(values.graduation),
-									stock: parseInt(values.stock),
-									picture: image.array[0],
-									liquorCategoryId: values.category,
-								};
-
-								try {
-									const response = await axios.post(
-										`${desarrolloApp}/liquor/?id=${userIdParseado}`,
-										requestData,
-									);
-
-									setSubmitting(false);
-									resetForm();
-									setFormSubmit(true);
-									displaySuccessMessage('Formulario enviado con éxito');
-								} catch (error) {
-									displayFailedMessage(
-										'Hubo un error, no se cargó el producto',
-									);
-									console.log(
-										'Error al enviar el formulario:',
-										error.response.data.error,
-									);
-									setSubmitting(false);
-								}
-							}
-						} else {
-							showAlert();
-							setSubmitting(false);
-						}
-					}}
-				>
-					{({
-						values,
-						errors,
-						touched,
-						handleSubmit,
-						handleChange,
-						handleBlur,
-						isSubmitting,
-					}) => (
-						<Form className={styles.formulario} onSubmit={handleSubmit}>
-							<div>
-								<label htmlFor="product">Producto:</label>
-								<Field as="select" id="product" name="product">
-									<option value="vino">Vino</option>
-									<option value="licor">Licor</option>
-								</Field>
-							</div>
-							<div>
-								<label htmlFor="name">Nombre:</label>
-								<Field
-									type="text"
-									id="name"
-									name="name"
-									placeholder={
-										values.product === 'vino'
-											? 'Nombre del vino...'
-											: 'Nombre del licor...'
-									}
-								/>
-								<ErrorMessage
-									name="name"
-									component="div"
-									className={styles.error}
-								/>
-							</div>
-							<div>
-								<label htmlFor="description">Descripción:</label>
-								<Field
-									type="text"
-									id="description"
-									name="description"
-									placeholder="Descripción..."
-								/>
-								<ErrorMessage
-									name="description"
-									component="div"
-									className={styles.error}
-								/>
-							</div>
-							<div>
-								<label htmlFor="price">Precio:</label>
-								<Field
-									type="text"
-									id="price"
-									name="price"
-									placeholder="Precio..."
-								/>
-								<ErrorMessage
-									name="price"
-									component="div"
-									className={styles.error}
-								/>
-							</div>
-							{values.product === 'licor' && (
-								<div>
-									<label htmlFor="graduation">Graduación:</label>
-									<Field
-										type="text"
-										id="graduation"
-										name="graduation"
-										placeholder="Graduación del licor"
-									/>
-									<ErrorMessage
-										name="graduation"
-										component="div"
-										className={styles.error}
-									/>
-								</div>
-							)}
-							<div>
-								<label htmlFor="price">Stock:</label>
-								<Field
-									type="text"
-									id="stock"
-									name="stock"
-									placeholder="Stock..."
-								/>
-								<ErrorMessage
-									name="stock"
-									component="div"
-									className={styles.error}
-								/>
-							</div>
-							<div className={styles.contentPicture}>
-								<label htmlFor="picture">Picture URL:</label>
+                    <div className={styles.contentPicture}>
+					    <label htmlFor="picture">Picture URL:</label>
 								<div className={styles.contentBox}>
 									<Container className={styles.contentDropzone}>
 										<Dropzone
@@ -472,85 +569,34 @@ export default function Create() {
 										</div>
 									)}
 								</div>
-								{/* <Field
-									type="text"
-									id="picture"
-									name="picture"
-									placeholder="URL de la imagen"
-								/>
-								<ErrorMessage
-									name="picture"
-									component="div"
-									className={styles.error}
-								/> */}
-							</div>
-							{values.product === 'vino' && (
-								// Mostrar el campo "Categoría" solo si se selecciona "vino" en "Producto"
-								<div>
-									<label htmlFor="category">Categoría:</label>
-									<Field as="select" id="category" name="category">
-										<option value="">Seleccione una categoría</option>
-										{allCategoryWine.map((categoria) => (
-											<option key={categoria.id} value={categoria.id}>
-												{categoria.name}
-											</option>
-										))}
-									</Field>
-									<ErrorMessage
-										name="category"
-										component="div"
-										className={styles.error}
-									/>
-								</div>
-							)}
+                                </div>
 
-							{values.product === 'licor' && (
-								<div>
-									<label htmlFor="category">Categoría:</label>
-									<Field as="select" id="category" name="category">
-										<option value="">Seleccione una categoría</option>
-										{allCategoryLiquor.map((categoria) => (
-											<option key={categoria.id} value={categoria.id}>
-												{categoria.name}
-											</option>
-										))}
-									</Field>
-									<ErrorMessage
-										name="category"
-										component="div"
-										className={styles.error}
-									/>
-								</div>
-							)}
-
-							<button
-								type="submit"
-								disabled={isSubmitting}
-								className={`${styles.btnEnviar} ${
-									isSubmitting ? styles.disabled : ''
-								}`}
-								onClick={() => {
-									if (
-										!values.name ||
-										!values.description ||
-										!values.price ||
-										!values.stock
-									) {
-										showAlert();
-									}
-								}}
-							>
-								Enviar
-							</button>
-							{formSubmit && (
-								<p className={styles.exito}>Producto cargado con éxito!</p>
-							)}
-						</Form>
-					)}
-				</Formik>
-			</div>
-			<Footer />
-			<ToastContainer />
-		</>
-	);
+                  <Grid item xs={12}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      style={btnstyle}
+                      onClick={() => {
+                        if (
+                          !formData.name ||
+                          !formData.description ||
+                          !formData.price ||
+                          !formData.stock
+                        ) {
+                          showAlert();
+                        }
+                      }}
+                    >
+                      Cargar producto
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+            </Paper>
+          </Grid>
+          <ToastContainer />
+        </Grid>
+      );
 }
