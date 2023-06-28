@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+}
+
+.InfoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 50px;
+  
+}
+
+
+
+.contentPicture img {
+  width: 100%;
+  height: 100%;
+
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+.contentProfile {
+	width: 200px;
+	height: 200px;
+	border-radius: 10px;
+	overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.buttons-container button {
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
