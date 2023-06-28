@@ -73,13 +73,13 @@ export default function DashboardMenu({ onClick }) {
           <ListItemIcon>
             <MarkAsUnreadRoundedIcon fontSize="medium" />
           </ListItemIcon>
-          <ListItemText>Envios pendientes</ListItemText>
+          <ListItemText>Envíos pendientes</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => handleItemClick('completedShipments')}>
           <ListItemIcon>
             <MarkEmailReadRoundedIcon fontSize="medium" />
           </ListItemIcon>
-          <ListItemText>Envios realizados</ListItemText>
+          <ListItemText>Envíos realizados</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => {

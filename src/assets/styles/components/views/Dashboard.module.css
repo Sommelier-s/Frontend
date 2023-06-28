@@ -8,6 +8,12 @@
     margin-right: 20px;
 }
 
+.mainContainerCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
 .dashboard-card-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -17,10 +23,6 @@
 .cardProfile {
   margin-top: 100px;
   margin-left: 50px;
-}
-.cardProfileUser {
-  margin-top: 30px;
-  margin-left: -10px;
 }
 
 .botonBack {
@@ -43,6 +45,12 @@
   padding-right: 4px;
 }
 
+.cardProfileUser {
+  display: flex;
+  flex-direction: column;
+  margin-top: -25px;
+}
+
 .cardsContainer {
   display: flex;
   flex-direction: column;
@@ -55,7 +63,7 @@
   border-radius: 10px;
   padding: 4px;
   width: 500px;
-  margin-bottom: 20px;
+  margin-bottom: -50px;
 }
 
 .searchBar input[type="text"] {
