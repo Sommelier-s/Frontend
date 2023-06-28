@@ -8,15 +8,21 @@ import { addToCart, updateAmount } from '../redux/actions';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import swal from 'sweetalert';
-import {
-	Rating,
-} from '@mui/material';
+import { Rating } from '@mui/material';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
+const CardBuy = ({
+	id,
+	name,
+	description,
+	price,
+	picture,
+	graduation,
+	stock,
+}) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	//const [drink, setDrink] = useState({});
@@ -26,7 +32,6 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 	const handleRatingChange = (value) => {
 		setRating(value);
 	};
-
 
 	// Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
@@ -62,22 +67,45 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
 	const user = useSelector((state) => state && state.user);
 	const amount = useSelector((state) => state.amount);
+	const cart = useSelector((state) => state.cart);
 
+	const isStockAvailable = (id) => {
+		let stockAvailable = true;
+		for (let i = 0; i < cart.length; i++) {
+			if (cart[i].id == id) {
+				if (cart[i].quantity + 1 > cart[i].stock) {
+					stockAvailable = false;
+				}
+				i = cart.length;
+			}
+		}
+		return stockAvailable;
+	};
 	//Manejador para agregar al carro
 	const addToCartHandler = (event) => {
 		event.preventDefault();
-		const drink = { id, name, description, price, picture, stock };
-		dispatch(addToCart(drink));
-		displaySuccessMessage('Producto agregado');
+		const drink = { id, name, description, price, picture, graduation, stock };
+		if (isStockAvailable(drink.id)) {
+			dispatch(addToCart(drink));
+			displaySuccessMessage('Producto agregado');
+			return;
+		}
+		displayFailedMessage('No puede agregar mas del stock disponible');
 	};
 
 	//Manejador para agregar al carro
 	const addToCartHandlerBuy = (event) => {
 		event.preventDefault();
-		const drink = { id, name, description, price, picture, stock };
-		dispatch(addToCart(drink));
-		dispatch(updateAmount(amount + price));
-		navigate(`/payment/${user.id}`);
+		const drink = { id, name, description, price, picture, graduation, stock };
+		if (isStockAvailable(drink.id)) {
+			dispatch(addToCart(drink));
+			dispatch(updateAmount(amount + price));
+			navigate(`/payment/${user.id}`);
+			return;
+		}
+		displayFailedMessage(
+			'No puede comprar mas del stock disponible, revisa el carrito',
+		);
 	};
 
 	const toggleCartVisibility = () => {
@@ -135,7 +163,6 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 			<div className={styles.contentText}>
 				<div className={styles.textsBox}>
 					<h2 className={styles.link}>{name}</h2>
-					<p className={styles.variety}>{variety}</p>
 
 					<p className={styles.price}>
 						<span className={styles.spanList}>$</span>
@@ -150,10 +177,13 @@ const CardBuy = ({ id, name, description, price, picture, variety, stock }) => {
 					/>
 				</div>
 				<div className={styles.contentButton}>
-					<button className={styles.button} onClick={addToCartHandler}>
-						Agregar
-					</button>
-					{displayButtonBuy()}
+					{stock !== 0 && (
+						<button className={styles.button} onClick={addToCartHandler}>
+							Agregar
+						</button>
+					)}
+
+					{stock !== 0 && displayButtonBuy()}
 					<button
 						className={styles.button}
 						onClick={() => {

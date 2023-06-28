@@ -6,10 +6,9 @@ const CardsBuy = ({ allDrinks }) => {
 	return (
 		<div>
 			<div className={styles.content}>
-				
 				{allDrinks.length !== 0 ? (
 					allDrinks.map(
-						({ id, name, description, price, picture, variety, stock }) => {
+						({ id, name, description, price, picture, graduation, stock }) => {
 							return (
 								<CardBuy
 									key={id}
@@ -18,7 +17,7 @@ const CardsBuy = ({ allDrinks }) => {
 									picture={picture}
 									price={price}
 									description={description}
-									variety={variety}
+									graduation={graduation}
 									stock={stock}
 								/>
 							);
