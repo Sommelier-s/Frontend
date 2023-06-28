@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '.././assets/styles/components/views/Shipment.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import {
+  Grid,
+  Paper,
+  Avatar,
+  Typography,
+  TextField,
+  Button
+} from '@mui/material';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 
 export default function Shipment() {
+
     const desarrolloApp = 'http://localhost:3001';
+
     const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
 			position: 'top-right',
@@ -34,12 +44,12 @@ export default function Shipment() {
 		});
 	};
 
-    const [formSubmit, setFormSubmit] = useState(false);
+
 	const showAlert = () => {
 		displayFailedMessage('Completa todos los campos del formulario.');
 	};
 
-const initialValues = {
+const [initialValues,setInitialValues] = useState({
   firstName: '',
   lastName: '',
   postalCode: '',
@@ -52,339 +62,313 @@ const initialValues = {
   phoneNumber: '',
   additionalInstructions: '',
   workInstructions: '', 
-};
+});
 
 
-const onSubmit = async (values, { setSubmitting, resetForm }) => {
+const handleSubmit = async ({ resetForm }) => {
     console.log('Se hizo clic en el botón Enviar');
     if (
-      values.firstName &&
-      values.lastName &&
-      values.postalCode &&
-      values.province &&
-      values.city &&
-      values.street &&
-      values.number &&
-      values.phoneNumber
+      initialValues.firstName &&
+      initialValues.lastName &&
+      initialValues.postalCode &&
+      initialValues.province &&
+      initialValues.city &&
+      initialValues.street &&
+      initialValues.number &&
+      initialValues.phoneNumber
     ) {
       let shipmentData = {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        postalCode: values.postalCode,
-        province: values.province,
-        city: values.city,
-        street: values.street,
-        number: values.number,
-        floor: values.floor,
-        location: values.location,
-        phoneNumber: values.phoneNumber,
-        additionalInstructions: values.additionalInstructions,
-        workInstructions: values.workInstructions,
+        firstName: initialValues.firstName,
+        lastName: initialValues.lastName,
+        postalCode: initialValues.postalCode,
+        province: initialValues.province,
+        city: initialValues.city,
+        street: initialValues.street,
+        number: initialValues.number,
+        floor: initialValues.floor,
+        phoneNumber: initialValues.phoneNumber,
+        additionalInstructions: initialValues.additionalInstructions
       };
-
+  
       try {
         const response = await axios.post(`${desarrolloApp}`, shipmentData);
-        setSubmitting(false);
         resetForm();
         displaySuccessMessage('Formulario enviado con éxito');
+        console.log('Respuesta del servidor:', response)
       } catch (error) {
         displayFailedMessage('Hubo un error');
-        setSubmitting(false);
       }
     } else {
-        console.log('no se envia form')
+      console.log('no se envia form')
       showAlert();
     }
   };
 
 
-const validate = (values) => {
-  const errors = {};
+const paperStyle = {
+  padding: '30px 20px',
+  width: 500,
+  margin: '20px auto',
+};
+const avatarStyle = {
+  backgroundColor: '#1bbd7e',
+};
+const headerStyle = {
+  margin: '10px 0',
+};
+const marginTop = {
+  marginTop: 10,
+};
+const btnstyle = {
+  marginTop: 15,
+};
 
-  if (!values.firstName || !/^[a-zA-ZñÑ\s]+$/.test(values.firstName)) {
-    errors.firstName = 'Ingrese un nombre válido';
-  }
-  
-  if (!values.lastName || !/^[a-zA-ZñÑ\s]+$/.test(values.lastName)) {
-    errors.lastName = 'Ingrese un apellido válido';
-  }
-  
-  if (!values.postalCode || !/^\d+$/.test(values.postalCode)) {
-    errors.postalCode = 'Ingrese un código postal válido';
-  }
-  
-  if (!values.province || !/^[a-zA-ZñÑ\s]+$/.test(values.province)) {
-    errors.province = 'Ingrese una provincia válida';
-  }
-  
-  if (!values.city || !/^[a-zA-ZñÑ\s]+$/.test(values.city)) {
-    errors.city = 'Ingrese una ciudad válida';
-  }
-  
-  if (!values.street || !/^[\w\s\d]+$/.test(values.street)) {
-    errors.street = 'Ingrese una calle válida';
-  }
-  
-  if (!values.number || !/^\d+$/.test(values.number)) {
-    errors.number = 'Ingrese un número válido';
-  }
-  
-  if (values.floor && !/^[\w\d]+$/.test(values.floor)) {
-    errors.floor = 'Ingrese un piso/dpto válido';
-  }
-  
-  if (!values.location || (values.location !== 'casa' && values.location !== 'trabajo')) {
-    errors.location = 'Seleccione una opción válida';
-  }
-  
-  if (!values.phoneNumber || !/^[\d()-]+$/.test(values.phoneNumber)) {
-    errors.phoneNumber = 'Ingrese un número de teléfono válido';
-  }
-  
-  if (values.additionalInstructions && !  /^[a-zA-ZñÑ\s]+$/.test(values.additionalInstructions)) {
-    errors.additionalInstructions = 'Ingrese información adicional válida';
-  }
-  
+const [errors, setErrors] = useState({});
 
-  return errors;
+const validateField = (fieldName, value) => {
+  const fieldErrors = {};
+
+  if (!value.trim()) {
+    fieldErrors[fieldName] = `El campo ${fieldName} es requerido`;
+  } else {
+    switch (fieldName) {
+      case 'firstName':
+        if (!value.match(/^[a-zA-ZñÑ\s]+$/)) {
+          fieldErrors.firstName = 'Ingrese un nombre válido';
+        }
+        break;
+      case 'lastName':
+        if (!value.match(/^[a-zA-ZñÑ\s]+$/)) {
+          fieldErrors.lastName = 'Ingrese un apellido válido';
+        }
+        break;
+      case 'postalCode':
+        if (!value.match(/^\d+$/)) {
+          fieldErrors.postalCode = 'Ingrese un código postal válido';
+        }
+        break;
+      case 'province':
+        if (!value.match(/^[a-zA-ZñÑ\s]+$/)) {
+          fieldErrors.province = 'Ingrese una provincia válida';
+        }
+        break;
+      case 'city':
+        if (!value.match(/^[a-zA-ZñÑ\s]+$/)) {
+          fieldErrors.city = 'Ingrese una ciudad válida';
+        }
+        break;
+      case 'street':
+        if (!value.match(/^[\w\s\d]+$/)) {
+          fieldErrors.street = 'Ingrese una calle válida';
+        }
+        break;
+      case 'number':
+        if (!value.match(/^\d+$/)) {
+          fieldErrors.number = 'Ingrese un número válido';
+        }
+        break;
+      case 'floor':
+        if (value.trim() && !value.match(/^[\w\d]+$/)) {
+          fieldErrors.floor = 'Ingrese un piso/dpto válido';
+        }
+        break;
+      case 'phoneNumber':
+        if (!value.match(/^[\d()-]+$/)) {
+          fieldErrors.phoneNumber = 'Ingrese un número de teléfono válido';
+        }
+        break;
+      case 'additionalInstructions':
+        if (value.trim() && !value.match(/^[a-zA-ZñÑ\s]+$/)) {
+          fieldErrors.additionalInstructions =
+            'Ingrese información adicional válida';
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  setErrors((prevErrors) => ({
+    ...prevErrors,
+    [fieldName]: fieldErrors[fieldName],
+  }));
+};
+
+const handleChange = (event) => {
+  const { name, value } = event.target;
+  setInitialValues((prevFormData) => ({
+    ...prevFormData,
+    [name]: value,
+  }));
+  validateField(event.target.name, event.target.value);
 };
 
 
+
+
 return (
-    <>
-    <h3 className={styles.title}>Ahora completa los campos para el envio!</h3>
-    <div className={styles.contenedor}>
-    <div className={styles.formulario}>
-        <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validate={validate}
-        >
-        <Form>
-            <div className={styles.row}>
+  <Grid container justifyContent="center" alignItems="center">
+    <Grid item xs={12} sm={8} md={6}>
+    <Paper style={paperStyle}>
+    <Grid align="center">
+      <Avatar style={avatarStyle}>
+        <LocalShippingIcon />
+      </Avatar>
+      <Typography variant="h5" style={headerStyle}>
+      Ahora completa los campos para el envio!
+      </Typography>
 
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="firstName">Nombre:</label>
-                <Field
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="firstName"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="lastName">Apellido:</label>
-                <Field
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="lastName"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-
-        </div>
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="postalCode">Código Postal:</label>
-                <Field
-                    type="text"
-                    id="postalCode"
-                    name="postalCode"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="postalCode"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-
-            <div className={styles.row}>
-
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="province">Provincia:</label>
-                <Field
-                    type="text"
-                    id="province"
-                    name="province"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="province"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="city">Localidad:</label>
-                <Field
-                    type="text"
-                    id="city"
-                    name="city"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="city"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-
-            </div>
-
-            <div className={styles.row}>
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="street">Calle:</label>
-                <Field
-                    type="text"
-                    id="street"
-                    name="street"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="street"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="number">Número:</label>
-                <Field
-                    type="text"
-                    id="number"
-                    name="number"
-                    className={styles.input}
-                />
-                <ErrorMessage
-                    name="number"
-                    component="div"
-                    className={styles.error}
-                />
-                </div>
-            </div>
-            </div>
-
-            <div className={styles.row}>
-            <div className={styles.column}>
-                <div>
-                <label htmlFor="floor">Piso/Dpto:</label>
-                <Field
-                    type="text"
-                    id="floor"
-                    name="floor"
-                    className={styles.input}
-                />
-                </div>
-            </div>
-            </div>
-
-            <div>
-            <label htmlFor="additionalInstructions">Indicaciones adicionales:</label>
-            <Field
-                as="textarea"
-                id="additionalInstructions"
-                name="additionalInstructions"
-                className={styles.input}
-            />
-            <ErrorMessage
-                name="additionalInstructions"
-                component="div"
-                className={styles.error}
-            />
-            </div>
-
-            <div className={styles.fieldGroup}>
-                <label>Es su casa o trabajo:</label>
-                <div className={styles.radioGroup}>
-                    <label>
-                    <Field type="radio" name="location" value="casa" />
-                    <span>Casa</span>
-                    </label>
-                    <label>
-                    <Field type="radio" name="location" value="trabajo" />
-                    <span>Trabajo</span>
-                    </label>
-                </div>
-                <ErrorMessage name="location" component="div" className={styles.error} />
-            </div>
+    </Grid>
+    <form onSubmit={handleSubmit}>
+    <Grid container spacing={2} style={marginTop}>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Nombre"
+      placeholder="Nombre"
+      name="firstName"
+      value={initialValues.firstName}
+      onChange={handleChange}
+      error={!!errors.firstName}
+      helperText={errors.firstName}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Apellido"
+      placeholder="Apellido"
+      name="lastName"
+      value={initialValues.lastName}
+      onChange={handleChange}
+      error={!!errors.lastName}
+      helperText={errors.lastName}
+    />
+  </Grid>
+  <Grid item xs={12}>
+    <TextField
+      fullWidth
+      label="Código Postal"
+      placeholder="Código Postal"
+      name="postalCode"
+      value={initialValues.postalCode}
+      onChange={handleChange}
+      error={!!errors.postalCode}
+      helperText={errors.postalCode}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Provincia"
+      placeholder="Provincia"
+      name="province"
+      value={initialValues.province}
+      onChange={handleChange}
+      error={!!errors.province}
+      helperText={errors.province}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Ciudad"
+      placeholder="Ciudad"
+      name="city"
+      value={initialValues.city}
+      onChange={handleChange}
+      error={!!errors.city}
+      helperText={errors.city}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Calle"
+      placeholder="Calle"
+      name="street"
+      value={initialValues.street}
+      onChange={handleChange}
+      error={!!errors.street}
+      helperText={errors.street}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Número"
+      placeholder="Número"
+      name="number"
+      value={initialValues.number}
+      onChange={handleChange}
+      error={!!errors.number}
+      helperText={errors.number}
+    />
+  </Grid>
+  <Grid item xs={12} sm={6}>
+    <TextField
+      fullWidth
+      label="Piso"
+      placeholder="Piso"
+      name="floor"
+      value={initialValues.floor}
+      onChange={handleChange}
+    />
+  </Grid>
+  <Grid item xs={12}>
+    <TextField
+      fullWidth
+      label="Instrucciones Adicionales"
+      placeholder="Instrucciones Adicionales"
+      name="additionalInstructions"
+      value={initialValues.additionalInstructions}
+      onChange={handleChange}
+    />
+  </Grid>
+  <Grid item xs={12}>
+    <TextField
+      fullWidth
+      label="Número de Teléfono"
+      placeholder="Número de Teléfono"
+      name="phoneNumber"
+      value={initialValues.phoneNumber}
+      onChange={handleChange}
+      error={!!errors.phoneNumber}
+      helperText={errors.phoneNumber}
+    />
+  </Grid>
+  <Button
+    type="submit"
+    fullWidth
+    variant="contained"
+    color="primary"
+    style={btnstyle}
+    onClick={() => {
+      if (
+        !initialValues.firstName ||
+        !initialValues.lastName ||
+        !initialValues.postalCode ||
+        !initialValues.province ||
+        !initialValues.location ||
+        !initialValues.street ||
+        !initialValues.number ||
+        !initialValues.phoneNumber ||
+        !initialValues.additionalInstructions
+      ) {
+        showAlert();
+      }
+    }}
+  >
+    Cargar datos de envío
+  </Button>
+</Grid>
 
 
-            <div>
-            <Field name="location">
-                {({ field }) => {
-                if (field.value === 'trabajo') {
-                    return (
-                    <div>
-                        <label htmlFor="workInstructions">Indicaciones de trabajo:</label>
-                        <Field
-                        as="textarea"
-                        id="workInstructions"
-                        name="workInstructions"
-                        style={{ display: 'block' }}
-                        className={styles.input}
-                        />
-                        <ErrorMessage
-                        name="workInstructions"
-                        component="div"
-                        className={styles.error}
-                        />
-                    </div>
-                    );
-                }
-                return null;
-                }}
-            </Field>
-            </div>
-
-                
-            <div>
-            <label htmlFor="phoneNumber">Teléfono de contacto:</label>
-            <Field
-                type="text"
-                id="phoneNumber"
-                name="phoneNumber"
-                className={styles.input}
-            />
-            <ErrorMessage
-                name="phoneNumber"
-                component="div"
-                className={styles.error}
-            />
-            </div>
-
-            <button type="submit" className={styles.submitButton} >
-            Enviar
-            </button>
-        </Form>
-        </Formik>
-    </div>
-    </div>
+    </form>
+    </Paper>
+    </Grid>
     <Footer />
     <ToastContainer />
-    </>
+  </Grid>
   );
 }
