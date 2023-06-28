@@ -36,8 +36,8 @@ const DashboardCardAdmin = ({
     <Card>
       <div className={styles.container}>
         <CardContent>
-          <Typography gutterBottom variant="h2" component="div">
-            Perfil de administrador
+          <Typography gutterBottom variant="h2" component="div" style={{ textAlign: 'center' }}>
+            Mi perfil
           </Typography>
           <div className={styles.InfoContainer}>
             <div className={styles.contentProfile}>
@@ -69,25 +69,22 @@ const DashboardCardAdmin = ({
             </div>
             <div className={styles.info}>
                 <Typography variant="body1" color="text.secondary" sx={{ fontSize:'30px', fontWeight: 'bold' }}>
-                  Nombre: {name}
+                  {name}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ fontSize:'23px' }}>
-                  Email: {email}
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ fontSize:'23px' }}>
-                  Fecha de nacimiento: {date_birth}
+                  {email}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ fontSize:'23px' }}>
                   Contraseña: {password}
                 </Typography>
+                {!isEditing && (
+                  <div className={styles.buttons}>
+                    <button onClick={handleEditClick}>Editar contraseña</button>       
+                  </div>
+                )}
             </div>
           </div>
         
-          {!isEditing && (
-            <div className={styles.buttons}>
-              <button onClick={handleEditClick}>Editar contraseña</button>       
-            </div>
-          )}
         </CardContent>
       </div>
     </Card>

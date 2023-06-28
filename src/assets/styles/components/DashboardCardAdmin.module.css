@@ -39,16 +39,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-}
-.info > * {
-    margin-bottom: 10px;
+    align-items: flex-start;
 }
 
-.buttons {
+.password {
+    display: flex;
+}
+
+.changePassword {
     display: flex;
     justify-content: space-around;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 .buttonSave {
@@ -57,10 +58,10 @@
     margin-top: 10px;
 }
 
-.buttons button {
-    width: 200px;
-    height: 40px;
-    font-size: 20px;
+.changePassword button {
+    width: fit-content;
+    height: 20px;
+    font-size: 15px;
     border-radius: 5px;
 }
 

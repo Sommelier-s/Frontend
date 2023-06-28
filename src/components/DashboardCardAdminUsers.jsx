@@ -12,11 +12,8 @@ const DashboardCardAdminUsers = ({
 
   return (
     <Card>
-        <div className={styles.container}>
+        <div className={styles.containerUser}>
             <CardContent>
-                <Typography gutterBottom variant="h2" component="div">
-                Perfil de usuario
-                </Typography>
                 <div className={styles.InfoContainer}>
                     <div className={styles.contentProfile}>
                         <div className={styles.contentPicture}>
@@ -30,16 +27,13 @@ const DashboardCardAdminUsers = ({
                         <Typography variant="body1" color="text.secondary" sx={{ fontSize:'23px' }}>
                         Email: {email}
                         </Typography>
-                        <Typography variant="body1" color="text.secondary" sx={{ fontSize:'23px' }}>
-                        Fecha de nacimiento: {date_birth}
-                        </Typography>
+                    </div>
+                    <div className={styles.buttons}>
+                        <button>Eliminar</button>
+                        <button>Nombrar como administrador</button>
                     </div>
                 </div>
             </CardContent>
-            <div className={styles.buttons}>
-                <button>Eliminar usuario</button>
-                <button>Hacer administrador</button>
-            </div>
         </div>
     </Card>
   );
