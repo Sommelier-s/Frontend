@@ -1,25 +1,35 @@
 .dashboard-container {
     display: flex;
-    margin: 20px;
-  }
+    margin: 40px;
+}
   
-  .dashboard-menu-container {
+.dashboard-menu-container {
     width: 240px;
     margin-right: 20px;
-  }
-  
-  .dashboard-card-container {
+}
+
+.dashboard-card-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
-  }
+}
+
+.cardProfile {
+  margin-top: 100px;
+  margin-left: 50px;
+}
+.cardProfileUser {
+  margin-top: 30px;
+  margin-left: -10px;
+}
 
 .botonBack {
   align-self: flex-start;
   width: 60px;
-  margin-top: 10px;
-  font-size: 20px;
-  margin-bottom: 10px;
+  margin-top: -5px;
+  margin-left: -15px;
+  font-size: 25px;
+  margin-bottom: 20px;
   border-radius: 50%;
   padding: 10px;
 }
@@ -32,4 +42,38 @@
   height: 30px;
   padding-right: 4px;
 }
+
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 4px;
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+.searchBar input[type="text"] {
+  flex: 1;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  padding: 8px;
+}
+
+.searchBar button {
+  border: none;
+  background-color:rgb(65, 65, 65);
+  padding: 4px;
+  cursor: pointer;
+  width: 100px;
+  height: 33px;
+  color: white;
+  border-radius: 0 8px 8px 0;
+}
+
   
