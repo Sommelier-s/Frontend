@@ -44,18 +44,37 @@ const Detail = () => {
 	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
 	const user = useSelector((state) => state && state.user);
 	const amount = useSelector((state) => state.amount);
+	const cart = useSelector((state) => state.cart);
 
+	const isStockAvailable = (id) => {
+		let stockAvailable = true;
+		for (let i = 0; i < cart.length; i++) {
+			if (cart[i].id == id) {
+				if (cart[i].quantity + 1 > cart[i].stock) {
+					stockAvailable = false;
+				}
+				i = cart.length;
+			}
+		}
+		return stockAvailable;
+	};
 	//Manejador para agregar al carro
 	const addToCartHandler = () => {
-		dispatch(addToCart(drink));
-		displaySuccessMessage('Producto agregado');
+		if (isStockAvailable(drink.id)) {
+			dispatch(addToCart(drink));
+			return displaySuccessMessage('Producto agregado');
+		}
+		displayFailedMessage('No puede agregar mas del stock disponible');
 	};
 
 	//Manejador para agregar al carro e ir a payment
 	const addToCartHandlerBuy = () => {
-		dispatch(addToCart(drink));
-		dispatch(updateAmount(amount + drink.price));
-		navigate(`/payment/${user.id}`);
+		if (isStockAvailable(drink.id)) {
+			dispatch(addToCart(drink));
+			dispatch(updateAmount(amount + drink.price));
+			navigate(`/payment/${user.id}`);
+		}
+		displayFailedMessage('No puede comprar mas del stock disponible, revisa el carrito');
 	};
 
 	const toggleCartVisibility = () => {
@@ -227,10 +246,21 @@ const Detail = () => {
 									</div>
 								</div>
 								<div className={styles.boxButton}>
-									<button className={styles.button} onClick={addToCartHandler}>
-										Agregar
-									</button>
-									{displayButtonBuy()}
+									{drink.stock !== 0 && (
+										<button
+											className={styles.button}
+											onClick={addToCartHandler}
+										>
+											Agregar
+										</button>
+									)}
+
+									{drink.stock !== 0 && displayButtonBuy()}
+									{drink.stock == 0 && (
+										<h3 className={styles.stockEmpty}>
+											Este producto no tiene Stock
+										</h3>
+									)}
 								</div>
 							</div>
 						</div>

@@ -14,7 +14,7 @@ import styles from '../assets/styles/components/CheckoutForm.module.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm() {
-	const cart = useSelector((state) => state.cart);
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -66,14 +66,7 @@ export default function CheckoutForm() {
 		const option = event.target.value;
 		setHomeDelivery(option);
 	};
-	const handleCancelBuy = (event) => {
-		event.preventDefault();
-		dispatch(updateCartEmptyStatus(true));
-		cart.forEach((product) => {
-			dispatch(removeFromCart(product.id));
-		});
-		navigate('/');
-	};
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

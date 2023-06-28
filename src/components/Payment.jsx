@@ -96,13 +96,15 @@ function Payment(props) {
 						<p>No hay productos en el carrito</p>
 					)}
 
-					<p className={styles.subTotal}>
-						Subtotal= $ <span>{amount}</span>{' '}
-					</p>
+					<div className={styles.contentAmount}>
+						<p className={styles.subTotal}>
+							Subtotal= $ <span>{amount}</span>{' '}
+						</p>
 
-					<h3 className={styles.total}>
-						Total= $ <span>{amount}</span>{' '}
-					</h3>
+						<h3 className={styles.total}>
+							Total= $ <span>{amount}</span>{' '}
+						</h3>
+					</div>
 				</div>
 			</main>
 		</div>

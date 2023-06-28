@@ -85,7 +85,6 @@ const Cart = () => {
 	};
 
 	const notAllowed = () => {
-		
 		swal({
 			title: 'Usuario No registrado',
 			icon: 'error',
@@ -110,7 +109,11 @@ const Cart = () => {
 	);
 
 	return (
-		<div className={styles.container}>
+		<div
+			className={
+				cart.length > 0 ? `${styles.container}` : `${styles.containerEmpty}`
+			}
+		>
 			<div>
 				<div className={styles.cartContainer}>
 					{cart.length > 0 ? (
