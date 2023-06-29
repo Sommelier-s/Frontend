@@ -1,17 +1,49 @@
 .mainContainer {
-    width: 300px;
+	width: 300px;
+}
+.notVisible {
+	width: 100%;
+	background: rgba(255, 0, 0, 0.521);
+    position: relative;
+    z-index:2;
 }
 
-.imageContainer {
-    position: relative;
-    height: 250px;
+.visible {
+	width: 100%;
+	background: none;
 }
-  
-.imageContainer img {
-    position: absolute;
-    padding: 5px;
-    margin-left: 100px;
-    height: 90%;
-    width: auto;
-    object-fit: cover;
+.imageContainer {
+	width: 100%;
+	height: 250px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	overflow: hidden;
+}
+
+.imageCard {
+	width: 85%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.imageCard img {
+	width: auto;
+	height: 100%;
+}
+
+.contentIconImage {
+	width: 15%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 0px;
 }

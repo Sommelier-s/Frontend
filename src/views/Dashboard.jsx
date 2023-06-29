@@ -9,69 +9,69 @@ import DashboardCardAdminUsers from '../components/DashboardCardAdminUsers';
 import styles from '../assets/styles/components/views/Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
 import CreateCategory from '../components/CreateCategory';
-import imageBack from "../assets/img/imageBack.png";
+import imageBack from '../assets/img/imageBack.png';
 
 export default function Dashboard() {
 	const users = [
 		{
-			"id":"d7f80a8b-8d53-498a-95ab-46ba10775264",
-			"first_name":"Andrea",
-			"last_name":"Rincon",
-			"date_birth":"1983-11-27",
-			"email":"andrea@gmail.com",
-			"profile_picture":"https://ionicframework.com/docs/img/demos/avatar.svg",
-			"isAdmin":false
+			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+			first_name: 'Andrea',
+			last_name: 'Rincon',
+			date_birth: '1983-11-27',
+			email: 'andrea@gmail.com',
+			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+			isAdmin: false,
 		},
 		{
-			"id":"d7f80a8b-8d53-498a-95ab-46ba10775264",
-			"first_name":"Miguel",
-			"last_name":"Fernandez",
-			"date_birth":"1983-11-27",
-			"email":"miguel2711@gmail.com",
-			"profile_picture":"https://ionicframework.com/docs/img/demos/avatar.svg",
-			"isAdmin":false
+			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+			first_name: 'Miguel',
+			last_name: 'Fernandez',
+			date_birth: '1983-11-27',
+			email: 'miguel2711@gmail.com',
+			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+			isAdmin: false,
 		},
 		{
-			"id":"d7f80a8b-8d53-498a-95ab-46ba10775264",
-			"first_name":"Gonzalo",
-			"last_name":"Suarez",
-			"date_birth":"1983-11-27",
-			"email":"gonzalo@gmail.com",
-			"profile_picture":"https://ionicframework.com/docs/img/demos/avatar.svg",
-			"isAdmin":false
+			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+			first_name: 'Gonzalo',
+			last_name: 'Suarez',
+			date_birth: '1983-11-27',
+			email: 'gonzalo@gmail.com',
+			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+			isAdmin: false,
 		},
 		{
-			"id":"d7f80a8b-8d53-498a-95ab-46ba10775264",
-			"first_name":"Pedro",
-			"last_name":"Romero",
-			"date_birth":"1983-11-27",
-			"email":"pedrofaro2711@gmail.com",
-			"profile_picture":"https://ionicframework.com/docs/img/demos/avatar.svg",
-			"isAdmin":false
+			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+			first_name: 'Pedro',
+			last_name: 'Romero',
+			date_birth: '1983-11-27',
+			email: 'pedrofaro2711@gmail.com',
+			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+			isAdmin: false,
 		},
-	
-	]
+	];
 
 	const product = [
 		{
-			"id": "f6a654cc-7448-41a7-9eee-668b01d06904",
-			"name": "Vino Pedro",
-			"description": "Es un vino dulce y de buen sabor",
-			"price": 100,
-			"picture": "https://www.sodivin.co.uk/24016-large_default/gaffeliere-la-1985.jpg",
-			"stock": 5,
-			"isActive": true,
-			"createdAt": "2023-06-23T01:32:23.688Z",
-			"updatedAt": "2023-06-23T01:32:23.688Z",
-			"Wine_categoryId": "f34ce926-7d0e-4c93-9831-a945c1f50590",
-			"wine_category": {
-				"id": "f34ce926-7d0e-4c93-9831-a945c1f50590",
-				"name": "Vino Tinto",
-				"createdAt": "2023-06-19T20:45:52.244Z",
-				"updatedAt": "2023-06-19T20:45:52.244Z"
-			}
-		}
-	]
+			id: 'f6a654cc-7448-41a7-9eee-668b01d06904',
+			name: 'Vino Pedro',
+			description: 'Es un vino dulce y de buen sabor',
+			price: 100,
+			picture:
+				'https://www.sodivin.co.uk/24016-large_default/gaffeliere-la-1985.jpg',
+			stock: 5,
+			isActive: true,
+			createdAt: '2023-06-23T01:32:23.688Z',
+			updatedAt: '2023-06-23T01:32:23.688Z',
+			Wine_categoryId: 'f34ce926-7d0e-4c93-9831-a945c1f50590',
+			wine_category: {
+				id: 'f34ce926-7d0e-4c93-9831-a945c1f50590',
+				name: 'Vino Tinto',
+				createdAt: '2023-06-19T20:45:52.244Z',
+				updatedAt: '2023-06-19T20:45:52.244Z',
+			},
+		},
+	];
 
 	const dispatch = useDispatch();
 	const [selectedOption, setSelectedOption] = useState('profile'); // Estado para almacenar la opción seleccionada del menú
@@ -91,12 +91,15 @@ export default function Dashboard() {
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
 
-		if (selectedOption === 'wine' || selectedOption === 'liquor' || selectedOption === 'users') {
+		if (
+			selectedOption === 'wine' ||
+			selectedOption === 'liquor' ||
+			selectedOption === 'users'
+		) {
 			setShowSearchBar(true);
 		} else {
 			setShowSearchBar(false);
 		}
-
 	}, [selectedOption]);
 
 	let filteredData;
@@ -125,7 +128,6 @@ export default function Dashboard() {
 		default:
 			filteredData = [];
 	}
-	console.log('seleccion:', selectedOption);
 
 	const handleMenu = (option) => {
 		setSelectedOption(option);
@@ -134,7 +136,7 @@ export default function Dashboard() {
 	//Manejador para la searchBar
 	const handleSearchChange = (event) => {
 		setSearchValue(event.target.value);
-	};  
+	};
 
 	const displayCreateCategory = (event) => {
 		event.preventDefault();
@@ -143,15 +145,12 @@ export default function Dashboard() {
 
 	return (
 		<div className={styles['dashboard-container']}>
-			
 			<div className={styles['dashboard-menu-container']}>
-
 				<button className={styles.botonBack} onClick={() => navigate('/')}>
 					<img className={styles.imageBack} src={imageBack} alt="Volver" />
 				</button>
-				
+
 				<DashboardMenu onClick={handleMenu} />
-				
 			</div>
 			<div className={styles.mainContainerCards}>
 				<div>
@@ -167,52 +166,63 @@ export default function Dashboard() {
 						</div>
 					)}
 				</div>
-			<div className={styles.cardProfile}>
-				{selectedOption === 'profile' && (
-					<DashboardCardAdmin
-						profile_picture = {user.profile_picture}
-						name={`${user.first_name} ${user.last_name}`}
-						email = {user.email}
-						date_birth = {user.date_birth}
-						password = "**********"
-					/>
-				)}
-			</div>
-			<div className={styles.cardProfileUser}>
-				{selectedOption === 'users' && (
-					<div>
-						{users
-						.filter((item) => `${item.first_name} ${item.last_name}`.toLowerCase().includes(searchValue.toLowerCase()))
-						.map((user) => (
-							<DashboardCardAdminUsers
-								key={user.id}
-								profile_picture = {user.profile_picture}
-								name={`${user.first_name} ${user.last_name}`}
-								email = {user.email}
-								date_birth = {user.date_birth}
-							/>
-						))}
-					</div>
-				)}
-			</div>
+				<div className={styles.cardProfile}>
+					{selectedOption === 'profile' && (
+						<DashboardCardAdmin
+							profile_picture={user.profile_picture}
+							name={`${user.first_name} ${user.last_name}`}
+							email={user.email}
+							date_birth={user.date_birth}
+							password="**********"
+						/>
+					)}
+				</div>
+				<div className={styles.cardProfileUser}>
+					{selectedOption === 'users' && (
+						<div>
+							{users
+								.filter((item) =>
+									`${item.first_name} ${item.last_name}`
+										.toLowerCase()
+										.includes(searchValue.toLowerCase()),
+								)
+								.map((user) => (
+									<DashboardCardAdminUsers
+										key={user.id}
+										profile_picture={user.profile_picture}
+										name={`${user.first_name} ${user.last_name}`}
+										email={user.email}
+										date_birth={user.date_birth}
+									/>
+								))}
+						</div>
+					)}
+				</div>
 
-			<div className={styles.cardsContainer}>
-				{selectedOption !== "users" && filteredData.length > 0 && (
-					<div className={styles['dashboard-card-container']}>
-						{filteredData
-						.filter((item) => item.name.toLowerCase().includes(searchValue.toLowerCase()))
-						.map((item) => (
-							<DashboardCard
-								key={item.id}
-								name={item.name} // Propiedad "name" desde el estado
-								description={item.description} // Propiedad "description" desde el estado
-								stock={item.stock} // Propiedad "stock" desde el estado
-								picture={item.picture} // Propiedad "picture" desde el estado
-							/>
-						))}
-					</div>
-				)}
-			</div>
+				<div className={styles.cardsContainer}>
+					{selectedOption !== 'users' && filteredData.length > 0 && (
+						<div className={styles['dashboard-card-container']}>
+							{filteredData
+								.filter((item) =>
+									item.name.toLowerCase().includes(searchValue.toLowerCase()),
+								)
+								.map((item) => (
+									<DashboardCard
+										id={item.id}
+										key={item.id}
+										name={item.name} // Propiedad "name" desde el estado
+										description={item.description} // Propiedad "description" desde el estado
+										stock={item.stock} // Propiedad "stock" desde el estado
+										picture={item.picture} // Propiedad "picture" desde el estado
+										isActive={item.isActive}
+										price={item.price}
+										id_picture={item.picture}
+										graduation={item.graduation}
+									/>
+								))}
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

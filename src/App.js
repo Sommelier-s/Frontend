@@ -21,6 +21,7 @@ import DashboardUser from './views/DashboardUser';
 import CreateCategory from './components/CreateCategory';
 import ConfirmedUser from './components/ConfirmedUser';
 import ResetPassword from './components/ResetPassword';
+import UpdateProducts from "./components/UpdateProducts";
 import axios from "axios";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -105,6 +106,7 @@ function App() {
         <Route path="/about" element={< About />} />
         <Route path="/buy" element={< Buy />} />
         <Route path="/create/:id" element={< Create />} />
+        <Route path="/update_product/:id" element={< UpdateProducts />} />
         <Route path="/payment/:id" element={< Payment />} />
         <Route path="/completion" element={< Completion />} />
         <Route path="/shipment" element={< Shipment />} />
