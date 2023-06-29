@@ -207,18 +207,18 @@ font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     letter-spacing: 1px;
     text-decoration: none;
-    color: var(--color-primary-button);
+    color: var(--color-first);
     background: transparent;
     cursor: pointer;
     transition: ease-out 0.5s;
-    border: 2px solid var(--color-secondary-button);
+    border: 2px solid var(--color-second);
     border-radius: 10px;
-    box-shadow: inset 0 0 0 0 var(--color-primary-button);
+    box-shadow: inset 0 0 0 0 var(--color-first);
   }
   
   .button:hover {
     color: white;
-    box-shadow: inset 0 -100px 0 0 var(--color-primary-button);
+    box-shadow: inset 0 -100px 0 0 var(--color-first);
   }
   
   .button:active {

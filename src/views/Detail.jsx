@@ -187,7 +187,7 @@ const Detail = () => {
 						/>
 					</div>
 
-					<h3 className={styles.title}>Project details</h3>
+					<h3 className={styles.title}>Detalles del Producto</h3>
 				</div>
 
 				{drink ? (

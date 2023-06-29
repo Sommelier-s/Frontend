@@ -61,7 +61,9 @@ export default function Create() {
 
 	const deleteImage = async (publicId) => {
 		try {
-			const { data } = axios.delete(`/cloudinary/delete?id_public=${publicId}`);
+			const { data } = await axios.delete(
+				`/cloudinary/delete?id_public=${publicId}`,
+			);
 			console.log(data);
 		} catch (error) {
 			console.log(error);
@@ -85,7 +87,8 @@ export default function Create() {
 		return false;
 	};
 
-	const displayOptions = () => {
+	const displayOptions = (event) => {
+		event.preventDefault();
 		//para el icono solo debes poner el tipo, hay 4
 		// error, success, warning, info
 		swal({
@@ -98,14 +101,14 @@ export default function Create() {
 				deleteImage(image.id_image);
 				setImage({ ...image, array: [] });
 				setLoading('');
-				return swal({
+				swal({
 					title: 'Eliminado con exito',
 					text: 'Vuelve a cargar una imagen',
 					icon: 'success',
 					buttons: 'Aceptar',
 				});
 			} else {
-				return swal({
+				swal({
 					title: 'Eliminacion no ejecutada',
 					text: '',
 					icon: 'success',
