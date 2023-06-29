@@ -107,6 +107,18 @@ const About = () => {
 			logo: 'https://icongr.am/devicon/git-original.svg?size=148&color=f7f7f7',
 			link: 'https://es.wikipedia.org/wiki/Git',
 		},
+
+		{
+			program: 'cloudinary',
+			logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzS0-Dgvl2afQwqpC1MmC_rQcmZssP0CuusXS2MIMTjK90TN6grVxlxwkXZe158GDgOMY&usqp=CAU',
+			link: 'https://en.wikipedia.org/wiki/Cloudinary',
+		},
+
+		{
+			program: 'google',
+			logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/588px-Google_%22G%22_Logo.svg.png?20230305195327',
+			link: 'https://cloud.google.com/docs/authentication?hl=es-419',
+		},
 	];
 
 	return (
@@ -166,7 +178,7 @@ const About = () => {
 			<div>
 				<h1 className={styles.title}>TECNOLOGÍAS</h1>
 			</div>
-			<div>
+			<div className={styles.tecnologiasContainer}>
 				<ul className={styles.tecnologias}>
 					{tecnologias.map((tecnologia) => (
 						<li key={tecnologia.program}>
