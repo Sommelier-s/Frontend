@@ -20,11 +20,14 @@
   width: 100%;
   height: 400px;
   overflow: hidden;
-  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  background: white;
+  align-items: center;
   margin-bottom: 10px;
 }
 .contentImage .imageCard{
-  width: 100%;
+  width: auto;
   height: 100%;
 }
 
