@@ -23,7 +23,7 @@ import ConfirmedUser from './components/ConfirmedUser';
 import ResetPassword from './components/ResetPassword';
 import UpdateProducts from "./components/UpdateProducts";
 import axios from "axios";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   updateCartFromLocalStorage,
@@ -67,14 +67,6 @@ function App() {
 
   useEffect(() => {
 
-    const cart = window.localStorage.getItem("cart");
-    if (cart) {
-      const cartParseado = JSON.parse(cart);
-      if (cartParseado.length != 0) {
-        dispatch(updateCartFromLocalStorage(cartParseado));
-      }
-    }
-
     const user = window.localStorage.getItem("user");
     if (user) {
       const userParseado = JSON.parse(user);
@@ -88,6 +80,15 @@ function App() {
       dispatch(updateAmount(parseInt(amount)));
 
     }
+
+
+    const cart = window.localStorage.getItem("cart");
+    if (cart) {
+      const cartParseado = JSON.parse(cart);
+      dispatch(updateCartFromLocalStorage(cartParseado));
+      dispatch(updateAmount(parseInt(amount)));
+    }
+
 
   }, [])
 

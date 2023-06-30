@@ -9,8 +9,10 @@ import {
 } from '../redux/actions';
 
 import swal from 'sweetalert';
+import { useState } from 'react';
 //Importación de estilos
 import styles from '../assets/styles/components/Cart.module.css';
+import axios from 'axios';
 
 const Cart = () => {
 	const navigate = useNavigate();
@@ -61,12 +63,40 @@ const Cart = () => {
 		}
 	};
 
+	const [id_Cart, setId_Cart] = useState('');
+
+	const thereIsACart = async () => {
+		try {
+			const { data } = await axios.get(`/cart/?id=${user.id}`);
+			setId_Cart(data.data.id);
+		} catch (error) {
+			
+		}
+	};
+
+	const emptyCartFromBackend = async () => {
+		try {
+			const { data } = await axios.delete(`/cart/?id=${id_Cart}`);
+		} catch (error) {			
+		}
+	};
+
+	useEffect(() => {
+		thereIsACart();
+	}, []);
+
 	const handleEmptyCart = () => {
+		thereIsACart();
 		// Obtener la URL completa
 		const fullUrl = `${location.origin}${location.pathname}${location.search}${location.hash}`;
 		if (fullUrl.toLocaleLowerCase().includes('payment')) {
 			return displaySweetAlert('Use el boton cancelar compra', 'warning');
 		}
+
+		if (id_Cart != '') {
+			emptyCartFromBackend();
+		}
+
 		dispatch(updateCartEmptyStatus(true));
 		cart.forEach((product) => {
 			dispatch(removeFromCart(product.id));

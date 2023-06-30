@@ -80,7 +80,9 @@ const Detail = () => {
 			dispatch(updateAmount(amount + drink.price));
 			navigate(`/payment/${user.id}`);
 		}
-		displayFailedMessage('No puede comprar mas del stock disponible, revisa el carrito');
+		displayFailedMessage(
+			'No puede comprar mas del stock disponible, revisa el carrito',
+		);
 	};
 	
 	const toggleCartVisibility = () => {
@@ -267,7 +269,7 @@ const Detail = () => {
 									</div>
 								</div>
 								<div className={styles.boxButton}>
-									{drink.stock !== 0 && (
+									{drink.stock !== 0 && user.id && (
 										<button
 											className={styles.button}
 											onClick={addToCartHandler}
