@@ -82,11 +82,7 @@ export default function DashboardMenu({ onClick }) {
 					<ListItemText>Envíos realizados</ListItemText>
 				</MenuItem>
 				<Divider />
-				<MenuItem
-					onClick={() => {
-						navigate(`/create/${user.id}`);
-					}}
-				>
+				<MenuItem onClick={() => handleItemClick('create')}>
 					<ListItemIcon>
 						<AddCircleOutlineRoundedIcon fontSize="medium" />
 					</ListItemIcon>

@@ -402,7 +402,7 @@ export default function Create() {
 	const paperStyle = {
 		padding: '30px 20px',
 		width: 500,
-		margin: '20px auto',
+		margin: '0px auto',
 	};
 	const avatarStyle = {
 		backgroundColor: '#1bbd7e',
@@ -419,14 +419,7 @@ export default function Create() {
 
 	return (
 		<div className={styles.content}>
-			<button
-				onClick={() => {
-					navigate(`/dashboard/${user.id}`);
-				}}
-			>
-				Volver
-			</button>
-			<Grid container>
+			<Grid container justifyContent="center" alignItems="center">
 				<Grid item xs={12} sm={8} md={6}>
 					<Paper style={paperStyle}>
 						<Grid align="center">

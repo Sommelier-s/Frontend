@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import CreateCategory from '../components/CreateCategory';
 import imageBack from '../assets/img/imageBack.png';
 import AddCategoryForm from '../components/AddCategoryForm';
+import Create from '../views/Create'
 
 export default function Dashboard() {
 	const users = [
@@ -228,6 +229,12 @@ export default function Dashboard() {
 			<div className={styles.cardsContainer}>
 				{selectedOption === 'load new category' && (
 					< AddCategoryForm />
+				)}
+			</div>
+
+			<div className={styles.cardsContainer}>
+				{selectedOption === 'create' && (
+					< Create />
 				)}
 			</div>
 			

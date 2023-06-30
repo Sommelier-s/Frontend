@@ -84,7 +84,7 @@ export default function AddCategoryForm() {
   const paperStyle = {
     padding: '30px 20px',
     width: 500,
-    margin: '20px auto',
+    margin: '0px auto',
   };
   const avatarStyle = {
     backgroundColor: '#1bbd7e',
