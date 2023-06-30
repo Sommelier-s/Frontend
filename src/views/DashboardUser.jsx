@@ -18,27 +18,25 @@ const DashboardUser = () => {
 	const [purchasedProducts, setPurchasedProducts] = useState([]);
 	const [productsSaved, setProductsSaved] = useState([]);
 	const navigate = useNavigate();
-	const userID = 'e2450f22-c955-4399-8d51-944db3703f07';
+	const user = useSelector((state) => state.user);
+	const idUser = user.id;
 	
-	useEffect(() => {
-		getPurchasedProducts();
-	}, []);
+	
 	
 	const getPurchasedProducts = async () => {
 		try {
-			const { data } = await axios.get(`http://localhost:3001/purchased/${userID}`);
+			const { data } = await axios.get(`/purchased/${idUser}`);
 			setPurchasedProducts(data.data);
 			await fetchProductDetails();
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	
 	const fetchProductDetails = async () => {
 		try {
 			const productDetails = await Promise.all(
 				purchasedProducts.map(async (el) => {
-					const { data } = await axios.get(`http://localhost:3001/wine/${el.product_id}`);
+					const { data } = await axios.get(`/both_drinks/?id=${el.product_id}`);
 					return data.data;
 				})
 				);
@@ -47,12 +45,25 @@ const DashboardUser = () => {
 				console.log(error);
 			}
 		};
-		
+		 
+
+
 		const handleMenu = (option) => {
 			setSelectedOption(option);
+			getAllInformation()
 		};
-		
+		console.log(purchasedProducts)	
 		console.log(productsSaved);
+		const getAllInformation = async () => {
+			await getPurchasedProducts();
+			await fetchProductDetails()
+		}
+		
+		useEffect(() => {
+			getAllInformation()
+		}, []);
+
+		console.log(productsSaved)
 		return (
 		<div className={styles.container}>
 			<div className={styles.menuContainer}>
