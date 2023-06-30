@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Card, CardContent, Typography, TextField, Button, Rating } from '@mui/material';
+import axios from 'axios';
 import styles from "../assets/styles/components/DashboardCardProductUser.module.css";
 const DashboardCardProductUser = ({ product }) => {
+    const user = useSelector((state) => state.user);
+    const idUser = user.id;
+    console.log(product.wine_category);
+    console.log(idUser);
 
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(0);
@@ -17,11 +23,28 @@ const DashboardCardProductUser = ({ product }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         alert("Comentario guardado");
-        // Restablecer los valores del formulario
         setComment('');
         setRating(0);
+        if(product.wine_category){
+          axios.post(`/ratingWines/?id=${idUser}`, {
+            productId: product.id,
+            puntuation: rating,
+            comment: comment
+          });
+        }else {
+          axios.post(`/ratingLiquors/?id=${idUser}`, {
+            productId: product.id,
+            puntuation: rating,
+            comment: comment
+          });
+        }
+        // Restablecer los valores del formulario
+        setComment('')
+        setRating(0)
+        
     };
-
+    console.log(comment)
+    console.log(rating)
   return (
     <Card className={styles.card}>
       <CardContent>
