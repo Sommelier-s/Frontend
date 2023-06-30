@@ -30,6 +30,11 @@ const Detail = () => {
 	const navigate = useNavigate();
 	const [rating, setRating] = useState(3);
 
+	const [info, setInfo] = useState()
+
+
+
+
 	const previousPath = location?.state?.from || '/home';
 
 	const [drink, setDrink] = useState();
@@ -37,7 +42,8 @@ const Detail = () => {
 	const desarrolloApp = 'http://localhost:3001';
 
 	const { id } = useParams();
-
+	
+	
 	//Estado para la visibilidad del carrrito de compras
 	const [isCartVisible, setIsCartVisible] = useState(false);
 	//Estado para carrito vacio
@@ -66,7 +72,7 @@ const Detail = () => {
 		}
 		displayFailedMessage('No puede agregar mas del stock disponible');
 	};
-
+	
 	//Manejador para agregar al carro e ir a payment
 	const addToCartHandlerBuy = () => {
 		if (isStockAvailable(drink.id)) {
@@ -76,27 +82,42 @@ const Detail = () => {
 		}
 		displayFailedMessage('No puede comprar mas del stock disponible, revisa el carrito');
 	};
-
+	
 	const toggleCartVisibility = () => {
 		setIsCartVisible(!isCartVisible);
 	};
-
+	
 	const searchDrink = async () => {
 		try {
 			const { data } = await axios.get(
 				`${desarrolloApp}/both_drinks/?id=${id}`,
-			);
-			setDrink(data.data);
-		} catch (error) {
-			displayFailedMessage('Bebida no encontrada');
-			console.log(error.response.error);
+				);
+				setDrink(data.data);
+			} catch (error) {
+				displayFailedMessage('Bebida no encontrada');
+				console.log(error.response.error);
+			}
+		};
+		const getRatingsByProduct = async () => {
+			try {
+				const {data} = await axios.get(`/rating/product/${id}`)
+				console.log(data.data)
+				setInfo(data.data)
+				
+			} catch (error) {
+				console.log(error.error);
+				
+			}
 		}
-	};
-
-	useEffect(() => {
-		searchDrink();
-	}, []);
-
+		
+		
+		useEffect(() => {
+			searchDrink();
+			getRatingsByProduct()
+			
+		}, []);
+		
+		console.log(info);
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -274,44 +295,24 @@ const Detail = () => {
 					<div className={styles.contentRating}>
 						<h1 className={styles.titleComent}>Comentarios y puntuaciones</h1>
 
-						<div className={styles.boxRating}>
+						{info ? info.map((data) => {
+
+						return( <div className={styles.boxRating}>
 							<Rating
 								name="product-rating"
-								value={rating}
+								value={data.puntuation}
 								className={styles.rating}
 								// onChange={(event, value) => handleRatingChange(value)}
 								size="large"
 							/>
 
 							<p className={styles.comment}>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-								fuga veritatis autem natus dolor fugit numquam ut mollitia id
-								iure adipisci ab ea sint vitae voluptatibus, ad consequatur
-								quasi delectus. Lorem ipsum dolor sit amet consectetur,
-								adipisicing elit. Rerum autem maxime, sapiente sunt sint quos
-								eligendi neque doloremque pariatur recusandae laudantium
-								officiis, possimus molestias ut ad maiores eaque enim accusamus.
+								{data.comment}
 							</p>
-						</div>
-						<div className={styles.boxRating}>
-							<Rating
-								name="product-rating"
-								value={rating}
-								className={styles.rating}
-								// onChange={(event, value) => handleRatingChange(value)}
-								size="large"
-							/>
-
-							<p className={styles.comment}>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-								fuga veritatis autem natus dolor fugit numquam ut mollitia id
-								iure adipisci ab ea sint vitae voluptatibus, ad consequatur
-								quasi delectus. Lorem ipsum dolor sit amet consectetur,
-								adipisicing elit. Rerum autem maxime, sapiente sunt sint quos
-								eligendi neque doloremque pariatur recusandae laudantium
-								officiis, possimus molestias ut ad maiores eaque enim accusamus.
-							</p>
-						</div>
+						</div>)
+						}): (
+							<p className={styles.comment}>'No Tiene Comentario este Producto'</p>)} 
+						
 					</div>
 				)}
 			</main>
