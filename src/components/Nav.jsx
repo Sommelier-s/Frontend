@@ -21,6 +21,7 @@ import {
 } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/components/Nav.module.css';
+import axios from 'axios';
 
 const Nav = () => {
 	//Estado para la visibilidad del carrrito de compras
@@ -28,18 +29,55 @@ const Nav = () => {
 	//Estado para carrito vacio
 	const isCartEmpty = useSelector((state) => state.cart.isCartEmpty);
 	const cart = useSelector((state) => state.cart);
-
+	const [cartBack, setCartBack] = useState();
 	const [cartCount, setCartCount] = useState(0);
-
+	const amount = useSelector((state) => state.amount);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user);
+
+	const thereIsACart = async () => {
+		try {
+			const { data } = await axios.get(`/cart/?id=${user.id}`);
+			setCartBack(data.data);
+		} catch (error) {
+			
+		}
+	};
+
+	useEffect(() => {
+		setCartCount(cart.length);
+		thereIsACart();
+	}, [cart]);
 
 	const toggleCartVisibility = () => {
 		setIsCartVisible(!isCartVisible);
 	};
 
-	const handleLogOut = (event) => {
+	const handleLogOut = async (event) => {
+		thereIsACart();
+		
+		if (cart.length !== 0) {
+			const updateCartForBack = {
+				cart: cart,
+				amount: amount,
+			};
+			try {
+				const { data } = await axios.put(
+					`/cart/?id=${user.id}`,
+					updateCartForBack,
+				);
+				setCartBack(data.data);
+			} catch (error) {
+				try {
+					const { data } = await axios.post(
+						`/cart/?id=${user.id}`,
+						updateCartForBack,
+					);
+				} catch (error) {}
+			}
+		}
+
 		event.preventDefault();
 		dispatch(updateCartEmptyStatus(true));
 		cart.forEach((product) => {
@@ -79,10 +117,6 @@ const Nav = () => {
 			);
 		else return <Link className={styles.item} to={'/'}></Link>;
 	};
-
-	useEffect(() => {
-		setCartCount(cart.length);
-	}, [cart]);
 
 	return (
 		<div className={styles.container}>

@@ -10,6 +10,8 @@ import {
 	getAllCategoryWine,
 	getAllCategoryLiquor,
 	generatedUserId,
+	updateAmount,
+	updateCartFromLocalStorage,
 } from '../redux/actions';
 
 // Importación de componentes
@@ -17,27 +19,127 @@ import CardsContainerWine from '../components/CardsContainerWine';
 import CardsContainerLiquor from '../components/CardsContainerLiquor';
 import CardsContainerOffers from '../components/CardsContainerOffers';
 import Footer from '../components/Footer';
+import axios from 'axios';
 
 //Importación de estilos
 import styles from '../assets/styles/components/views/Home.module.css';
 
 //Importación de imagenes
-import calidad from "../assets/img/Calidad.png";
-import atencion from "../assets/img/24_7.png";
-import pago from "../assets/img/Pago.png";
-import domicilio from "../assets/img/Domicilio.png";
+import calidad from '../assets/img/Calidad.png';
+import atencion from '../assets/img/24_7.png';
+import pago from '../assets/img/Pago.png';
+import domicilio from '../assets/img/Domicilio.png';
 
 const Home = () => {
-  const [selectedIcon, setSelectedIcon] = useState(null);
+	const [selectedIcon, setSelectedIcon] = useState(null);
 
-  const handleIconClick = (icon) => {
-    setSelectedIcon(icon === selectedIcon ? null : icon);
-  };
+	const handleIconClick = (icon) => {
+		setSelectedIcon(icon === selectedIcon ? null : icon);
+	};
 
-  const stateGlobal = useSelector((state) => state.AllDrinks);
+	const stateGlobal = useSelector((state) => state.AllDrinks);
+	const [cartBack, setCartBack] = useState();
+	const user = useSelector((state) => state.user);
+
+	const thereIsACart = async () => {
+		if (user.id) {
+			try {
+				const { data } = await axios.get(`/cart/?id=${user.id}`);
+				setCartBack(data.data);
+			} catch (error) {}
+		}
+		return;
+	};
+
+	const cartElementsUpdate = (backup, newCart) => {
+		let arrayUpdate = [];
+
+		const sortBackup = backup.sort((a, b) => {
+			const idA = a.id.replace(/-/g, ''); // Elimina los guiones del UUID
+			const idB = b.id.replace(/-/g, '');
+
+			if (idA < idB) {
+				return -1;
+			}
+			if (idA > idB) {
+				return 1;
+			}
+			return 0;
+		});
+
+		const sortNewCart = newCart.sort((a, b) => {
+			const idA = a.id.replace(/-/g, ''); // Elimina los guiones del UUID
+			const idB = b.id.replace(/-/g, '');
+
+			if (idA < idB) {
+				return -1;
+			}
+			if (idA > idB) {
+				return 1;
+			}
+			return 0;
+		});
+
+		for (let i = 0; i < sortBackup.length; i++) {
+			for (let j = 0; j < sortNewCart.length; j++) {
+				if (sortBackup[i].id === sortNewCart[j].id) {
+					sortBackup[i].quantity += sortNewCart[j].quantity;
+					if (sortBackup[i].quantity > sortBackup[i].stock) {
+						const excedente = sortBackup[i].quantity - sortBackup[i].stock;
+						sortBackup[i].quantity = sortBackup[i].quantity - excedente;
+					}
+					arrayUpdate.push(sortBackup[i]);
+					j = sortNewCart.length;
+				} else {
+					arrayUpdate.push(sortNewCart[j]);
+
+					// console.log('Entro por el else');
+					// const searchElement = arrayUpdate.filter(
+					// 	(element) => element.id === sortNewCart[j].id,
+					// );
+
+					// // console.log('Elemento buscado en arrayUpdate', searchElement);
+					// // const searchElementInBackup = sortBackup.filter(
+					// // 	(element) => element.id === sortNewCart[j].id,
+					// // );
+
+					// console.log('Elemento buscado en sortBackup', sortBackup);
+
+					// if (searchElement.length === 0) {
+					// 	console.log('Entro para agregar');
+					// 	arrayUpdate.push(sortNewCart[j]);
+					// }
+				}
+			}
+		}
+
+		return arrayUpdate;
+	};
+
+	// const cartElementsUpdate = (backup, newCart) => {
+	// 	let arrayUpdate = [];
+	// 	const sortBackup = [...new Set(backup)];
+
+	// 	for (let i = 0; i < sortBackup.length; i++) {
+	// 		for (let j = 0; j < newCart.length; j++) {
+	// 			if (sortBackup[i].id === newCart[j].id) {
+	// 				sortBackup[i].quantity += newCart[j].quantity;
+	// 				arrayUpdate.push(sortBackup[i]);
+	// 				j = newCart.length;
+	// 			} else {
+	// 				arrayUpdate.push(sortBackup[j]);
+	// 				j = newCart.length;
+	// 			}
+	// 		}
+	// 	}
+
+	// 	return arrayUpdate;
+	// };
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		thereIsACart();
 		dispatch(generatedUserId());
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
@@ -50,7 +152,38 @@ const Home = () => {
 		dispatch(getAllCategoryLiquor());
 	}, [stateGlobal]);
 
-  return (
+	useEffect(() => {
+		const amount = window.localStorage.getItem('amount');
+		if (typeof amount === 'string') {
+			dispatch(updateAmount(parseInt(amount)));
+		}
+
+		const cart = window.localStorage.getItem('cart');
+
+		if (cart) {
+			const cartParseado = JSON.parse(cart);
+			if (cartParseado.length != 0) {
+				if (cartBack) {
+					const cartBackApp = cartElementsUpdate(cartBack.cart, cartParseado);
+					const amountBackApp = cartBack.amount + amount;
+					dispatch(updateAmount(parseInt(amountBackApp)));
+					dispatch(updateCartFromLocalStorage(cartBackApp));
+					return;
+				}
+
+				dispatch(updateCartFromLocalStorage(cartParseado));
+				dispatch(updateAmount(parseInt(amount)));
+				return;
+			}
+		}
+
+		if (cartBack) {
+			dispatch(updateCartFromLocalStorage(cartBack.cart));
+			dispatch(updateAmount(parseInt(cartBack.amount)));
+		}
+	}, [!cartBack && cartBack]);
+
+	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>PRODUCTO DEL MES</h1>
 			<br />
@@ -164,6 +297,6 @@ const Home = () => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Home;

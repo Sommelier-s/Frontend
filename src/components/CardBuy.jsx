@@ -177,7 +177,7 @@ const CardBuy = ({
 					/>
 				</div>
 				<div className={styles.contentButton}>
-					{stock !== 0 && (
+					{stock !== 0 && user.id && (
 						<button className={styles.button} onClick={addToCartHandler}>
 							Agregar
 						</button>
