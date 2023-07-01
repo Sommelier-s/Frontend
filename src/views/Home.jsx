@@ -12,6 +12,7 @@ import {
 	generatedUserId,
 	updateAmount,
 	updateCartFromLocalStorage,
+	saveProductMonth,
 } from '../redux/actions';
 
 // Importación de componentes
@@ -40,6 +41,7 @@ const Home = () => {
 	const stateGlobal = useSelector((state) => state.AllDrinks);
 	const [cartBack, setCartBack] = useState();
 	const user = useSelector((state) => state.user);
+	const selectedProductMonth = useSelector((state) => state.selectedProductMonth);
 
 	const thereIsACart = async () => {
 		if (user.id) {
@@ -187,18 +189,24 @@ const Home = () => {
 		<div className={styles.container}>
 			<h1 className={styles.title}>PRODUCTO DEL MES</h1>
 			<br />
-			<div className={styles.featuredCard}>
-				<img
-					src="https://img.freepik.com/iconos-gratis/botella-vino_318-61391.jpg"
-					alt="Licor del Mes"
-				/>
-				<div className={styles.featuredCardContent}>
-					<h3 className={styles.featuredCardTitle}>Producto de junio</h3>
-					<p className={styles.featuredCardDescription}>
-						Descripción del producto del mes
-					</p>
+			{selectedProductMonth && (
+				<div className={styles.featuredCard}>
+					<img
+						src={selectedProductMonth.picture}  alt={selectedProductMonth.name}
+					/>
+					<div className={styles.featuredCardContent}>
+						<h3 className={styles.featuredCardTitle}>{selectedProductMonth.name}</h3>
+						<p className={styles.featuredCardDescription}>
+							{selectedProductMonth.description}
+						</p>
+						<p className={styles.featuredCardDescription}>
+							Cantidad: {selectedProductMonth.stock}
+						</p>
+						<p className={styles.featuredCardDescription}>
+							Precio: {selectedProductMonth.price}</p>
+					</div>
 				</div>
-			</div>
+			)}
 
 			<br />
 			<h1 className={styles.title}>VINOS MÁS RECOMENDADOS</h1>

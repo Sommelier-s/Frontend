@@ -20,6 +20,7 @@ import {
     UPDATE_CART_EMPTY_STATUS,
     UPDATE_CART_FROM_LOCAL_STORAGE,
     UPDATE_AMOUNT,
+    SAVE_PRODUCT,
     SAVE_USER,
     LOG_OUT_USER,
     GET_OFFER
@@ -42,7 +43,7 @@ const initialState = {
     user: {
 
     },
-
+    selectedProductMonth: null,
 }
 
 const setLocalStorage = (user) => {
@@ -284,6 +285,14 @@ export default function reducer(state = initialState, { type, payload }) {
                 ...state,
                 cart: payload,
             };
+
+        //Producto del mes
+        case SAVE_PRODUCT:
+            return {
+                ...state,
+                selectedProductMonth: payload,
+            };
+
 
         default:
             return {
