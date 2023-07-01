@@ -29,6 +29,7 @@ export const UPDATE_AMOUNT = "UPDATE_AMOUNT";
 export const SAVE_USER = "SAVE_USER";
 export const LOG_OUT_USER = "LOG_OUT_USER";
 
+export const GET_OFFER = 'GET_OFFER'
 
 //Variable con la url base
 const desarrolloApp = "http://localhost:3001";
@@ -38,6 +39,17 @@ let userLocal = [];
 
 // const userId = window.localStorage.getItem("userId");
 // const userIdParseado = JSON.parse(userId);
+
+export const getOffer = () => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get('/offer');
+            dispatch({ type: GET_OFFER, payload: response.data.data})
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+}
 
 export const saveUser = (user) => {
     return { type: SAVE_USER, payload: user };
