@@ -20,8 +20,10 @@ import {
     UPDATE_CART_EMPTY_STATUS,
     UPDATE_CART_FROM_LOCAL_STORAGE,
     UPDATE_AMOUNT,
+    SAVE_PRODUCT,
     SAVE_USER,
-    LOG_OUT_USER
+    LOG_OUT_USER,
+    GET_OFFER
 
 } from "./actions";
 
@@ -34,13 +36,14 @@ const initialState = {
     categoryWine: [],
     categoryLiquor: [],
     cart: [],
+    offer: [],
     amount: 0,
     isCartEmpty: true,
     // Aqui el usuario
     user: {
 
     },
-
+    selectedProductMonth: null,
 }
 
 const setLocalStorage = (user) => {
@@ -71,6 +74,11 @@ const setLocalStorageCart = (cart) => {
 export default function reducer(state = initialState, { type, payload }) {
     switch (type) {
         //Guarda toda la informacion en el atributo wine del estado global
+        case GET_OFFER:
+            return {
+                ...state,
+                offer: payload
+            }
         case SAVE_USER:
             setLocalStorage(payload);
             return {
@@ -277,6 +285,14 @@ export default function reducer(state = initialState, { type, payload }) {
                 ...state,
                 cart: payload,
             };
+
+        //Producto del mes
+        case SAVE_PRODUCT:
+            return {
+                ...state,
+                selectedProductMonth: payload,
+            };
+
 
         default:
             return {

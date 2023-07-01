@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllWine, getAllLiquor } from '../redux/actions';
+import { getAllWine, getAllLiquor, getAllDrinks } from '../redux/actions';
 import DashboardMenu from '../components/DashboardMenu';
 import DashboardCard from '../components/DashboardCard';
 import DashboardCardAdmin from '../components/DashboardCardAdmin';
@@ -14,6 +14,8 @@ import AddCategoryForm from '../components/AddCategoryForm';
 import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
+import CompletedShipments from './CompletedShipments';
+import ProductMonth from "../components/ProductMonth";
 import axios from 'axios';
 
 export default function Dashboard() {
@@ -56,37 +58,17 @@ export default function Dashboard() {
 		},
 	];
 
-	const product = [
-		{
-			id: 'f6a654cc-7448-41a7-9eee-668b01d06904',
-			name: 'Vino Pedro',
-			description: 'Es un vino dulce y de buen sabor',
-			price: 100,
-			picture:
-				'https://www.sodivin.co.uk/24016-large_default/gaffeliere-la-1985.jpg',
-			stock: 5,
-			isActive: true,
-			createdAt: '2023-06-23T01:32:23.688Z',
-			updatedAt: '2023-06-23T01:32:23.688Z',
-			Wine_categoryId: 'f34ce926-7d0e-4c93-9831-a945c1f50590',
-			wine_category: {
-				id: 'f34ce926-7d0e-4c93-9831-a945c1f50590',
-				name: 'Vino Tinto',
-				createdAt: '2023-06-19T20:45:52.244Z',
-				updatedAt: '2023-06-19T20:45:52.244Z',
-			},
-		},
-	];
-
 	const dispatch = useDispatch();
 	const [selectedOption, setSelectedOption] = useState('profile'); // Estado para almacenar la opción seleccionada del menú
 	const [showSearchBar, setShowSearchBar] = useState(false);
+	const [showProductMonth, setShowProductMonth] = useState(false);
 
 	const [searchValue, setSearchValue] = useState('');
 
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
+	const allDrink = useSelector((state) => state.allDrinks);
 	// const [deliveryPending, setDeliveryPending] = useState();
 	// const [deliveryRealized, setDeliveryRealized] = useState();
 
@@ -111,17 +93,18 @@ export default function Dashboard() {
 	const navigate = useNavigate();
 	useEffect(() => {
 		
-
 		if (!user.isAdmin) {
 			navigate('/');
 		}
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
+		dispatch(getAllDrinks());
 
 		if (
 			selectedOption === 'wine' ||
 			selectedOption === 'liquor' ||
-			selectedOption === 'users'
+			selectedOption === 'users' ||
+			selectedOption === 'productMonth'
 		) {
 			setShowSearchBar(true);
 		} else {
@@ -137,22 +120,21 @@ export default function Dashboard() {
 		case 'liquor':
 			filteredData = allLiquor;
 			break;
-		case 'monthlyProduct':
-			filteredData = product;
-			break;
 		case 'discountedProducts':
-			filteredData = product;
+			filteredData = [];
 			break;
-		
-		// case 'users':
-		// 	filteredData = users;
-		// 	break;
 		default:
 			filteredData = [];
 	}
 
 	const handleMenu = (option) => {
 		setSelectedOption(option);
+
+		if (option === 'productMonth') {
+			setShowProductMonth(true);
+		  } else {
+			setShowProductMonth(false);
+		  }
 	};
 
 	//Manejador para la searchBar
@@ -230,6 +212,31 @@ export default function Dashboard() {
 								)
 								.map((item) => (
 									<DashboardCard
+										id={item.id}
+										key={item.id}
+										name={item.name} // Propiedad "name" desde el estado
+										description={item.description} // Propiedad "description" desde el estado
+										stock={item.stock} // Propiedad "stock" desde el estado
+										picture={item.picture} // Propiedad "picture" desde el estado
+										isActive={item.isActive}
+										price={item.price}
+										id_picture={item.picture}
+										graduation={item.graduation}
+									/>
+								))}
+						</div>
+					)}
+				</div>
+
+				<div className={styles.cardsContainer}>
+					{selectedOption === 'productMonth' && showProductMonth &&  (
+						<div className={styles['dashboard-card-container']}>
+							{allDrink
+								.filter((item) =>
+								item.name.toLowerCase().includes(searchValue.toLowerCase()),
+								)
+								.map((item) => (
+									<ProductMonth
 										id={item.id}
 										key={item.id}
 										name={item.name} // Propiedad "name" desde el estado

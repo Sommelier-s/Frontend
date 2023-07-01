@@ -1,10 +1,20 @@
-.cart {
-    width: 300px;
+.card {
+    /* width: 400px;
+    max-height: 300px;
+    overflow: scroll; */
+
+    width: 450px;
+	/* height: 400px; */
+	display: flex;
+	justify-content: flex-start;
+	overflow-y: auto;
 }
+
 .productImage {
     max-height: 200px;
     width: auto;
 }
+
 .imageItems {
     display: flex;
     justify-content: center;
