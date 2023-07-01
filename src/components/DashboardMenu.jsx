@@ -49,7 +49,7 @@ export default function DashboardMenu({ onClick }) {
 					<ListItemText>Licores</ListItemText>
 				</MenuItem>
 				<Divider />
-				<MenuItem onClick={() => handleItemClick('monthlyProducts')}>
+				<MenuItem onClick={() => handleItemClick('productMonth')}>
 					<ListItemIcon>
 						<MonetizationOnRoundedIcon fontSize="medium" />
 					</ListItemIcon>

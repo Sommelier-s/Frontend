@@ -26,6 +26,7 @@ export const UPDATE_CART_EMPTY_STATUS = "UPDATE_CART_EMPTY_STATUS";
 export const UPDATE_CART_FROM_LOCAL_STORAGE = "UPDATE_CART_FROM_LOCAL_STORAGE";
 export const UPDATE_AMOUNT = "UPDATE_AMOUNT";
 
+export const SAVE_PRODUCT = "SAVE_PRODUCT";
 export const SAVE_USER = "SAVE_USER";
 export const LOG_OUT_USER = "LOG_OUT_USER";
 
@@ -190,3 +191,12 @@ export const updateCartFromLocalStorage = (cart) => {
 export const updateAmount = (monto) => {
     return { type: UPDATE_AMOUNT, payload: monto };
 }
+
+//Action para el producto del mes
+export const saveProductMonth = (product) => {
+    return {
+      type: 'SAVE_PRODUCT',
+      payload: product,
+    };
+  };
+  
