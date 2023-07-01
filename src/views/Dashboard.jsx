@@ -11,7 +11,10 @@ import { useNavigate } from 'react-router-dom';
 import CreateCategory from '../components/CreateCategory';
 import imageBack from '../assets/img/imageBack.png';
 import AddCategoryForm from '../components/AddCategoryForm';
-import Create from '../views/Create'
+import Create from '../views/Create';
+import PendingShipments from '../components/PendingShipments';
+import CompletedShipments from './CompletedShipments';
+import axios from 'axios';
 
 export default function Dashboard() {
 	const users = [
@@ -84,9 +87,31 @@ export default function Dashboard() {
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
+	// const [deliveryPending, setDeliveryPending] = useState();
+	// const [deliveryRealized, setDeliveryRealized] = useState();
+
+	// const getAllDeliveryPending = async () => {
+	// 	try {
+	// 		const { data } = await axios.get(`/delivery/pending`);
+	// 		setDeliveryPending(data.data);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+
+	// const getAllDeliveryRealized = async () => {
+	// 	try {
+	// 		const { data } = await axios.get(`/delivery/realized`);
+	// 		setDeliveryRealized(data.data);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	const navigate = useNavigate();
 	useEffect(() => {
+		
+
 		if (!user.isAdmin) {
 			navigate('/');
 		}
@@ -118,12 +143,7 @@ export default function Dashboard() {
 		case 'discountedProducts':
 			filteredData = product;
 			break;
-		case 'pendingShipments':
-			filteredData = allLiquor;
-			break;
-		case 'shipmentsMade':
-			filteredData = allWine;
-			break;
+		
 		// case 'users':
 		// 	filteredData = users;
 		// 	break;
@@ -226,19 +246,21 @@ export default function Dashboard() {
 					)}
 				</div>
 
-			<div className={styles.cardsContainer}>
-				{selectedOption === 'load new category' && (
-					< AddCategoryForm />
-				)}
-			</div>
+				<div className={styles.cardsContainer}>
+					{selectedOption === 'pendingShipments' && <PendingShipments />}
+				</div>
 
-			<div className={styles.cardsContainer}>
-				{selectedOption === 'create' && (
-					< Create />
-				)}
-			</div>
-			
+				<div className={styles.cardsContainer}>
+					{selectedOption === 'completedShipments' && <CompletedShipments />}
+				</div>
 
+				<div className={styles.cardsContainer}>
+					{selectedOption === 'load new category' && <AddCategoryForm />}
+				</div>
+
+				<div className={styles.cardsContainer}>
+					{selectedOption === 'create' && <Create />}
+				</div>
 			</div>
 		</div>
 	);
