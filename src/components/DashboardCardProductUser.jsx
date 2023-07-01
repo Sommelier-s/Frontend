@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, CardContent, Typography, TextField, Button, Rating } from '@mui/material';
+import { styled } from '@mui/system';
 import axios from 'axios';
 import styles from "../assets/styles/components/DashboardCardProductUser.module.css";
+
+const ScrollableCardContent = styled(CardContent)`
+   overflow: auto;
+   max-height: 400px`;
+
+
 const DashboardCardProductUser = ({ product }) => {
     const user = useSelector((state) => state.user);
     const idUser = user.id;
@@ -47,7 +54,7 @@ const DashboardCardProductUser = ({ product }) => {
     console.log(rating)
   return (
     <Card className={styles.card}>
-      <CardContent>
+      <ScrollableCardContent>
         <div className={styles.imageItems}>
           <img src={product.picture} alt={product.name} className={styles.productImage} />
           <div>
@@ -82,7 +89,8 @@ const DashboardCardProductUser = ({ product }) => {
             Enviar
           </Button>
         </form>
-      </CardContent>
+      </ScrollableCardContent>
+
     </Card>
   )
 }

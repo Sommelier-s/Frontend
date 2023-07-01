@@ -11,6 +11,7 @@ import profile_user from "../assets/img/profile_user.png"
 import imageBack from "../assets/img/imageBack.png";
 
 import styles from "../assets/styles/components/views/DashboardUser.module.css";
+import DashboardCardProductUserReview from '../components/DashboardCardProductUserReview';
 
 const DashboardUser = () => {
 	const cartProducs = useSelector((state) => state.cart);
@@ -20,9 +21,9 @@ const DashboardUser = () => {
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.user);
 	const idUser = user.id;
-	
-	
-	
+
+
+
 	const getPurchasedProducts = async () => {
 		try {
 			const { data } = await axios.get(`/purchased/${idUser}`);
@@ -39,32 +40,32 @@ const DashboardUser = () => {
 					const { data } = await axios.get(`/both_drinks/?id=${el.product_id}`);
 					return data.data;
 				})
-				);
-				setProductsSaved(productDetails);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		 
-
-
-		const handleMenu = (option) => {
-			setSelectedOption(option);
-			getAllInformation()
-		};
-		console.log(purchasedProducts)	
-		console.log(productsSaved);
-		const getAllInformation = async () => {
-			await getPurchasedProducts();
-			await fetchProductDetails()
+			);
+			setProductsSaved(productDetails);
+		} catch (error) {
+			console.log(error);
 		}
-		
-		useEffect(() => {
-			getAllInformation()
-		}, []);
+	};
 
-		console.log(productsSaved)
-		return (
+
+
+	const handleMenu = (option) => {
+		setSelectedOption(option);
+		getAllInformation()
+	};
+	console.log(purchasedProducts)
+	console.log(productsSaved);
+	const getAllInformation = async () => {
+		await getPurchasedProducts();
+		await fetchProductDetails()
+	}
+
+	useEffect(() => {
+		getAllInformation()
+	}, []);
+
+	console.log(productsSaved)
+	return (
 		<div className={styles.container}>
 			<div className={styles.menuContainer}>
 				<button className={styles.botonBack} onClick={() => navigate('/')}>
@@ -73,7 +74,7 @@ const DashboardUser = () => {
 
 
 				<DashboardMenuUser onClick={handleMenu} />
-				
+
 			</div>
 			{selectedOption && (
 				<div className={styles.cardContainer}>
@@ -93,8 +94,15 @@ const DashboardUser = () => {
 								product={product}
 							/>
 						))
-						
 					)}
+	{selectedOption === 'updatedReview' && (
+						<DashboardCardProductUserReview
+						
+
+						/>
+					)}
+
+					
 				</div>
 			)}
 		</div>

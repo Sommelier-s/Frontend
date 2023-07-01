@@ -25,7 +25,7 @@ const DashboardMenuUser = ({ onClick }) => {
         </ListItemIcon>
         <ListItemText>Productos Comprados</ListItemText>
       </MenuItem>
-      <MenuItem onClick={() => handleItemClick('updateReview')}>
+      <MenuItem onClick={() => handleItemClick('updatedReview')}>
         <ListItemIcon>
           <StarIcon fontSize="medium" />
         </ListItemIcon>
