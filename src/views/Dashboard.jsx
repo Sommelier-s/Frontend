@@ -13,7 +13,7 @@ import imageBack from '../assets/img/imageBack.png';
 import AddCategoryForm from '../components/AddCategoryForm';
 import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
-import CompletedShipments from './CompletedShipments';
+import CompletedShipments from '../components/CompletedShipments';
 import axios from 'axios';
 
 export default function Dashboard() {
