@@ -25,6 +25,21 @@ function Completion(props) {
 	const año = fechaActual.getFullYear();
 	const fechaFormateada = año + '-' + mes + '-' + dia;
 
+	const [id_Cart, setId_Cart] = useState('');
+
+	const thereIsACart = async () => {
+		try {
+			const { data } = await axios.get(`/cart/?id=${user.id}`);
+			setId_Cart(data.data.id);
+		} catch (error) {}
+	};
+
+	const emptyCartFromBackend = async () => {
+		try {
+			const { data } = await axios.delete(`/cart/?id=${id_Cart}`);
+		} catch (error) {}
+	};
+
 	useEffect(() => {
 		const cart = window.localStorage.getItem('cart');
 		if (cart) {
@@ -33,6 +48,7 @@ function Completion(props) {
 				setBackupCart(cartParseado);
 			}
 		}
+		thereIsACart();
 	}, []);
 
 	// useEffect(() => {
@@ -92,6 +108,11 @@ function Completion(props) {
 
 	const handleCancelBuy = (event) => {
 		event.preventDefault();
+		thereIsACart();
+		if (id_Cart != '') {
+			emptyCartFromBackend();
+		}
+
 		updateStockProducts();
 		loadSale();
 		loadPurchasedProducts();
