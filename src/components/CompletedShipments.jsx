@@ -1,29 +1,30 @@
 import React from 'react';
-import styles from '../assets/styles/components/PendingShipments.module.css';
+import styles from '../assets/styles/components/CompletedShipments.module.css';
 import axios from 'axios';
-import CardPendingShipments from './CardPendingShipments';
 import { useState, useEffect } from 'react';
-const PendingShipments = () => {
-	const [deliveryPending, setDeliveryPending] = useState();
-	const getAllDeliveryPending = async () => {
+
+import CardCompletedShipments from '../components/CardCompletedShipments';
+const CompletedShipments = () => {
+	const [deliveryRealized, setDeliveryRealized] = useState();
+	const getAllDeliveryRealized = async () => {
 		try {
-			const { data } = await axios.get(`/delivery/pending`);
-			setDeliveryPending(data.data);
+			const { data } = await axios.get(`/delivery/realized`);
+			setDeliveryRealized(data.data);
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
 	useEffect(() => {
-		getAllDeliveryPending();
+		getAllDeliveryRealized();
 	}, []);
-	console.log(deliveryPending);
 
 	return (
 		<div className={styles.container}>
-			{deliveryPending && deliveryPending.length !== 0 ? (
+			{deliveryRealized && deliveryRealized.length !== 0 ? (
 				<div className={styles.cardsShipments}>
-					<h2 className={styles.title}>Envios Pendientes</h2>
-					{deliveryPending.map(
+					<h2 className={styles.title}>Envios Realizados</h2>
+					{deliveryRealized.map(
 						({
 							id,
 							user_id,
@@ -40,7 +41,7 @@ const PendingShipments = () => {
 							province,
 						}) => {
 							return (
-								<CardPendingShipments
+								<CardCompletedShipments
 									key={id}
 									id={id}
 									user_id={user_id}
@@ -69,4 +70,4 @@ const PendingShipments = () => {
 	);
 };
 
-export default PendingShipments;
+export default CompletedShipments;
