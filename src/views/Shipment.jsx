@@ -212,10 +212,7 @@ export default function Shipment() {
 
 			try {
 				console.log('entro al try');
-				const { data } = await axios.post(
-					'http://localhost:3001/delivery',
-					shipmentData,
-				);
+				const { data } = await axios.post('/shipment', shipmentData);
 
 				if (data.data) {
 					console.log('entro al si del if');

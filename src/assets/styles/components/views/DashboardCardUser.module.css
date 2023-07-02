@@ -34,8 +34,11 @@
 	border-radius: 10px;
 	overflow: hidden;
   margin-bottom: 10px;
-  position: relative;
+}
 
+.contentProfile img{
+  width: 100%;
+  height: auto;
 }
 
 .buttons{

@@ -7,7 +7,7 @@ const PendingShipments = () => {
 	const [deliveryPending, setDeliveryPending] = useState();
 	const getAllDeliveryPending = async () => {
 		try {
-			const { data } = await axios.get(`/delivery/pending`);
+			const { data } = await axios.get(`/shipment/pending`);
 			setDeliveryPending(data.data);
 		} catch (error) {
 			console.log(error);

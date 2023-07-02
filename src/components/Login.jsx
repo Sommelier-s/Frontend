@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  Link,
-  InputAdornment,
-  IconButton,
+	Grid,
+	Paper,
+	Avatar,
+	TextField,
+	Button,
+	Typography,
+	Link,
+	InputAdornment,
+	IconButton,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -28,7 +28,14 @@ import { saveUser } from '../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from '../assets/styles/components/views/Login.module.css';
-import googleLogo from '../assets/img/google.png';
+
+//Importaciones para el boton de Google
+import {
+	GoogleOAuthProvider,
+	GoogleLogin,
+	googleLogout,
+} from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
 
 const Login = ({ handleChange }) => {
 	const user = useSelector((state) => state.user);
@@ -42,7 +49,7 @@ const Login = ({ handleChange }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const desarrolloApp = 'http://localhost:3001';
-  const [showPassword, setShowPassword] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -117,6 +124,40 @@ const Login = ({ handleChange }) => {
 		}
 	};
 
+	const handleGoogleLoginSuccess = async (credentialResponse) => {
+		try {
+			let decoded = jwt_decode(credentialResponse.credential);
+			const { given_name, family_name, picture, email } = decoded;
+
+			const { data } = await axios.post(`/auth/googlelogin`, {
+				given_name,
+				family_name,
+				picture,
+				email,
+			});
+
+			const newUser = {
+				id: data.id,
+				first_name: data.first_name,
+				last_name: data.last_name,
+				date_birth: data.date_birth,
+				email: data.email,
+				token: data.token,
+				profile_picture: data.profile_picture,
+				isAdmin: data.isAdmin,
+			};
+			dispatch(saveUser(newUser));
+			setAcess(true);
+			navigate('/');
+		} catch (error) {
+			console.log('Login Failed', error);
+		}
+	};
+
+	const handleGoogleLoginError = () => {
+		console.log('Login Failed');
+	};
+
 	return (
 		<Grid>
 			<Paper style={paperStyle}>
@@ -146,29 +187,33 @@ const Login = ({ handleChange }) => {
 								style={marginTop}
 							/>
 							<Field
-                as={TextField}
-                label="Contraseña"
-                name="password"
-                placeholder="Ingrese su contraseña"
-                type={showPassword ? 'text' : 'password'}
-                fullWidth
-                required
-                helperText={<ErrorMessage name="password" />}
-                error={props.errors.password && props.touched.password}
-                style={marginTop}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+								as={TextField}
+								label="Contraseña"
+								name="password"
+								placeholder="Ingrese su contraseña"
+								type={showPassword ? 'text' : 'password'}
+								fullWidth
+								required
+								helperText={<ErrorMessage name="password" />}
+								error={props.errors.password && props.touched.password}
+								style={marginTop}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position="end">
+											<IconButton
+												aria-label="toggle password visibility"
+												onClick={() => setShowPassword(!showPassword)}
+											>
+												{showPassword ? (
+													<VisibilityOffIcon />
+												) : (
+													<VisibilityIcon />
+												)}
+											</IconButton>
+										</InputAdornment>
+									),
+								}}
+							/>
 							<br />
 							<Button
 								type="submit"
@@ -185,7 +230,7 @@ const Login = ({ handleChange }) => {
 				</Formik>
 				<br />
 				<Typography>
-					<Link href="/reset_password">¿Olvidaste tu contraseña?</Link>
+					<Link href="/forget_password_one">¿Olvidaste tu contraseña?</Link>
 				</Typography>
 				<Typography>
 					¿No tienes una cuenta?
@@ -195,14 +240,16 @@ const Login = ({ handleChange }) => {
 				</Typography>
 			</Paper>
 			<div className={styles.contentGoogle}>
-				<div className={styles.contentLogoGoogle}>
-					<img
-						src="https://icongr.am/devicon/chrome-original.svg?size=148&color=currentColor"
-						alt=""
-					/>
+				<div className="">
+					<GoogleOAuthProvider clientId="357966480515-hbvmh7psb1ofcmjlmnf9rtnohlmo33ga.apps.googleusercontent.com">
+						<GoogleLogin
+							onSuccess={handleGoogleLoginSuccess}
+							onError={handleGoogleLoginError}
+						/>
+					</GoogleOAuthProvider>
 				</div>
-				<h4 className={styles.titleGoogle}>Continuar con Google</h4>
 			</div>
+
 			<ToastContainer />
 		</Grid>
 	);

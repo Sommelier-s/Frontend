@@ -14,7 +14,7 @@ import AddCategoryForm from '../components/AddCategoryForm';
 import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
-import CompletedShipments from './CompletedShipments';
+
 import ProductMonth from "../components/ProductMonth";
 import axios from 'axios';
 

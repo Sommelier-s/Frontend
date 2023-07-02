@@ -20,7 +20,8 @@ import LoginForm from './views/LoginForm';
 import DashboardUser from './views/DashboardUser';
 import CreateCategory from './components/CreateCategory';
 import ConfirmedUser from './components/ConfirmedUser';
-import ResetPassword from './components/ResetPassword';
+import ForgetPasswordOne from './components/ForgetPasswordOne';
+import ResetPasswordTwo from './components/ResetPasswordTwo';
 import UpdateProducts from "./components/UpdateProducts";
 import axios from "axios";
 import { useEffect, useState } from 'react';
@@ -56,7 +57,8 @@ function App() {
       case "/dashboard_user/:id": return false
       case "/detail/:id": return true
       case "/create_category/:id": return false
-      case "/reset_password": return false
+      case "/forget_password_one": return false
+      case "/reset_password_two/:id": return false
       default: return false
     }
   }
@@ -117,7 +119,8 @@ function App() {
         <Route path="/detail/:id" element={< Detail />} />
         <Route path="/login" element={< LoginForm />} />
         <Route path="/auth/confirmar/:id" element={< ConfirmedUser />} />
-        <Route path="/reset_password" element={< ResetPassword />} />
+        <Route path="/forget_password_one" element={< ForgetPasswordOne />} />
+        <Route path="/reset_password_two/:id" element={< ResetPasswordTwo />} />
 
 
         <Route path='*' element={<NotFound />} />
