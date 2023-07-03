@@ -8,7 +8,7 @@ const CompletedShipments = () => {
 	const [deliveryRealized, setDeliveryRealized] = useState();
 	const getAllDeliveryRealized = async () => {
 		try {
-			const { data } = await axios.get(`/delivery/realized`);
+			const { data } = await axios.get(`/shipment/realized`);
 			setDeliveryRealized(data.data);
 		} catch (error) {
 			console.log(error);

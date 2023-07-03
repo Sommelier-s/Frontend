@@ -37,7 +37,7 @@ const CardPendingShipments = ({
 		}).then((response) => {
 			if (response) {
 				try {
-					const { data } = axios.put(`/delivery/${id}/?userId=${user.id}`);
+					const { data } = axios.put(`/shipment/${id}/?userId=${user.id}`);
 					swal({
 						title: 'Cambio realizado',
 						text: 'Se ha cambiado de envio pendiente a envio realizado',
