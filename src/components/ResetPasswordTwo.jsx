@@ -13,12 +13,21 @@ const ResetPasswordOne = () => {
 	const navigate = useNavigate();
 	const [password, setPassword] = useState('');
 	const [passwordError, setPasswordError] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [confirmError, setConfirmError] = useState('');
 
 	const handleChangePassword = (event) => {
 		event.preventDefault();
 		const value = event.target.value;
 		setPassword(value);
 		validatePassword(value);
+	};
+	
+	const handleChangeConfirmPassword = (event) => {
+		event.preventDefault();
+		const value = event.target.value;
+		setConfirmPassword(value);
+		validateConfirmPassword(value);
 	};
 
 	const { id } = useParams();
@@ -50,13 +59,21 @@ const ResetPasswordOne = () => {
 	};
 
 	const validatePassword = (password) => {
-		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{1,}$/;
 		if (!passwordRegex.test(password)) {
 			setPasswordError(
-				'La contraseña debe tener al menos una letra mayúscula, un número y tener al menos 8 caracteres.'
+				'La contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número.'
 			);
 		} else {
 			setPasswordError('');
+		}
+	};
+
+	const validateConfirmPassword = (confirmPassword) => {
+		if (password !== confirmPassword) {
+			setConfirmError('Las contraseñas no coinciden.');
+		} else {
+			setConfirmError('');
 		}
 	};
 
@@ -72,6 +89,7 @@ const ResetPasswordOne = () => {
 		marginTop: 15,
 		backgroundColor: '#780000',
 	  };
+	  const marginTop = { marginTop: 10 , marginBottom: 10};
 
 	return (
 		<Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
@@ -86,11 +104,11 @@ const ResetPasswordOne = () => {
 						</Typography>
 					</Grid>
 					<form onSubmit={handleResetPassword}>
-						<Grid item xs={12}>
+						<Grid item xs={12} style={marginTop}>
 							<TextField
 								fullWidth
 								label="Contraseña"
-								type="password"
+								type="text"
 								name="password"
 								value={password}
 								onChange={handleChangePassword}
@@ -100,12 +118,26 @@ const ResetPasswordOne = () => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
+							<TextField
+								fullWidth
+								label="Confirme su contraseña"
+								type="text"
+								name="confirmPassword"
+								value={confirmPassword}
+								onChange={handleChangeConfirmPassword}
+								variant="outlined"
+								error={!!confirmError}
+								helperText={confirmError}
+							/>
+						</Grid>
+						<Grid item xs={12}>
 							<Button 
 							fullWidth 
 							type="submit" 
 							variant="contained" 
 							color="primary" 
 							style={btnstyle}
+							disabled={passwordError || confirmError}
 							>
 							Confirmar
 							</Button>
