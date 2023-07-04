@@ -15,10 +15,14 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import styles from '../assets/styles/components/DashboardCard.module.css';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import swal from 'sweetalert';
+import swal2 from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+
 
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
@@ -57,13 +61,48 @@ export default function RecipeReviewCard({
 	graduation,
 }) {
 	const user = useSelector((state) => state.user);
+	const offer = useSelector((state) => state.offer);
 	const [expanded, setExpanded] = React.useState(false);
 	const [visible, setVisible] = React.useState(isActive);
 	const navigate = useNavigate();
-
+	const MySwal = withReactContent(swal2);
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
+	
+	const handleAddToOffer = async (event) => {
+		event.preventDefault();
+		console.log(offer);
+		const offerExist = offer.find(offer => offer.product_id === id)
+		
+		if(offerExist) {
+			swal({
+				title: 'Advertencia',
+				text: 'El producto ya esta en oferta, para modificarlo vaya a la seccion de Productos en oferta',
+				icon: 'warning',
+				button: 'Ok'
+			})
+			return false
+		}
+		const { value: discount } = await MySwal.fire({
+			title: 'Ingrese el porcentaje de descuento',
+			input: 'text',
+			inputLabel: 'Descuento',
+			inputPlaceholder: 'Ingrese el descuento',
+			showCancelButton: true,
+		})
+		if (discount) {
+			const offer = Number(discount);
+			console.log('user id', user.id);
+			const response = await axios.post(`/offer?id=${user.id}`, {
+				productId: id,
+				discount: offer
+			})
+			if (response.status === 201) {
+				MySwal.fire(`Bien! Ahora el producto ${name} tiene un ${discount}% de descuento!`)
+			}
+		}
+	}
 
 	const handleVisibilityClick = async () => {
 		console.log('entro a la funcion');
@@ -176,6 +215,9 @@ export default function RecipeReviewCard({
 						<IconButton onClick={handleDeleteProduct}>
 							<DeleteForeverIcon fontSize="small" />
 						</IconButton>
+						<IconButton onClick={handleAddToOffer}>
+							<LocalOfferIcon fontSize="small" />
+						</IconButton>
 					</div>
 				</div>
 				<CardContent>
@@ -222,19 +264,19 @@ export default function RecipeReviewCard({
 		<EditIcon fontSize="small" />
 	</IconButton>
 </EditIconWrapper>; 
-
+	
 OJITO
-
-
+	
+	
 <IconButton
 					aria-label="toggle visibility"
 					onClick={handleVisibilityClick}
 				>
 					{visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
 				</IconButton>
-
-
-
-
+	
+	
+	
+	
 */
 }
