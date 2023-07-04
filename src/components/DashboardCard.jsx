@@ -24,7 +24,6 @@ import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
 
 
-
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
 	return <IconButton {...other} />;
@@ -62,6 +61,7 @@ export default function RecipeReviewCard({
 	graduation,
 }) {
 	const user = useSelector((state) => state.user);
+	const offer = useSelector((state) => state.offer);
 	const [expanded, setExpanded] = React.useState(false);
 	const [visible, setVisible] = React.useState(isActive);
 	const navigate = useNavigate();
@@ -69,26 +69,23 @@ export default function RecipeReviewCard({
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
-
-	// const handleAddToOffer = (event) => {
-	// 	event.preventDefault();
-	// 	const inputValue = window.prompt('Indique el porcentaje de descuento', 'Ejemplo: 20');
-	// 	console.log(id);
-	// 	if (!inputValue) return false;
-	// 	if (inputValue === '' || isNaN(inputValue) || inputValue < 1 || inputValue > 99) {
-	// 	  return swal('Porcentaje inválido')
-	// 	}
-	// 	axios.post(`offer?id=${user.id}`, {
-	// 	  productId: id,
-	// 	  discount: inputValue,
-	// 	}).then(swal(`¡Bien! Ahora el ${name} tiene un ${inputValue}% de descuento`))
-
-	//   };
-
+	
 	const handleAddToOffer = async (event) => {
 		event.preventDefault();
+		console.log(offer);
+		const offerExist = offer.find(offer => offer.product_id === id)
+		
+		if(offerExist) {
+			swal({
+				title: 'Advertencia',
+				text: 'El producto ya esta en oferta, para modificarlo vaya a la seccion de Productos en oferta',
+				icon: 'warning',
+				button: 'Ok'
+			})
+			return false
+		}
 		const { value: discount } = await MySwal.fire({
-			title: 'Enter your password',
+			title: 'Ingrese el porcentaje de descuento',
 			input: 'text',
 			inputLabel: 'Descuento',
 			inputPlaceholder: 'Ingrese el descuento',
@@ -96,9 +93,6 @@ export default function RecipeReviewCard({
 		})
 		if (discount) {
 			const offer = Number(discount);
-			// console.log('offer', typeof offer);
-			// console.log('discount', typeof discount);
-			// console.log('prodcut id', id);
 			console.log('user id', user.id);
 			const response = await axios.post(`/offer?id=${user.id}`, {
 				productId: id,
