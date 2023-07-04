@@ -124,7 +124,9 @@ export default function ProductMonth({
 							text: `Se ha reemplazado el producto anterior: ${product[0].name} por el nuevo producto: ${name}, ve a inicio a corroborar`,
 							icon: 'success',
 							buttons: 'Aceptar'
-						})
+						}).then(() => {
+							window.location.reload();
+						});
 					} else {
 						swal({
 							title: 'Cancelado',
