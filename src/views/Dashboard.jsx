@@ -271,6 +271,10 @@ export default function Dashboard() {
 										image={item.image} // Propiedad "picture" desde el estado
 										price={item.price}
 										discount={item.discount}
+										id_picture={item.picture}
+										is_product_month={item.is_product_month}
+										graduation={item.graduation}
+
 									/>
 								))}
 						</div>

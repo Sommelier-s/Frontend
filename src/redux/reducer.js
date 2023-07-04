@@ -43,7 +43,7 @@ const initialState = {
     user: {
 
     },
-    selectedProductMonth: null,
+    selectedProductMonth: [],
 }
 
 const setLocalStorage = (user) => {
@@ -288,6 +288,7 @@ export default function reducer(state = initialState, { type, payload }) {
 
         //Producto del mes
         case SAVE_PRODUCT:
+            
             return {
                 ...state,
                 selectedProductMonth: payload,

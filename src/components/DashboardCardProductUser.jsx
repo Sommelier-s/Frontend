@@ -28,8 +28,9 @@ const DashboardCardProductUser = ({ product }) => {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+       
         alert("Comentario guardado");
+        
         setComment('');
         setRating(0);
         if(product.wine_category){

@@ -205,10 +205,14 @@ export const updateAmount = (monto) => {
 }
 
 //Action para el producto del mes
-export const saveProductMonth = (product) => {
-    return {
-      type: 'SAVE_PRODUCT',
-      payload: product,
-    };
-  };
+export const saveProductMonth = () => {
+    return async function (dispatch) {
+        try {
+            const { data } = await axios.get('/both_drinks/product_month');
+            dispatch({ type: SAVE_PRODUCT, payload: data.data})
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+};
   

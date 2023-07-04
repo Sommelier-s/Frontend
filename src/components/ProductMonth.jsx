@@ -16,6 +16,7 @@ import swal from 'sweetalert';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { saveProductMonth } from '../redux/actions';
+import axios from 'axios';
 
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
@@ -51,39 +52,115 @@ export default function ProductMonth({
 	isActive,
 	price,
 	id_picture,
+	is_product_month,
 	graduation,
 }) {
+	const product = useSelector((state) => state.selectedProductMonth)
+	const allDrink = useSelector((state) => state.allDrinks);
+	const user = useSelector((state) => state.user)
 	const [expanded, setExpanded] = React.useState(false);
-	const [isProductMonth, setIsProductMonth] = useState(
-		localStorage.getItem('isProductMonth') === 'true'
-	);
-
 	const dispatch = useDispatch();
+
+	const [productMonth, setProductMonth] = useState(false);
+
+	const handleProductMonthTwo = async (event) => {
+		event.preventDefault();
+		if (!productMonth) {
+			if (product.length === 0) {
+				if (!graduation) {
+					const { data } = await axios.put(`/wine/${id}/?userId=${user.id}`, { is_product_month: true })
+				} else {
+					const { data } = await axios.put(`/liquor/${id}/?userId=${user.id}`, { is_product_month: true })
+				}
+				setProductMonth(true)
+			} else {
+				swal({
+					title: 'Atención',
+					text: `Ya posees un producto del mes: ${product[0].name}, deseas reemplazarlo?`,
+					icon: 'warning',
+					buttons: ['Cancelar', 'Reemplazar']
+				}).then((response) => {
+					if (response) {
+						console.log("Ahora pone el nuevo producto", name);
+						if (!graduation) {
+							axios.put(`/wine/${id}/?userId=${user.id}`, { is_product_month: true })
+							.then((response) => {
+								console.log("wine, nuevo producto agregado");
+							})
+							.catch((error) => {
+								console.log("wine, no se pudo cargar el nuevo producto:", error);
+							})
+						} else {
+							axios.put(`/liquor/${id}/?userId=${user.id}`, { is_product_month: true })
+							.then((response) => {
+								console.log("liquor, nuevo producto agregado");
+							})
+							.catch((error) => {
+								console.log("liquor, no se pudo cargar el nuevo producto:", error);
+							})
+						}
+						setProductMonth(true)
+						console.log("Ahora sacas el viejo producto", product[0].name);
+						console.log("Tiene graduación el viejo producto", product[0].graduation);
+						if (product[0].graduation) {
+							axios.put(`/liquor/${product[0].id}/?userId=${user.id}`, { is_product_month: false })
+							.then((response) => {
+								console.log("liquor, viejo producto borrado");
+							})
+							.catch((error) => {
+								console.log("liquor, no se pudo borrar el viejo producto:", error);
+							})
+						} else {
+							axios.put(`/wine/${product[0].id}/?userId=${user.id}`, { is_product_month: false })
+							.then((response) => {
+								console.log("wine, viejo producto borrado");
+							})
+							.catch((error) => {
+								console.log("wine, no se pudo borrar el viejo producto:", error);
+							})
+						}
+						swal({
+							title: 'Reemplazado',
+							text: `Se ha reemplazado el producto anterior: ${product[0].name} por el nuevo producto: ${name}, ve a inicio a corroborar`,
+							icon: 'success',
+							buttons: 'Aceptar'
+						})
+					} else {
+						swal({
+							title: 'Cancelado',
+							text: 'No se ha reemplazado el producto del mes',
+							icon: 'success',
+							buttons: 'Aceptar'
+						})
+					}
+				})
+			}
+		} else {
+			if (!graduation) {
+				const { data } = await axios.put(`/wine/${id}/?userId=${user.id}`, { is_product_month: false })
+			} else {
+				const { data } = await axios.put(`/liquor/${id}/?userId=${user.id}`, { is_product_month: false })
+			}
+			setProductMonth(false)
+		}
+	};
+
+	useEffect(() => {
+		if (is_product_month) {
+			setProductMonth(true)
+		} else {
+			setProductMonth(false)
+		}
+	}, []);
+
+	useEffect(() => {
+		dispatch(saveProductMonth());
+	}, [productMonth]);
 
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
 
-	const handleProductMonth = () => {
-		const productData = {
-		  id,
-		  name,
-		  picture,
-		  description,
-		  stock,
-		  isActive,
-		  price,
-		  id_picture,
-		  graduation,
-		};
-	  
-		dispatch(saveProductMonth(productData));
-	};
-
-	const handleToggleProductMonth = () => {
-		setIsProductMonth(!isProductMonth);
-	};
-	  
 	return (
 		<Card className={styles.mainContainer}>
 			<div>
@@ -93,11 +170,8 @@ export default function ProductMonth({
 					</div>
 
 					<div className={styles.contentIconImage}>
-                        <IconButton onClick={() => {
-							handleProductMonth();
-							handleToggleProductMonth();
-						}}>
-							<StarBorderIcon className={`${styles.icon} ${isProductMonth ? styles.productMonth : ''}`} />
+						<IconButton onClick={handleProductMonthTwo}>
+							<StarBorderIcon className={`${styles.icon} ${productMonth ? styles.productMonth : ''}`} />
 						</IconButton>
 					</div>
 				</div>
