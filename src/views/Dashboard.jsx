@@ -246,6 +246,7 @@ export default function Dashboard() {
 										isActive={item.isActive}
 										price={item.price}
 										id_picture={item.picture}
+										is_product_month={item.is_product_month}
 										graduation={item.graduation}
 									/>
 								))}

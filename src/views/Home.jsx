@@ -152,9 +152,11 @@ const Home = () => {
 		dispatch(generatedCopyAllDrinks());
 		dispatch(getAllCategoryWine());
 		dispatch(getAllCategoryLiquor());
+		
 	}, [stateGlobal]);
 
 	useEffect(() => {
+		dispatch(saveProductMonth());
 		const amount = window.localStorage.getItem('amount');
 		if (typeof amount === 'string') {
 			dispatch(updateAmount(parseInt(amount)));
@@ -189,23 +191,25 @@ const Home = () => {
 		<div className={styles.container}>
 			<h1 className={styles.title}>PRODUCTO DEL MES</h1>
 			<br />
-			{selectedProductMonth && (
+			{selectedProductMonth.length !== 0 ? (
 				<div className={styles.featuredCard}>
 					<img
-						src={selectedProductMonth.picture}  alt={selectedProductMonth.name}
+						src={selectedProductMonth[0].picture}  alt={selectedProductMonth[0].name}
 					/>
 					<div className={styles.featuredCardContent}>
-						<h3 className={styles.featuredCardTitle}>{selectedProductMonth.name}</h3>
+						<h3 className={styles.featuredCardTitle}>{selectedProductMonth[0].name}</h3>
 						<p className={styles.featuredCardDescription}>
-							{selectedProductMonth.description}
+							{selectedProductMonth[0].description}
 						</p>
 						<p className={styles.featuredCardDescription}>
-							Cantidad: {selectedProductMonth.stock}
+							Cantidad: {selectedProductMonth[0].stock}
 						</p>
 						<p className={styles.featuredCardDescription}>
-							Precio: {selectedProductMonth.price}</p>
+							Precio: {selectedProductMonth[0].price}</p>
 					</div>
 				</div>
+			) : (
+				<h1>No hay producto del mes</h1>
 			)}
 
 			<br />
