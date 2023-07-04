@@ -69,13 +69,13 @@ export default function RecipeReviewCard({
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
-	
+
 	const handleAddToOffer = async (event) => {
 		event.preventDefault();
 		console.log(offer);
 		const offerExist = offer.find(offer => offer.product_id === id)
-		
-		if(offerExist) {
+
+		if (offerExist) {
 			swal({
 				title: 'Advertencia',
 				text: 'El producto ya esta en oferta, para modificarlo vaya a la seccion de Productos en oferta',
@@ -100,6 +100,9 @@ export default function RecipeReviewCard({
 			})
 			if (response.status === 201) {
 				MySwal.fire(`Bien! Ahora el producto ${name} tiene un ${discount}% de descuento!`)
+				setTimeout(() => {
+                    window.location.reload();    
+                }, 2000);	
 			}
 		}
 	}

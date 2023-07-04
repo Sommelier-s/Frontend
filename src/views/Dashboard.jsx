@@ -15,6 +15,7 @@ import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
 
+import ProductOffer from "../components/ProductOffer";
 import ProductMonth from "../components/ProductMonth";
 import axios from 'axios';
 
@@ -68,6 +69,7 @@ export default function Dashboard() {
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
+	const offer = useSelector((state) => state.offer);
 	const allDrink = useSelector((state) => state.allDrinks);
 	// const [deliveryPending, setDeliveryPending] = useState();
 	// const [deliveryRealized, setDeliveryRealized] = useState();
@@ -92,7 +94,7 @@ export default function Dashboard() {
 
 	const navigate = useNavigate();
 	useEffect(() => {
-		
+
 		if (!user.isAdmin) {
 			navigate('/');
 		}
@@ -121,7 +123,7 @@ export default function Dashboard() {
 			filteredData = allLiquor;
 			break;
 		case 'discountedProducts':
-			filteredData = [];
+			filteredData = offer;
 			break;
 		default:
 			filteredData = [];
@@ -132,9 +134,9 @@ export default function Dashboard() {
 
 		if (option === 'productMonth') {
 			setShowProductMonth(true);
-		  } else {
+		} else {
 			setShowProductMonth(false);
-		  }
+		}
 	};
 
 	//Manejador para la searchBar
@@ -204,14 +206,42 @@ export default function Dashboard() {
 				</div>
 
 				<div className={styles.cardsContainer}>
-					{selectedOption !== 'users' && filteredData.length > 0 && (
+					{selectedOption !== 'users' && selectedOption !== 'discountedProducts' && filteredData.length > 0 && (
 						<div className={styles['dashboard-card-container']}>
-							{filteredData
+							{
+								console.log(filteredData)}
+							{
+								filteredData
+									.filter((item) =>
+										item.name.toLowerCase().includes(searchValue.toLowerCase()),
+									)
+									.map((item) => (
+										<DashboardCard
+											id={item.id}
+											key={item.id}
+											name={item.name} // Propiedad "name" desde el estado
+											description={item.description} // Propiedad "description" desde el estado
+											stock={item.stock} // Propiedad "stock" desde el estado
+											picture={item.picture} // Propiedad "picture" desde el estado
+											isActive={item.isActive}
+											price={item.price}
+											id_picture={item.picture}
+											graduation={item.graduation}
+										/>
+									))}
+						</div>
+					)}
+				</div>
+
+				<div className={styles.cardsContainer}>
+					{selectedOption === 'productMonth' && showProductMonth && (
+						<div className={styles['dashboard-card-container']}>
+							{allDrink
 								.filter((item) =>
 									item.name.toLowerCase().includes(searchValue.toLowerCase()),
 								)
 								.map((item) => (
-									<DashboardCard
+									<ProductMonth
 										id={item.id}
 										key={item.id}
 										name={item.name} // Propiedad "name" desde el estado
@@ -229,25 +259,22 @@ export default function Dashboard() {
 				</div>
 
 				<div className={styles.cardsContainer}>
-					{selectedOption === 'productMonth' && showProductMonth &&  (
+					{selectedOption === 'discountedProducts' && (
 						<div className={styles['dashboard-card-container']}>
-							{allDrink
-								.filter((item) =>
-								item.name.toLowerCase().includes(searchValue.toLowerCase()),
-								)
+							{offer
 								.map((item) => (
-									<ProductMonth
+									<ProductOffer
 										id={item.id}
+										product_id = {item.product_id}
 										key={item.id}
-										name={item.name} // Propiedad "name" desde el estado
-										description={item.description} // Propiedad "description" desde el estado
-										stock={item.stock} // Propiedad "stock" desde el estado
-										picture={item.picture} // Propiedad "picture" desde el estado
-										isActive={item.isActive}
+										product_name={item.product_name} // Propiedad "name" desde el estado
+										image={item.image} // Propiedad "picture" desde el estado
 										price={item.price}
+										discount={item.discount}
 										id_picture={item.picture}
 										is_product_month={item.is_product_month}
 										graduation={item.graduation}
+
 									/>
 								))}
 						</div>
