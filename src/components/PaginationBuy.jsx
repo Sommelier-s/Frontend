@@ -103,7 +103,7 @@ const PaginationBuy = () => {
 						className={styles.buttonPagination}
 						disabled={currentPage == pages[0] ? true : false}
 					>
-						Previous
+						Anterior
 					</button>
 				</li>
 				{/* {pageDecrementBtn} */}
@@ -115,7 +115,7 @@ const PaginationBuy = () => {
 						className={styles.buttonPagination}
 						disabled={currentPage == pages[pages.length - 1] ? true : false}
 					>
-						Next
+						Siguiente
 					</button>
 				</li>
 			</ul>

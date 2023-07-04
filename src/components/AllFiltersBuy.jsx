@@ -177,7 +177,7 @@ const AllFiltersBuy = () => {
 						className={styles.selectedFilters}
 						onChange={handleChangeCategoryWine}
 					>
-						<option value="Default">Categorias Vinos</option>
+						<option value="Default">Categorías Vinos</option>
 						{allCategoryWine.map((categoria) => {
 							return (
 								<option key={categoria.id} value={categoria.id}>
@@ -194,7 +194,7 @@ const AllFiltersBuy = () => {
 						className={styles.selectedFilters}
 						onChange={handleChangeCategoryLiquor}
 					>
-						<option value="Default">Categorias Licores</option>
+						<option value="Default">Categorías Licores</option>
 						{allCategoryLiquor.map((categoria) => {
 							return (
 								<option key={categoria.id} value={categoria.id}>

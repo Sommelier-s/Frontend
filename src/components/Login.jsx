@@ -235,7 +235,7 @@ const Login = ({ handleChange }) => {
 				<Typography>
 					¿No tienes una cuenta?
 					<Link href="#" onClick={() => handleChange('event', 1)}>
-						Registrarse
+						Regístrarse
 					</Link>
 				</Typography>
 			</Paper>
