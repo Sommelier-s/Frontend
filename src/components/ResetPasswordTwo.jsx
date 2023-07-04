@@ -6,15 +6,19 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import swal from 'sweetalert';
 import { useParams } from 'react-router-dom';
+import { Grid, Button, Paper, Typography, TextField } from '@mui/material';
+
 const ResetPasswordOne = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [password, setPassword] = useState('');
+	const [passwordError, setPasswordError] = useState('');
 
 	const handleChangePassword = (event) => {
 		event.preventDefault();
 		const value = event.target.value;
 		setPassword(value);
+		validatePassword(value);
 	};
 
 	const { id } = useParams();
@@ -45,32 +49,71 @@ const ResetPasswordOne = () => {
 		}
 	};
 
+	const validatePassword = (password) => {
+		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+		if (!passwordRegex.test(password)) {
+			setPasswordError(
+				'La contraseña debe tener al menos una letra mayúscula, un número y tener al menos 8 caracteres.'
+			);
+		} else {
+			setPasswordError('');
+		}
+	};
+
+	const paperStyle = {
+		padding: '30px 20px',
+		width: 500,
+		margin: '0px auto',
+	  };
+	  const headerStyle = {
+		margin: '10px 0',
+	  };
+	  const btnstyle = {
+		marginTop: 15,
+		backgroundColor: '#780000',
+	  };
+
 	return (
-		<div className={styles.container}>
-			<main className={styles.content}>
-				<div className={styles.contentStepTwo}>
-					<h4 className={styles.titulo}>Paso 2</h4>
-					<p className={styles.parrafo}>Ingresa tu nueva contraseña</p>
-					<form action="" onSubmit={handleResetPassword}>
-						<div className={styles.contentStepOne}>
-							<label htmlFor="password" className={styles.email}>
-								Password:
-							</label>
-							<input
-								type="text"
+		<Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+			<Grid item xs={12} sm={8} md={6}>
+				<Paper style={paperStyle}>
+					<Grid align="center">
+						<Typography variant="h4" style={headerStyle}>
+							Paso 2
+						</Typography>
+						<Typography variant="body1" style={headerStyle}>
+							Ingresa tu nueva contraseña
+						</Typography>
+					</Grid>
+					<form onSubmit={handleResetPassword}>
+						<Grid item xs={12}>
+							<TextField
+								fullWidth
+								label="Contraseña"
+								type="password"
 								name="password"
 								value={password}
 								onChange={handleChangePassword}
-								id=""
+								variant="outlined"
+								error={!!passwordError}
+								helperText={passwordError}
 							/>
-						</div>
-						<button className={styles.botonEnviar} type="submit">
+						</Grid>
+						<Grid item xs={12}>
+							<Button 
+							fullWidth 
+							type="submit" 
+							variant="contained" 
+							color="primary" 
+							style={btnstyle}
+							>
 							Confirmar
-						</button>
+							</Button>
+						</Grid>
 					</form>
-				</div>
-			</main>
-		</div>
+				</Paper>
+			</Grid>
+		</Grid>
 	);
 };
 
