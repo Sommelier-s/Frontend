@@ -93,7 +93,7 @@ const Cart = () => {
 			return displaySweetAlert('Use el boton cancelar compra', 'warning');
 		}
 
-		if (id_Cart != '') {
+		if (id_Cart !== '') {
 			emptyCartFromBackend();
 		}
 

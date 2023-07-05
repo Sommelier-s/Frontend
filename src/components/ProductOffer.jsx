@@ -17,11 +17,14 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import swal from 'sweetalert';
 import swal2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+import PercentIcon from '@mui/icons-material/Percent';
+import * as actions from '../redux/actions';
+
 
 
 const ExpandMore = styled((props) => {
@@ -60,6 +63,8 @@ export default function ProductOffer({
 }) {
     const user = useSelector((state) => state.user);
     const offers = useSelector((state) => state.offer);
+    const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
     const [expanded, setExpanded] = React.useState(false);
     const MySwal = withReactContent(swal2);
     const handleExpandClick = () => {
@@ -77,6 +82,13 @@ export default function ProductOffer({
             showCancelButton: true,
         })
         if (discount) {
+            const productInCart = cart.filter(product => product.id === product_id)
+            if (productInCart.length > 0) {
+                dispatch(actions.removeFromCart(product_id));
+                if (cart.length === 1) {
+                    dispatch(actions.updateCartEmptyStatus(true));
+                }
+            }
             const offer = Number(discount);
             const response = await axios.put(`/offer/${user.id}`, {
                 discount: offer,
@@ -85,31 +97,50 @@ export default function ProductOffer({
             if (response.status === 200) {
                 MySwal.fire(`Bien! Ahora el producto ${product_name} tiene un ${discount}% de descuento!`)
                 setTimeout(() => {
-                    window.location.reload();    
+                    window.location.reload();
                 }, 2000);
             }
         }
     }
     const handleDeleteOffer = async (event) => {
         event.preventDefault();
-        swal({
+        await swal({
             title: "Advertencia",
             text: 'Desea borrar este producto de las ofertas?',
-            button: ['Cancelar', 'Aceptar'],
+            buttons: ['Cancelar', 'Aceptar'],
+        }).then(async (response) => {
+            if (response) {
+                const productInCart = cart.filter(product => product.id === product_id)
+                if (productInCart.length > 0) {
+                    dispatch(actions.removeFromCart(product_id));
+                    if (cart.length === 1) {
+                        dispatch(actions.updateCartEmptyStatus(true));
+                    }
+                }
+                const response = await axios.delete(`/offer/${id}?userId=${user.id}`)
+                if (response.status === 200) {
+                    swal({
+                        title: 'Eliminado',
+                        text: 'Producto eliminado de las ofertas',
+                        icon: 'success'
+                    })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+
+                }
+            } else {
+                swal({
+                    title: 'Eliminacion cancelada',
+                    text: '',
+                    icon: 'success',
+                    buttons: 'Aceptar',
+                });
+            }
         })
-        const response = await axios.delete(`/offer/${id}?userId=${user.id}`)
-        if (response.status === 200) {
-            swal({
-                title: 'Eliminado',
-                text: 'Producto eliminado de las ofertas',
-                icon: 'success'
-            })
-            setTimeout(() => {
-                window.location.reload();             
-            }, 2000);
-        }
+
     }
-    
+
     return (
         <Card className={styles.mainContainer}>
             <div>
@@ -138,7 +169,7 @@ export default function ProductOffer({
                         {price || 'Price'}
                     </IconButton>
                     <IconButton>
-                        <AttachMoneyIcon />
+                        <PercentIcon />
                         {discount || 'Price'}
                     </IconButton>
                     <ExpandMore

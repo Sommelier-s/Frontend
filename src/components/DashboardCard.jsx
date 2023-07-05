@@ -17,11 +17,12 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import swal from 'sweetalert';
 import swal2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+import * as actions from '../redux/actions';
 
 
 const ExpandMore = styled((props) => {
@@ -62,6 +63,8 @@ export default function RecipeReviewCard({
 }) {
 	const user = useSelector((state) => state.user);
 	const offer = useSelector((state) => state.offer);
+	const cart = useSelector(state => state.cart);
+	const dispatch = useDispatch()
 	const [expanded, setExpanded] = React.useState(false);
 	const [visible, setVisible] = React.useState(isActive);
 	const navigate = useNavigate();
@@ -92,8 +95,14 @@ export default function RecipeReviewCard({
 			showCancelButton: true,
 		})
 		if (discount) {
+			const productInCart = cart.filter(product => product.id === id)
+            if (productInCart.length > 0) {
+                dispatch(actions.removeFromCart(id));
+                if (cart.length === 1) {
+                    dispatch(actions.updateCartEmptyStatus(true));
+                }
+            }
 			const offer = Number(discount);
-			console.log('user id', user.id);
 			const response = await axios.post(`/offer?id=${user.id}`, {
 				productId: id,
 				discount: offer
