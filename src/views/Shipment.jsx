@@ -40,6 +40,21 @@ export default function Shipment() {
 
 	const [id_Cart, setId_Cart] = useState('');
 
+	const sendEmailPuschased=async()=>{
+		const userData={
+			id:user.id,
+			name: user.first_name +" "+user.last_name,
+			email:user.email,
+			type:"delivery",
+		}
+		try{
+			const {data}=await axios.post(`/auth/send-email`,userData);
+			console.log("Se ha notificado al usuario")
+		}catch(error){
+			console.log(error);
+		}
+	}
+
 	const thereIsACart = async () => {
 		try {
 			const { data } = await axios.get(`/cart/?id=${user.id}`);
@@ -124,6 +139,8 @@ export default function Shipment() {
 		if (id_Cart != '') {
 			emptyCartFromBackend();
 		}
+
+		sendEmailPuschased();
 
 		updateStockProducts();
 		loadSale();
