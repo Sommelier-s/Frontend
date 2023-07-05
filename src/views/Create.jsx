@@ -334,7 +334,7 @@ export default function Create() {
 				};
 				try {
 					const response = await axios.post(
-						`${desarrolloApp}/liquor/?id=${user.id}`,
+						`/liquor/?id=${user.id}`,
 						requestData,
 					);
 					setFormData({
