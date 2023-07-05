@@ -68,7 +68,7 @@ function Payment(props) {
 						Para cancelar la compra presione{' '}
 					</h2>
 					<button onClick={handleCancelBuy} className={styles.button}>
-						Aqui
+						Aquí
 					</button>
 				</div>
 				<div className={styles.contentPayment}>

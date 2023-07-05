@@ -14,49 +14,11 @@ import AddCategoryForm from '../components/AddCategoryForm';
 import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
-
-import ProductMonth from '../components/ProductMonth';
+import ProductOffer from "../components/ProductOffer";
+import ProductMonth from "../components/ProductMonth";
 import axios from 'axios';
 
 export default function Dashboard() {
-	// const users = [
-	// 	{
-	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-	// 		first_name: 'Andrea',
-	// 		last_name: 'Rincon',
-	// 		date_birth: '1983-11-27',
-	// 		email: 'andrea@gmail.com',
-	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-	// 		isAdmin: false,
-	// 	},
-	// 	{
-	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-	// 		first_name: 'Miguel',
-	// 		last_name: 'Fernandez',
-	// 		date_birth: '1983-11-27',
-	// 		email: 'miguel2711@gmail.com',
-	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-	// 		isAdmin: false,
-	// 	},
-	// 	{
-	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-	// 		first_name: 'Gonzalo',
-	// 		last_name: 'Suarez',
-	// 		date_birth: '1983-11-27',
-	// 		email: 'gonzalo@gmail.com',
-	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-	// 		isAdmin: false,
-	// 	},
-	// 	{
-	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-	// 		first_name: 'Pedro',
-	// 		last_name: 'Romero',
-	// 		date_birth: '1983-11-27',
-	// 		email: 'pedrofaro2711@gmail.com',
-	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-	// 		isAdmin: false,
-	// 	},
-	// ];
 
 	const dispatch = useDispatch();
 	const [selectedOption, setSelectedOption] = useState('profile'); // Estado para almacenar la opción seleccionada del menú
@@ -68,6 +30,7 @@ export default function Dashboard() {
 	const allWine = useSelector((state) => state.wine);
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
+	const offer = useSelector((state) => state.offer);
 	const allDrink = useSelector((state) => state.allDrinks);
 	const [users, setUsers] = useState([]);
 
@@ -113,7 +76,7 @@ export default function Dashboard() {
 			filteredData = allLiquor;
 			break;
 		case 'discountedProducts':
-			filteredData = [];
+			filteredData = offer;
 			break;
 		default:
 			filteredData = [];
@@ -202,26 +165,29 @@ export default function Dashboard() {
 				</div>
 
 				<div className={styles.cardsContainer}>
-					{selectedOption !== 'users' && filteredData.length > 0 && (
+					{selectedOption !== 'users' && selectedOption !== 'discountedProducts' && filteredData.length > 0 && (
 						<div className={styles['dashboard-card-container']}>
-							{filteredData
-								.filter((item) =>
-									item.name.toLowerCase().includes(searchValue.toLowerCase()),
-								)
-								.map((item) => (
-									<DashboardCard
-										id={item.id}
-										key={item.id}
-										name={item.name} // Propiedad "name" desde el estado
-										description={item.description} // Propiedad "description" desde el estado
-										stock={item.stock} // Propiedad "stock" desde el estado
-										picture={item.picture} // Propiedad "picture" desde el estado
-										isActive={item.isActive}
-										price={item.price}
-										id_picture={item.picture}
-										graduation={item.graduation}
-									/>
-								))}
+							{
+								console.log(filteredData)}
+							{
+								filteredData
+									.filter((item) =>
+										item.name.toLowerCase().includes(searchValue.toLowerCase()),
+									)
+									.map((item) => (
+										<DashboardCard
+											id={item.id}
+											key={item.id}
+											name={item.name} // Propiedad "name" desde el estado
+											description={item.description} // Propiedad "description" desde el estado
+											stock={item.stock} // Propiedad "stock" desde el estado
+											picture={item.picture} // Propiedad "picture" desde el estado
+											isActive={item.isActive}
+											price={item.price}
+											id_picture={item.picture}
+											graduation={item.graduation}
+										/>
+									))}
 						</div>
 					)}
 				</div>
@@ -244,8 +210,31 @@ export default function Dashboard() {
 										isActive={item.isActive}
 										price={item.price}
 										id_picture={item.picture}
+										graduation={item.graduation}
+									/>
+								))}
+						</div>
+					)}
+				</div>
+
+				<div className={styles.cardsContainer}>
+
+					{selectedOption === 'discountedProducts' && (
+						<div className={styles['dashboard-card-container']}>
+							{offer
+								.map((item) => (
+									<ProductOffer
+										id={item.id}
+										product_id = {item.product_id}
+										key={item.id}
+										product_name={item.product_name} // Propiedad "name" desde el estado
+										image={item.image} // Propiedad "picture" desde el estado
+										price={item.price}
+										discount={item.discount}
+										id_picture={item.picture}
 										is_product_month={item.is_product_month}
 										graduation={item.graduation}
+
 									/>
 								))}
 						</div>
