@@ -22,6 +22,8 @@ import swal from 'sweetalert';
 import swal2 from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+import PercentIcon from '@mui/icons-material/Percent';
+
 
 
 const ExpandMore = styled((props) => {
@@ -85,31 +87,42 @@ export default function ProductOffer({
             if (response.status === 200) {
                 MySwal.fire(`Bien! Ahora el producto ${product_name} tiene un ${discount}% de descuento!`)
                 setTimeout(() => {
-                    window.location.reload();    
+                    window.location.reload();
                 }, 2000);
             }
         }
     }
     const handleDeleteOffer = async (event) => {
         event.preventDefault();
-        swal({
+        await swal({
             title: "Advertencia",
             text: 'Desea borrar este producto de las ofertas?',
-            button: ['Cancelar', 'Aceptar'],
+            buttons: ['Cancelar', 'Aceptar'],
+        }).then(async (response) => {
+            if (response) {
+                const response = await axios.delete(`/offer/${id}?userId=${user.id}`)
+                if (response.status === 200) {
+                    swal({
+                        title: 'Eliminado',
+                        text: 'Producto eliminado de las ofertas',
+                        icon: 'success'
+                    })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            } else {
+                swal({
+                    title: 'Eliminacion no ejecutada',
+                    text: '',
+                    icon: 'success',
+                    buttons: 'Aceptar',
+                });
+            }
         })
-        const response = await axios.delete(`/offer/${id}?userId=${user.id}`)
-        if (response.status === 200) {
-            swal({
-                title: 'Eliminado',
-                text: 'Producto eliminado de las ofertas',
-                icon: 'success'
-            })
-            setTimeout(() => {
-                window.location.reload();             
-            }, 2000);
-        }
+
     }
-    
+
     return (
         <Card className={styles.mainContainer}>
             <div>
@@ -138,7 +151,7 @@ export default function ProductOffer({
                         {price || 'Price'}
                     </IconButton>
                     <IconButton>
-                        <AttachMoneyIcon />
+                        <PercentIcon />
                         {discount || 'Price'}
                     </IconButton>
                     <ExpandMore
