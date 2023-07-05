@@ -8,19 +8,30 @@ const CardsBuy = ({ allDrinks }) => {
 			<div className={styles.content}>
 				{allDrinks.length !== 0 ? (
 					allDrinks.map(
-						({ id, name, description, price, picture, graduation, stock }) => {
-							return (
-								<CardBuy
-									key={id}
-									id={id}
-									name={name}
-									picture={picture}
-									price={price}
-									description={description}
-									graduation={graduation}
-									stock={stock}
-								/>
-							);
+						({
+							id,
+							name,
+							description,
+							price,
+							picture,
+							graduation,
+							stock,
+							isActive,
+						}) => {
+							if (isActive) {
+								return (
+									<CardBuy
+										key={id}
+										id={id}
+										name={name}
+										picture={picture}
+										price={price}
+										description={description}
+										graduation={graduation}
+										stock={stock}
+									/>
+								);
+							}
 						},
 					)
 				) : (

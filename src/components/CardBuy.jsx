@@ -22,6 +22,7 @@ const CardBuy = ({
 	picture,
 	graduation,
 	stock,
+	isActive,
 }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();

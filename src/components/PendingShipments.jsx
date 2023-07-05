@@ -20,9 +20,9 @@ const PendingShipments = () => {
 
 	return (
 		<div className={styles.container}>
+			<h2 className={styles.title}>Envios Pendientes</h2>
 			{deliveryPending && deliveryPending.length !== 0 ? (
 				<div className={styles.cardsShipments}>
-					<h2 className={styles.title}>Envios Pendientes</h2>
 					{deliveryPending.map(
 						({
 							id,

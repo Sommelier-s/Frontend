@@ -15,48 +15,48 @@ import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
 
-import ProductMonth from "../components/ProductMonth";
+import ProductMonth from '../components/ProductMonth';
 import axios from 'axios';
 
 export default function Dashboard() {
-	const users = [
-		{
-			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-			first_name: 'Andrea',
-			last_name: 'Rincon',
-			date_birth: '1983-11-27',
-			email: 'andrea@gmail.com',
-			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-			isAdmin: false,
-		},
-		{
-			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-			first_name: 'Miguel',
-			last_name: 'Fernandez',
-			date_birth: '1983-11-27',
-			email: 'miguel2711@gmail.com',
-			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-			isAdmin: false,
-		},
-		{
-			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-			first_name: 'Gonzalo',
-			last_name: 'Suarez',
-			date_birth: '1983-11-27',
-			email: 'gonzalo@gmail.com',
-			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-			isAdmin: false,
-		},
-		{
-			id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
-			first_name: 'Pedro',
-			last_name: 'Romero',
-			date_birth: '1983-11-27',
-			email: 'pedrofaro2711@gmail.com',
-			profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
-			isAdmin: false,
-		},
-	];
+	// const users = [
+	// 	{
+	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+	// 		first_name: 'Andrea',
+	// 		last_name: 'Rincon',
+	// 		date_birth: '1983-11-27',
+	// 		email: 'andrea@gmail.com',
+	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+	// 		isAdmin: false,
+	// 	},
+	// 	{
+	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+	// 		first_name: 'Miguel',
+	// 		last_name: 'Fernandez',
+	// 		date_birth: '1983-11-27',
+	// 		email: 'miguel2711@gmail.com',
+	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+	// 		isAdmin: false,
+	// 	},
+	// 	{
+	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+	// 		first_name: 'Gonzalo',
+	// 		last_name: 'Suarez',
+	// 		date_birth: '1983-11-27',
+	// 		email: 'gonzalo@gmail.com',
+	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+	// 		isAdmin: false,
+	// 	},
+	// 	{
+	// 		id: 'd7f80a8b-8d53-498a-95ab-46ba10775264',
+	// 		first_name: 'Pedro',
+	// 		last_name: 'Romero',
+	// 		date_birth: '1983-11-27',
+	// 		email: 'pedrofaro2711@gmail.com',
+	// 		profile_picture: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+	// 		isAdmin: false,
+	// 	},
+	// ];
 
 	const dispatch = useDispatch();
 	const [selectedOption, setSelectedOption] = useState('profile'); // Estado para almacenar la opción seleccionada del menú
@@ -69,36 +69,27 @@ export default function Dashboard() {
 	const allLiquor = useSelector((state) => state.liquor);
 	const user = useSelector((state) => state.user);
 	const allDrink = useSelector((state) => state.allDrinks);
-	// const [deliveryPending, setDeliveryPending] = useState();
-	// const [deliveryRealized, setDeliveryRealized] = useState();
+	const [users, setUsers] = useState([]);
 
-	// const getAllDeliveryPending = async () => {
-	// 	try {
-	// 		const { data } = await axios.get(`/delivery/pending`);
-	// 		setDeliveryPending(data.data);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
+	const getAllUsers = async () => {
+		try {
+			const { data } = await axios.get(`/auth/user/?id=${user.id}`);
+			setUsers(data.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-	// const getAllDeliveryRealized = async () => {
-	// 	try {
-	// 		const { data } = await axios.get(`/delivery/realized`);
-	// 		setDeliveryRealized(data.data);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
 
 	const navigate = useNavigate();
 	useEffect(() => {
-		
 		if (!user.isAdmin) {
 			navigate('/');
 		}
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
 		dispatch(getAllDrinks());
+		getAllUsers();
 
 		if (
 			selectedOption === 'wine' ||
@@ -110,6 +101,7 @@ export default function Dashboard() {
 		} else {
 			setShowSearchBar(false);
 		}
+
 	}, [selectedOption]);
 
 	let filteredData;
@@ -132,9 +124,9 @@ export default function Dashboard() {
 
 		if (option === 'productMonth') {
 			setShowProductMonth(true);
-		  } else {
+		} else {
 			setShowProductMonth(false);
-		  }
+		}
 	};
 
 	//Manejador para la searchBar
@@ -184,21 +176,27 @@ export default function Dashboard() {
 				<div className={styles.cardProfileUser}>
 					{selectedOption === 'users' && (
 						<div>
-							{users
-								.filter((item) =>
-									`${item.first_name} ${item.last_name}`
-										.toLowerCase()
-										.includes(searchValue.toLowerCase()),
-								)
-								.map((user) => (
+							{users.length !== 0 ? (
+								users.map((user) => (
 									<DashboardCardAdminUsers
+										id={user.id}
 										key={user.id}
 										profile_picture={user.profile_picture}
 										name={`${user.first_name} ${user.last_name}`}
 										email={user.email}
 										date_birth={user.date_birth}
+										isAdmin={user.is_Admin}
+										isActive={user.isActive}
 									/>
-								))}
+								))
+							) : (
+								<div>
+									<h2>
+										No hay usuarios registrados, tu no estas incluido en la
+										lista
+									</h2>
+								</div>
+							)}
 						</div>
 					)}
 				</div>
@@ -229,11 +227,11 @@ export default function Dashboard() {
 				</div>
 
 				<div className={styles.cardsContainer}>
-					{selectedOption === 'productMonth' && showProductMonth &&  (
+					{selectedOption === 'productMonth' && showProductMonth && (
 						<div className={styles['dashboard-card-container']}>
 							{allDrink
 								.filter((item) =>
-								item.name.toLowerCase().includes(searchValue.toLowerCase()),
+									item.name.toLowerCase().includes(searchValue.toLowerCase()),
 								)
 								.map((item) => (
 									<ProductMonth

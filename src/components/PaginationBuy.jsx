@@ -7,12 +7,14 @@ import CardsBuy from './CardsBuy';
 
 const PaginationBuy = () => {
 	//Aqui traigo todos los perros, pero uso la copia
-	const allDrinks = useSelector((state) => state.copyAllDrinks);
+	const allDrinksFull = useSelector((state) => state.copyAllDrinks);
+	const allDrinks = allDrinksFull.filter((drink) => drink.isActive == true);
+	console.log(allDrinks);
 
 	//Estados para controlar la paginacion
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage, setItemPerPage] = useState(4);
-	const [pageNumerLimit, setPageNumerLimit] = useState(4);
+	const [itemsPerPage, setItemPerPage] = useState(8);
+	const [pageNumerLimit, setPageNumerLimit] = useState(8);
 	const [maxPageNumerLimit, setMaxPageNumerLimit] = useState(6);
 	const [minPageNumerLimit, setMinPageNumerLimit] = useState(0);
 
@@ -25,7 +27,7 @@ const PaginationBuy = () => {
 	useEffect(() => {
 		setMinPageNumerLimit(0);
 		setCurrentPage(1);
-		setItemPerPage(4);
+		setItemPerPage(8);
 	}, [allDrinks]);
 
 	//Este bucle for se encarga de guardar la cantidad de paginas que hay,

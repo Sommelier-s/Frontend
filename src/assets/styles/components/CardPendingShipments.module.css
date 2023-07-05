@@ -6,6 +6,7 @@
 	justify-content: center;
 	align-items: center;
 	gap: 30px;
+	padding: 20px
 }
 
 .content {
@@ -27,6 +28,7 @@
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
+	
 }
 
 .detallerRapidos {
@@ -36,6 +38,7 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	gap: 20px;
+	color: black;
 }
 
 .detallesEnvio {
@@ -45,7 +48,12 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	gap: 10px;
+	color: black;
 }
+.dato{
+	color: var(--color-first);
+}
+
 
 .contentCartDetails{
     width: 100%;
@@ -56,3 +64,43 @@
     align-items: center;
     gap: 20px;
 }
+
+.contentButton{
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+
+}
+
+
+/* Esto es para el boton */
+/* ##################################### */
+.button {
+	position: relative;
+	display: inline-block;
+	padding: 5px;
+	text-align: center;
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-decoration: none;
+	color: var(--color-first);
+	background: transparent;
+	cursor: pointer;
+	transition: ease-out 0.5s;
+	border: 2px solid var(--color-second);
+	border-radius: 5px;
+	box-shadow: inset 0 0 0 0 var(--color-first);
+}
+
+.button:hover {
+	color: white;
+	box-shadow: inset 0 -100px 0 0 var(--color-first);
+}
+
+.button:active {
+	transform: scale(0.9);
+} 
