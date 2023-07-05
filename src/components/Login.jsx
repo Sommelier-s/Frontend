@@ -36,6 +36,7 @@ import {
 	googleLogout,
 } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
+import swal from 'sweetalert';
 
 const Login = ({ handleChange }) => {
 	const user = useSelector((state) => state.user);
@@ -103,8 +104,18 @@ const Login = ({ handleChange }) => {
 		try {
 			const response = await axios.post(`/auth/login`, user);
 			const userLogin = response.data.data;
-			dispatch(saveUser(userLogin));
-			setAcess(true);
+			console.log(userLogin);
+			if (userLogin.isActive) {
+				dispatch(saveUser(userLogin));
+				setAcess(true);
+			} else {
+				swal({
+					title: 'Usuario Baneado',
+					text: 'Su usuario ha sido baneado por no cumplir con los terminos y/o condiciones',
+					icon: 'error',
+					buttons: 'Aceptar',
+				});
+			}
 		} catch (error) {
 			displayFailedMessage(error.response.data.error);
 		}
@@ -117,6 +128,7 @@ const Login = ({ handleChange }) => {
 		};
 
 		await loginInBdd(newUser);
+
 		if (acess) {
 			props.resetForm();
 			props.setSubmitting(false);
@@ -145,8 +157,21 @@ const Login = ({ handleChange }) => {
 				token: data.token,
 				profile_picture: data.profile_picture,
 				isAdmin: data.isAdmin,
+				isActive: data.isActive,
 			};
-			dispatch(saveUser(newUser));
+
+			if (newUser.isActive) {
+				dispatch(saveUser(newUser));
+				setAcess(true);
+			} else {
+				swal({
+					title: 'Usuario Baneado',
+					text: 'Su usuario ha sido baneado por no cumplir con los terminos y/o condiciones',
+					icon: 'error',
+					buttons: 'Aceptar',
+				});
+			}
+
 			setAcess(true);
 			navigate('/');
 		} catch (error) {

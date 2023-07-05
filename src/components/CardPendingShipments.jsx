@@ -61,56 +61,58 @@ const CardPendingShipments = ({
 	return (
 		<div className={styles.container}>
 			<div className={styles.content}>
+				<h2>Detalles del envio</h2>
 				<div className={styles.detallesDelEnvio}>
 					<div className={styles.detallerRapidos}>
-						<h2>Detalles Rapidos</h2>
-						<h2>{name}</h2>
-						<h2>
-							Monto: $ <span>{amount}</span>
-						</h2>
-						<h2>
-							Cantidad de productos: <span>{cart.length}</span>{' '}
-						</h2>
-					</div>
-					<div className={styles.detallesEnvio}>
-						<h2>Detalles del envio</h2>
 						<h3>
-							Nombre: <span>{name}</span>
+							Nombre: <span className={styles.dato}>{name}</span>
 						</h3>
 						<h3>
-							Direccion: <span>{address}</span>
+							Direccion: <span className={styles.dato}>{address}</span>
 						</h3>
 						<h3>
-							Número: <span>{number}</span>
+							Número: <span className={styles.dato}>{number}</span>
 						</h3>
 						{apartment != 0 && (
 							<h3>
-								Piso: <span>{apartment}</span>
+								Piso: <span className={styles.dato}>{apartment}</span>
 							</h3>
 						)}
-
 						<h3>
-							Provincia: <span>{province}</span>
+							Monto: <span className={styles.dato}>${amount}</span>
 						</h3>
 						<h3>
-							Ciudad: <span>{city}</span>
+							Cantidad de productos:{' '}
+							<span className={styles.dato}>{cart.length}</span>{' '}
+						</h3>
+					</div>
+					<div className={styles.detallesEnvio}>
+						<h3>
+							Provincia: <span className={styles.dato}>{province}</span>
 						</h3>
 						<h3>
-							Codigo postal: <span>{postal_code}</span>
+							Ciudad: <span className={styles.dato}>{city}</span>
 						</h3>
 						<h3>
-							Telefono: <span>{phone}</span>
+							Codigo postal: <span className={styles.dato}>{postal_code}</span>
 						</h3>
 						<h3>
-							Intrucciones: <span>{instructions}</span>
+							Telefono: <span className={styles.dato}>{phone}</span>
+						</h3>
+						<h3>
+							Intrucciones: <span className={styles.dato}>{instructions}</span>
 						</h3>
 					</div>
 				</div>
-				<button onClick={handleChangeDetails}>
-					{' '}
-					{details ? 'ocultar detalles' : 'ver detalles'}{' '}
-				</button>
-				<button onClick={handleChangeStateShipment}>Marcar como enviado</button>
+				<div className={styles.contentButton}>
+					<button onClick={handleChangeDetails} className={styles.button}>
+						{' '}
+						{details ? 'ocultar detalles' : 'ver detalles'}{' '}
+					</button>
+					<button onClick={handleChangeStateShipment} className={styles.button}>
+						Marcar como enviado
+					</button>
+				</div>
 			</div>
 			{details && (
 				<div className={styles.contentCartDetails}>

@@ -15,9 +15,9 @@ const CartDetailsShipmentsPending = ({
 				<img src={picture} alt="" />
 			</div>
 			<div className={styles.contentText}>
-				<p>{name}</p>
-				<p>{price}</p>
-				<p>{quantity}</p>
+				<p>Nombre: {name}</p>
+				<p>Precio: {price}</p>
+				<p>Cantidad: {quantity}</p>
 			</div>
 		</div>
 	);

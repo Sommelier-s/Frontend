@@ -21,9 +21,9 @@ const CompletedShipments = () => {
 
 	return (
 		<div className={styles.container}>
+			<h2 className={styles.title}>Envios Realizados</h2>
 			{deliveryRealized && deliveryRealized.length !== 0 ? (
 				<div className={styles.cardsShipments}>
-					<h2 className={styles.title}>Envios Realizados</h2>
 					{deliveryRealized.map(
 						({
 							id,
