@@ -92,7 +92,7 @@ const Detail = () => {
 	const searchDrink = async () => {
 		try {
 			const { data } = await axios.get(
-				`${desarrolloApp}/both_drinks/?id=${id}`,
+				`/both_drinks/?id=${id}`,
 				);
 				setDrink(data.data);
 			} catch (error) {

@@ -53,7 +53,7 @@ const ForgetPasswordOne = () => {
 		}
 
 		try {
-			const { data } = await axios.post(`${desarrolloApp}/auth/olvide-password`, { email });
+			const { data } = await axios.post(`/auth/olvide-password`, { email });
 			console.log(data);
 			swal({
 				title: 'Operación completada',
