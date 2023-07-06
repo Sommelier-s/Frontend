@@ -72,13 +72,7 @@ const DashboardCardProductUserReview = () => {
                       size='large'
                     />
                   </div>
-                  {!isEditing && (
-                    <div className={styles.buttons}>
-                      <Button variant='contained' onClick={handleEditClick}>
-                        Editar Comentario
-                      </Button>
-                    </div>
-                  )}
+                  
                 </div>
               </div>
             </Card>
