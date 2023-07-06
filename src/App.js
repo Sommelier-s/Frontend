@@ -29,7 +29,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   updateCartFromLocalStorage,
   saveUser,
-  updateAmount
+  updateAmount,
+  getAllWineActive,
+  getAllLiquorActive,
+  getAllDrinksActive,
+  generatedCopyAllDrinksActive
 } from "./redux/actions";
 
 //Axios configuration
@@ -65,7 +69,28 @@ function App() {
 
 
 
+
+
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllWineActive());
+    dispatch(getAllLiquorActive());
+  }, []);
+
+  const liquorActive = useSelector((state) => state && state.liquorActive);
+
+  useEffect(() => {
+    dispatch(getAllDrinksActive());
+  }, [liquorActive && liquorActive.length > 0]);
+
+  const DrinksActives = useSelector((state) => state && state.allDrinksActive);
+
+  useEffect(() => {
+    dispatch(generatedCopyAllDrinksActive());
+  }, [DrinksActives && DrinksActives.length > 0]);
+
 
   useEffect(() => {
 

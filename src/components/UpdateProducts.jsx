@@ -44,31 +44,26 @@ const UpdateProducts = () => {
 
 	const validateFiels = (form, stateErrors) => {
 		let error = { ...stateErrors };
-		if (!form.description) error.description = 'Completa el campo';
-		else if (form.description === '') error.description = 'Completa el campo';
-		else if (!isNaN(form.description))
+		if (!isNaN(form.description))
 			error.description = 'No pueder ser un numero';
 		else error.description = '';
 
-		if (!form.price) error.price = 'Completa el campo';
-		else if (form.price === '') error.price = 'Completa el campo';
-		else if (isNaN(form.price)) error.price = 'Debe ser un numero';
+	
+		if (isNaN(form.price)) error.price = 'Debe ser un numero';
 		else if (form.price.toLowerCase().includes('-'))
 			error.price = 'No debe ser negativo';
 		else if (parseInt(form.price) <= 0) error.price = 'Debe ser mayor a cero';
 		else error.price = '';
 
-		if (!form.stock) error.stock = 'Completa el campo';
-		else if (form.stock === '') error.stock = 'Completa el campo';
-		else if (isNaN(form.stock)) error.stock = 'Debe ser un numero';
+	
+		if (isNaN(form.stock)) error.stock = 'Debe ser un numero';
 		else if (form.stock.toLowerCase().includes('-'))
 			error.stock = 'No debe ser negativo';
 		else if (parseInt(form.stock) <= 0) error.stock = 'Debe ser mayor a cero';
 		else error.stock = '';
 
-		if (!form.graduation) error.graduation = 'Completa el campo';
-		else if (form.graduation === '') error.graduation = 'Completa el campo';
-		else if (isNaN(form.graduation)) error.graduation = 'Debe ser un numero';
+		
+		if (isNaN(form.graduation)) error.graduation = 'Debe ser un numero';
 		else if (form.graduation.toLowerCase().includes('-'))
 			error.graduation = 'No debe ser negativo';
 		else if (parseInt(form.graduation) <= 0)
