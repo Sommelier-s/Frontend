@@ -1,15 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styles from '../assets/styles/components/PaginationBuy.module.css';
-import { useDispatch } from 'react-redux';
+
 import CardsBuy from './CardsBuy';
 
+import styles from '../assets/styles/components/PaginationBuy.module.css';
 const PaginationBuy = () => {
 	//Aqui traigo todos los perros, pero uso la copia
 	const allDrinks = useSelector((state) => state.copyAllDrinksActive);
-	// const allDrinks = allDrinksFull.filter((drink) => drink.isActive == true);
-	// console.log(allDrinks);
+	
 
 	//Estados para controlar la paginacion
 	const [currentPage, setCurrentPage] = useState(1);

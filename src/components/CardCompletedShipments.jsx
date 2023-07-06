@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import swal from 'sweetalert';
-import CartDetailsShipmentsPending from './CartDetailsShipmentsPending';
+
+
 import styles from '../assets/styles/components/CardCompletedShipments.module.css';
+
+import CartDetailsShipmentsPending from './CartDetailsShipmentsPending';
+
 const CardCompletedShipments = ({
 	id,
 	user_id,
@@ -20,43 +21,12 @@ const CardCompletedShipments = ({
 	postal_code,
 	province,
 }) => {
-	const user = useSelector((state) => state.user);
+	
 	const [details, setDetails] = useState(false);
 	const handleChangeDetails = (event) => {
 		event.preventDefault();
 		setDetails(!details);
 	};
-
-	// const handleChangeStateShipment = async (event) => {
-	// 	event.preventDefault();
-	// 	swal({
-	// 		title: 'Atención!',
-	// 		text: 'Está seguro de poner como envio realizado?',
-	// 		icon: 'warning',
-	// 		buttons: ['Cancelar', 'Continuar'],
-	// 	}).then((response) => {
-	// 		if (response) {
-	// 			try {
-	// 				const { data } = axios.put(`/delivery/${id}/?userId=${user.id}`);
-	// 				swal({
-	// 					title: 'Cambio realizado',
-	// 					text: 'Se ha cambiado de envio pendiente a envio realizado',
-	// 					icon: 'success',
-	// 					buttons: 'aceptar',
-	// 				});
-	// 			} catch (error) {
-	// 				console.log(error);
-	// 			}
-	// 		} else {
-	// 			swal({
-	// 				title: 'Cancelado',
-	// 				text: 'Se ha cancelado el cambio',
-	// 				icon: 'success',
-	// 				buttons: 'Aceptar',
-	// 			});
-	// 		}
-	// 	});
-	// };
 
 	return (
 		<div className={styles.container}>

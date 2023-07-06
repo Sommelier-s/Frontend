@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from '.././assets/styles/components/views/Create.module.css';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategoryWine, getAllCategoryLiquor } from '../redux/actions';
 import { useEffect } from 'react';
-//Esta importacion es para poder abrir una ventana del sistema
-//para asi seleccionar las imagenes
-
 import { Container } from 'reactstrap';
 import Dropzone from 'react-dropzone';
 import swal from 'sweetalert';
-import folder from '../assets/img/folder-filled.png';
-import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {
 	Grid,
 	Paper,
@@ -27,12 +19,20 @@ import {
 	Select,
 	MenuItem,
 } from '@mui/material';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getAllCategoryWine, getAllCategoryLiquor } from '../redux/actions';
+
+import folder from '../assets/img/folder-filled.png';
+import Footer from '../components/Footer';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useNavigate } from 'react-router-dom';
+
+import styles from '.././assets/styles/components/views/Create.module.css';
+
+import axios from 'axios';
 
 export default function Create() {
-	const desarrolloApp = 'http://localhost:3001';
-
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user);
 	const navigate = useNavigate();
@@ -64,7 +64,7 @@ export default function Create() {
 			const { data } = await axios.delete(
 				`/cloudinary/delete?id_public=${publicId}`,
 			);
-			console.log(data);
+			
 		} catch (error) {
 			console.log(error);
 		}
@@ -217,36 +217,35 @@ export default function Create() {
 	const validateForm = () => {
 		const { name, description, price, stock } = formData;
 		const errors = {};
-	  
+
 		if (!name.trim()) {
 			errors.name = 'El nombre es requerido.';
-		  } else if (!/[a-zA-Z]/.test(name)) {
+		} else if (!/[a-zA-Z]/.test(name)) {
 			errors.name = 'El nombre debe contener al menos una letra.';
-		  }
-	  
-		  if (!description.trim()) {
+		}
+
+		if (!description.trim()) {
 			errors.description = 'La descripción es requerida.';
-		  } else if (!/[a-zA-Z]/.test(description)) {
+		} else if (!/[a-zA-Z]/.test(description)) {
 			errors.description = 'La descripción debe contener al menos una letra.';
-		  }
-	  
+		}
+
 		if (!price) {
-		  errors.price = 'El precio es requerido.';
+			errors.price = 'El precio es requerido.';
 		} else if (isNaN(price) || parseFloat(price) <= 0) {
-		  errors.price = 'El precio debe ser un número válido y mayor que cero.';
+			errors.price = 'El precio debe ser un número válido y mayor que cero.';
 		}
-	  
+
 		if (!stock) {
-		  errors.stock = 'El stock es requerido.';
+			errors.stock = 'El stock es requerido.';
 		} else if (isNaN(price) || parseFloat(price) <= 0) {
-		  errors.stock = 'El stock debe ser un número válido y mayor que cero.';
+			errors.stock = 'El stock debe ser un número válido y mayor que cero.';
 		}
-	  
+
 		setErrors(errors);
-	  
+
 		return Object.keys(errors).length === 0;
-	  };
-	  
+	};
 
 	const validateField = (fieldName, value) => {
 		const fieldErrors = {};
@@ -261,8 +260,8 @@ export default function Create() {
 			case 'description':
 				if (!value.trim()) {
 					fieldErrors.description = 'Descripción requerida.';
-				} else if (!isNaN(value)){
-					fieldErrors.description = 'La descripcion debe contener letras'
+				} else if (!isNaN(value)) {
+					fieldErrors.description = 'La descripcion debe contener letras';
 				}
 				break;
 			case 'price':
@@ -325,7 +324,6 @@ export default function Create() {
 					displaySuccessMessage('Producto cargado con éxito');
 					setImage({ array: [] });
 				} catch (error) {
-					console.log('Error al enviar el formulario:', error);
 					displayFailedMessage('Hubo un error, no se cargó el producto');
 				}
 			} else if (formData.product === 'licor') {
@@ -357,7 +355,6 @@ export default function Create() {
 					displaySuccessMessage('Producto cargado con éxito');
 					setImage({ array: [] });
 				} catch (error) {
-					console.log('Error al enviar el formulario:', error);
 					displayFailedMessage('Hubo un error, no se cargó el producto');
 				}
 			} else {

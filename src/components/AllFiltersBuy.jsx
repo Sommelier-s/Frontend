@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-
 import styles from '../assets/styles/components/AllFiltersBuy.module.css';
+
 import {
 	generatedCopyAllDrinks,
 	filterCategoryWine,

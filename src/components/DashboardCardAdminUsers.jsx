@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import swal from 'sweetalert';
+
 import { Card, CardContent, Typography, Button } from '@mui/material';
-import styles from '../assets/styles/components/DashboardCardAdminUsers.module.css';
 import BlockIcon from '@mui/icons-material/Block';
 import IconButton from '@mui/material/IconButton';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import CardMedia from '@mui/material/CardMedia';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import swal from 'sweetalert';
+
+import styles from '../assets/styles/components/DashboardCardAdminUsers.module.css';
+
 import axios from 'axios';
 
 const DashboardCardAdminUsers = ({
@@ -50,15 +53,6 @@ const DashboardCardAdminUsers = ({
 		}
 	};
 
-	// const sendEmailOfNotification = async (datos) => {
-	// 	console.log('Se llamo a la funcion');
-	// 	try {
-	// 		const { data } = await axios.post(`/auth/send-email`, datos);
-
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
 
 	const banUser = () => {
 		swal({
@@ -142,8 +136,6 @@ const DashboardCardAdminUsers = ({
 
 	useEffect(() => {
 		setIsBanned(!isActive);
-
-		console.log(`el ${name} is admin ${isAdmin}`);
 
 		setAdminHover(isAdmin);
 	}, []);

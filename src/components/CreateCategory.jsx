@@ -1,46 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
-import exios from 'axios';
-import { useSelector } from 'react-redux';
+
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import styles from '../assets/styles/components/CreateCategory.module.css';
 const CreateCategoryWine = () => {
-	const user = useSelector((state) => state.id);
 	const [option, setOption] = useState('vino');
 	const [form, setForm] = useState({
 		name: '',
 	});
-
-	//Toastify module for success message
-	const displaySuccessMessage = (mensaje) => {
-		toast.success(mensaje, {
-			position: 'top-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: 'light',
-		});
-	};
-
-	// Toastify module for error messages
-	const displayFailedMessage = (mensaje) => {
-		toast.error(mensaje, {
-			position: 'top-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: 'light',
-		});
-	};
 
 	const handleOption = (event) => {
 		event.preventDefault();

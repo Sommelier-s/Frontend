@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import swal from 'sweetalert';
-import CartDetailsShipmentsPending from './CartDetailsShipmentsPending';
+
+import axios from 'axios';
+
 import styles from '../assets/styles/components/CardPendingShipments.module.css';
+
+import CartDetailsShipmentsPending from './CartDetailsShipmentsPending';
 const CardPendingShipments = ({
 	id,
 	user_id,

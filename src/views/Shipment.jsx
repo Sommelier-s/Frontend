@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styles from '.././assets/styles/components/views/Shipment.module.css';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,11 +16,12 @@ import {
 	TextField,
 	Button,
 } from '@mui/material';
+
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
 import { removeFromCart, updateCartEmptyStatus } from '../redux/actions';
+
+import styles from '.././assets/styles/components/views/Shipment.module.css';
+
 import axios from 'axios';
 
 export default function Shipment() {
@@ -40,20 +45,20 @@ export default function Shipment() {
 
 	const [id_Cart, setId_Cart] = useState('');
 
-	const sendEmailPuschased=async()=>{
-		const userData={
-			id:user.id,
-			name: user.first_name +" "+user.last_name,
-			email:user.email,
-			type:"delivery",
-		}
-		try{
-			const {data}=await axios.post(`/auth/send-email`,userData);
-			console.log("Se ha notificado al usuario")
-		}catch(error){
+	const sendEmailPuschased = async () => {
+		const userData = {
+			id: user.id,
+			name: user.first_name + ' ' + user.last_name,
+			email: user.email,
+			type: 'delivery',
+		};
+		try {
+			const { data } = await axios.post(`/auth/send-email`, userData);
+			
+		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	const thereIsACart = async () => {
 		try {
@@ -81,7 +86,7 @@ export default function Shipment() {
 
 	const updateStockProducts = () => {
 		backupCart.map(async ({ id, quantity, graduation }) => {
-			console.log(graduation);
+			
 			if (!graduation) {
 				try {
 					const { data } = await axios.put(`/wine/stock/${id}`, {
@@ -200,7 +205,7 @@ export default function Shipment() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log('Se hizo clic en el botón Enviar');
+		
 		if (
 			initialValues.firstName &&
 			initialValues.lastName &&
@@ -232,7 +237,7 @@ export default function Shipment() {
 				const { data } = await axios.post('/shipment', shipmentData);
 
 				if (data.data) {
-					console.log('entro al si del if');
+					
 					swal({
 						title: 'Compra exitosa',
 						text: 'Revisa tu correo por la factura',
@@ -247,7 +252,7 @@ export default function Shipment() {
 				return displayFailedMessage('Hubo un error en el axios');
 			}
 		} else {
-			console.log('no se envia form');
+			
 			return displayFailedMessage('Campos invalidos');
 		}
 	};

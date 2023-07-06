@@ -1,12 +1,13 @@
 import React from 'react';
-import styles from '../assets/styles/components/ResetPassword.module.css';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import swal from 'sweetalert';
-import { useParams } from 'react-router-dom';
+
 import { Grid, Button, Paper, Typography, TextField } from '@mui/material';
+
+import axios from 'axios';
 
 const ResetPasswordOne = () => {
 	const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const ResetPasswordOne = () => {
 		setPassword(value);
 		validatePassword(value);
 	};
-	
+
 	const handleChangeConfirmPassword = (event) => {
 		event.preventDefault();
 		const value = event.target.value;
@@ -62,7 +63,7 @@ const ResetPasswordOne = () => {
 		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{1,}$/;
 		if (!passwordRegex.test(password)) {
 			setPasswordError(
-				'La contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número.'
+				'La contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número.',
 			);
 		} else {
 			setPasswordError('');
@@ -81,18 +82,23 @@ const ResetPasswordOne = () => {
 		padding: '30px 20px',
 		width: 500,
 		margin: '0px auto',
-	  };
-	  const headerStyle = {
+	};
+	const headerStyle = {
 		margin: '10px 0',
-	  };
-	  const btnstyle = {
+	};
+	const btnstyle = {
 		marginTop: 15,
 		backgroundColor: '#780000',
-	  };
-	  const marginTop = { marginTop: 10 , marginBottom: 10};
+	};
+	const marginTop = { marginTop: 10, marginBottom: 10 };
 
 	return (
-		<Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
+		<Grid
+			container
+			justifyContent="center"
+			alignItems="center"
+			style={{ minHeight: '100vh' }}
+		>
 			<Grid item xs={12} sm={8} md={6}>
 				<Paper style={paperStyle}>
 					<Grid align="center">
@@ -131,15 +137,15 @@ const ResetPasswordOne = () => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<Button 
-							fullWidth 
-							type="submit" 
-							variant="contained" 
-							color="primary" 
-							style={btnstyle}
-							disabled={passwordError || confirmError}
+							<Button
+								fullWidth
+								type="submit"
+								variant="contained"
+								color="primary"
+								style={btnstyle}
+								disabled={passwordError || confirmError}
 							>
-							Confirmar
+								Confirmar
 							</Button>
 						</Grid>
 					</form>

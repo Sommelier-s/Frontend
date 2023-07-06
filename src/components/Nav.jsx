@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import { Link } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
@@ -19,8 +18,9 @@ import {
 	removeFromCart,
 	updateCartEmptyStatus,
 } from '../redux/actions';
-import { useNavigate } from 'react-router-dom';
+
 import styles from '../assets/styles/components/Nav.module.css';
+
 import axios from 'axios';
 
 const Nav = () => {
@@ -40,9 +40,7 @@ const Nav = () => {
 		try {
 			const { data } = await axios.get(`/cart/?id=${user.id}`);
 			setCartBack(data.data);
-		} catch (error) {
-			
-		}
+		} catch (error) {}
 	};
 
 	useEffect(() => {
@@ -56,7 +54,7 @@ const Nav = () => {
 
 	const handleLogOut = async (event) => {
 		thereIsACart();
-		
+
 		if (cart.length !== 0) {
 			const updateCartForBack = {
 				cart: cart,

@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+
+import swal from 'sweetalert';
+
+//Importo lo necesario para toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+//Importación de estilos
+import styles from '../assets/styles/components/Cart.module.css';
+import axios from 'axios';
+
 import {
 	removeFromCart,
 	updateQuantity,
 	updateCartEmptyStatus,
 	updateAmount,
 } from '../redux/actions';
-
-//Importo lo necesario para toastify
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import swal from 'sweetalert';
-import { useState } from 'react';
-//Importación de estilos
-import styles from '../assets/styles/components/Cart.module.css';
-import axios from 'axios';
 
 const Cart = () => {
 	const navigate = useNavigate();
@@ -70,7 +72,6 @@ const Cart = () => {
 		} else {
 			displayFailedMessage('No puede agregar mas del stock disponible');
 		}
-		
 	};
 
 	const handleRemoveOneFromCart = (productId, quantity) => {
@@ -90,16 +91,13 @@ const Cart = () => {
 		try {
 			const { data } = await axios.get(`/cart/?id=${user.id}`);
 			setId_Cart(data.data.id);
-		} catch (error) {
-			
-		}
+		} catch (error) {}
 	};
 
 	const emptyCartFromBackend = async () => {
 		try {
 			const { data } = await axios.delete(`/cart/?id=${id_Cart}`);
-		} catch (error) {			
-		}
+		} catch (error) {}
 	};
 
 	useEffect(() => {

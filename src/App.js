@@ -2,11 +2,12 @@
 import './App.css';
 //Import hooks
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 //I import the components
 import Home from "./views/Home";
 import About from "./views/About";
-import Leanding from "./views/Leanding";
 import Detail from "./views/Detail";
 import Create from './views/Create';
 import NotFound from "./views/NotFound";
@@ -23,9 +24,9 @@ import ConfirmedUser from './components/ConfirmedUser';
 import ForgetPasswordOne from './components/ForgetPasswordOne';
 import ResetPasswordTwo from './components/ResetPasswordTwo';
 import UpdateProducts from "./components/UpdateProducts";
+
 import axios from "axios";
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
 import {
   updateCartFromLocalStorage,
   saveUser,
@@ -66,10 +67,6 @@ function App() {
       default: return false
     }
   }
-
-
-
-
 
 
   const dispatch = useDispatch();

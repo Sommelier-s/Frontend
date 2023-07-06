@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// Importación de componentes
+import CardsContainerWine from '../components/CardsContainerWine';
+import CardsContainerLiquor from '../components/CardsContainerLiquor';
+import CardsContainerOffers from '../components/CardsContainerOffers';
+import Footer from '../components/Footer';
+
+
+//Importación de imagenes
+import calidad from '../assets/img/Calidad.png';
+import atencion from '../assets/img/24_7.png';
+import pago from '../assets/img/Pago.png';
+import domicilio from '../assets/img/Domicilio.png';
+
 import {
 	getAllWine,
 	getAllLiquor,
@@ -15,21 +28,9 @@ import {
 	saveProductMonth,
 } from '../redux/actions';
 
-// Importación de componentes
-import CardsContainerWine from '../components/CardsContainerWine';
-import CardsContainerLiquor from '../components/CardsContainerLiquor';
-import CardsContainerOffers from '../components/CardsContainerOffers';
-import Footer from '../components/Footer';
-import axios from 'axios';
-
 //Importación de estilos
 import styles from '../assets/styles/components/views/Home.module.css';
-
-//Importación de imagenes
-import calidad from '../assets/img/Calidad.png';
-import atencion from '../assets/img/24_7.png';
-import pago from '../assets/img/Pago.png';
-import domicilio from '../assets/img/Domicilio.png';
+import axios from 'axios';
 
 const Home = () => {
 	const [selectedIcon, setSelectedIcon] = useState(null);
@@ -41,7 +42,9 @@ const Home = () => {
 	const stateGlobal = useSelector((state) => state.AllDrinks);
 	const [cartBack, setCartBack] = useState();
 	const user = useSelector((state) => state.user);
-	const selectedProductMonth = useSelector((state) => state.selectedProductMonth);
+	const selectedProductMonth = useSelector(
+		(state) => state.selectedProductMonth,
+	);
 
 	const thereIsACart = async () => {
 		if (user.id) {
@@ -94,23 +97,6 @@ const Home = () => {
 					j = sortNewCart.length;
 				} else {
 					arrayUpdate.push(sortNewCart[j]);
-
-					// console.log('Entro por el else');
-					// const searchElement = arrayUpdate.filter(
-					// 	(element) => element.id === sortNewCart[j].id,
-					// );
-
-					// // console.log('Elemento buscado en arrayUpdate', searchElement);
-					// // const searchElementInBackup = sortBackup.filter(
-					// // 	(element) => element.id === sortNewCart[j].id,
-					// // );
-
-					// console.log('Elemento buscado en sortBackup', sortBackup);
-
-					// if (searchElement.length === 0) {
-					// 	console.log('Entro para agregar');
-					// 	arrayUpdate.push(sortNewCart[j]);
-					// }
 				}
 			}
 		}
@@ -118,25 +104,6 @@ const Home = () => {
 		return arrayUpdate;
 	};
 
-	// const cartElementsUpdate = (backup, newCart) => {
-	// 	let arrayUpdate = [];
-	// 	const sortBackup = [...new Set(backup)];
-
-	// 	for (let i = 0; i < sortBackup.length; i++) {
-	// 		for (let j = 0; j < newCart.length; j++) {
-	// 			if (sortBackup[i].id === newCart[j].id) {
-	// 				sortBackup[i].quantity += newCart[j].quantity;
-	// 				arrayUpdate.push(sortBackup[i]);
-	// 				j = newCart.length;
-	// 			} else {
-	// 				arrayUpdate.push(sortBackup[j]);
-	// 				j = newCart.length;
-	// 			}
-	// 		}
-	// 	}
-
-	// 	return arrayUpdate;
-	// };
 
 	const dispatch = useDispatch();
 
@@ -152,7 +119,6 @@ const Home = () => {
 		dispatch(generatedCopyAllDrinks());
 		dispatch(getAllCategoryWine());
 		dispatch(getAllCategoryLiquor());
-		
 	}, [stateGlobal]);
 
 	useEffect(() => {
@@ -194,10 +160,13 @@ const Home = () => {
 			{selectedProductMonth.length !== 0 ? (
 				<div className={styles.featuredCard}>
 					<img
-						src={selectedProductMonth[0].picture}  alt={selectedProductMonth[0].name}
+						src={selectedProductMonth[0].picture}
+						alt={selectedProductMonth[0].name}
 					/>
 					<div className={styles.featuredCardContent}>
-						<h3 className={styles.featuredCardTitle}>{selectedProductMonth[0].name}</h3>
+						<h3 className={styles.featuredCardTitle}>
+							{selectedProductMonth[0].name}
+						</h3>
 						<p className={styles.featuredCardDescription}>
 							{selectedProductMonth[0].description}
 						</p>
@@ -205,7 +174,8 @@ const Home = () => {
 							Cantidad: {selectedProductMonth[0].stock}
 						</p>
 						<p className={styles.featuredCardDescription}>
-							Precio: {selectedProductMonth[0].price}</p>
+							Precio: {selectedProductMonth[0].price}
+						</p>
 					</div>
 				</div>
 			) : (

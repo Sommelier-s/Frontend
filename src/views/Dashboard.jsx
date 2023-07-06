@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllWine, getAllLiquor, getAllDrinks } from '../redux/actions';
+import { useNavigate } from 'react-router-dom';
+
 import DashboardMenu from '../components/DashboardMenu';
 import DashboardCard from '../components/DashboardCard';
 import DashboardCardAdmin from '../components/DashboardCardAdmin';
 import DashboardCardAdminUsers from '../components/DashboardCardAdminUsers';
 //import DashboardCardPendings from '../components/DashboardCardPendings'
-import styles from '../assets/styles/components/views/Dashboard.module.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import CreateCategory from '../components/CreateCategory';
-import imageBack from '../assets/img/imageBack.png';
 import AddCategoryForm from '../components/AddCategoryForm';
 import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
 import ProductOffer from '../components/ProductOffer';
 import ProductMonth from '../components/ProductMonth';
+
+import imageBack from '../assets/img/imageBack.png';
+
+import { getAllWine, getAllLiquor, getAllDrinks } from '../redux/actions';
+
+import styles from '../assets/styles/components/views/Dashboard.module.css';
+
 import axios from 'axios';
 
 export default function Dashboard() {
@@ -175,7 +179,7 @@ export default function Dashboard() {
 						selectedOption !== 'discountedProducts' &&
 						filteredData.length > 0 && (
 							<div className={styles['dashboard-card-container']}>
-								{console.log(filteredData)}
+								
 								{filteredData
 									.filter((item) =>
 										item.name.toLowerCase().includes(searchValue.toLowerCase()),

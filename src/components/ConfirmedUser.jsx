@@ -1,14 +1,15 @@
-import styles from '../assets/styles/components/ConfirmedUser.module.css';
-import swal from 'sweetalert';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
+import swal from 'sweetalert';
+
 import axios from 'axios';
+
+import styles from '../assets/styles/components/ConfirmedUser.module.css';
 const ConfirmedUser = () => {
 	const navigate = useNavigate();
 
 	const { id } = useParams();
-
-	
 
 	const [message, setMessage] = useState('');
 

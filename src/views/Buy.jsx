@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,19 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import AllFiltersBuy from '../components/AllFiltersBuy';
 import PaginationBuy from '../components/PaginationBuy';
 
-import WineJson from '../utils/Wine.json';
-import LiquorJson from '../utils/Liquor.json';
-
 import Footer from '../components/Footer';
 import {
 	getAllWine,
 	getAllLiquor,
 	getAllDrinks,
 	generatedCopyAllDrinks,
-	getAllWineActive,
-	getAllLiquorActive,
-	getAllDrinksActive,
-	generatedCopyAllDrinksActive,
 	getAllCategoryWine,
 	getAllCategoryLiquor,
 	generatedUserId,
@@ -64,7 +57,6 @@ const Buy = () => {
 		dispatch(generatedUserId());
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
-		
 	}, []);
 
 	const stateLiquor = useSelector((state) => state && state.liquor);
@@ -73,17 +65,13 @@ const Buy = () => {
 		dispatch(getAllDrinks());
 	}, [stateLiquor && stateLiquor.length > 0]);
 
-
 	const stateGlobal = useSelector((state) => state && state.allDrinks);
 
 	useEffect(() => {
 		dispatch(getAllCategoryWine());
 		dispatch(getAllCategoryLiquor());
 		dispatch(generatedCopyAllDrinks());
-	}, [
-		stateGlobal && stateGlobal.length > 0,
-	]);
-
+	}, [stateGlobal && stateGlobal.length > 0]);
 
 	return (
 		<div className={styles.container}>

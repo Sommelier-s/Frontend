@@ -1,46 +1,40 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import {
-  Grid,
-  Paper,
-  Avatar,
-  Typography,
-  TextField,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  InputAdornment,
-  IconButton,
+	Grid,
+	Paper,
+	Avatar,
+	Typography,
+	TextField,
+	Button,
+	Checkbox,
+	FormControlLabel,
+	InputAdornment,
+	IconButton,
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
-import { registerUser } from '../redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
 
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const Register = () => {
-	
+	const [showPassword, setShowPassword] = useState(false);
+	const toggleShowPassword = () => {
+		setShowPassword((prevShowPassword) => !prevShowPassword);
+	};
 
-	const navigate = useNavigate();
-	const desarrolloApp = 'http://localhost:3001';
-
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
-
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
-  };
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+	const toggleShowConfirmPassword = () => {
+		setShowConfirmPassword(
+			(prevShowConfirmPassword) => !prevShowConfirmPassword,
+		);
+	};
 
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
@@ -113,7 +107,7 @@ const Register = () => {
 		if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
 			errors.email = 'Dirección de correo electrónico inválida.';
 		}
-		
+
 		if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{1,}$/)) {
 			errors.password =
 				'La contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número.';
@@ -138,8 +132,8 @@ const Register = () => {
 			const response = await axios.post(`/auth/register`, user);
 			displaySuccessMessage(response.data.message);
 			setAcess(true);
-			
-      setShowPassword(false);
+
+			setShowPassword(false);
 			// userLocal = response.data.data;
 			// dispatch({ type: GET_ALL_USERS, payload: response.data.data })
 		} catch (error) {
@@ -170,7 +164,6 @@ const Register = () => {
 					confirmPassword: '',
 					acceptTerms: false,
 				});
-				
 			}
 			//const resultado = await dispatch(registerUser(newUser));
 
@@ -301,58 +294,58 @@ const Register = () => {
 									helperText={errors.dateOfBirth}
 								/>
 							</Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Contraseña"
-                  placeholder="Ingrese su contraseña"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  type={showPassword ? 'text' : 'password'}
-                  error={Boolean(errors.password)}
-                  helperText={errors.password}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={toggleShowPassword}>
-                          {showPassword ? (
-                            <VisibilityIcon />
-                          ) : (
-                            <VisibilityOffIcon />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Confirme su contraseña"
-                  placeholder="Confirme su contraseña"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  error={Boolean(errors.confirmPassword)}
-                  helperText={errors.confirmPassword}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={toggleShowConfirmPassword}>
-                          {showConfirmPassword ? (
-                            <VisibilityIcon />
-                          ) : (
-                            <VisibilityOffIcon />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
+							<Grid item xs={12}>
+								<TextField
+									fullWidth
+									label="Contraseña"
+									placeholder="Ingrese su contraseña"
+									name="password"
+									value={formData.password}
+									onChange={handleChange}
+									type={showPassword ? 'text' : 'password'}
+									error={Boolean(errors.password)}
+									helperText={errors.password}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position="end">
+												<IconButton onClick={toggleShowPassword}>
+													{showPassword ? (
+														<VisibilityIcon />
+													) : (
+														<VisibilityOffIcon />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+									}}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<TextField
+									fullWidth
+									label="Confirme su contraseña"
+									placeholder="Confirme su contraseña"
+									name="confirmPassword"
+									value={formData.confirmPassword}
+									onChange={handleChange}
+									type={showConfirmPassword ? 'text' : 'password'}
+									error={Boolean(errors.confirmPassword)}
+									helperText={errors.confirmPassword}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position="end">
+												<IconButton onClick={toggleShowConfirmPassword}>
+													{showConfirmPassword ? (
+														<VisibilityIcon />
+													) : (
+														<VisibilityOffIcon />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+									}}
+								/>
+							</Grid>
 							<Grid item xs={12}>
 								<FormControlLabel
 									control={

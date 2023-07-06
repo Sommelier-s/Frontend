@@ -1,4 +1,9 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import swal from 'sweetalert';
+
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,13 +16,10 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import styles from '../assets/styles/components/ProductMonth.module.css';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { useSelector } from 'react-redux';
-import swal from 'sweetalert';
-import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { saveProductMonth } from '../redux/actions';
-import axios from 'axios';
 
+import { saveProductMonth } from '../redux/actions';
+
+import axios from 'axios';
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
 	return <IconButton {...other} />;
@@ -85,14 +87,14 @@ export default function ProductMonth({
 					buttons: ['Cancelar', 'Reemplazar'],
 				}).then((response) => {
 					if (response) {
-						console.log('Ahora pone el nuevo producto', name);
+						
 						if (!graduation) {
 							axios
 								.put(`/wine/${id}/?userId=${user.id}`, {
 									is_product_month: true,
 								})
 								.then((response) => {
-									console.log('wine, nuevo producto agregado');
+									
 								})
 								.catch((error) => {
 									console.log(
@@ -106,7 +108,7 @@ export default function ProductMonth({
 									is_product_month: true,
 								})
 								.then((response) => {
-									console.log('liquor, nuevo producto agregado');
+									
 								})
 								.catch((error) => {
 									console.log(
@@ -116,18 +118,13 @@ export default function ProductMonth({
 								});
 						}
 						setProductMonth(true);
-						console.log('Ahora sacas el viejo producto', product[0].name);
-						console.log(
-							'Tiene graduación el viejo producto',
-							product[0].graduation,
-						);
+						
 						if (product[0].graduation) {
 							axios
 								.put(`/liquor/${product[0].id}/?userId=${user.id}`, {
 									is_product_month: false,
 								})
 								.then((response) => {
-									console.log('liquor, viejo producto borrado');
 								})
 								.catch((error) => {
 									console.log(
@@ -141,7 +138,6 @@ export default function ProductMonth({
 									is_product_month: false,
 								})
 								.then((response) => {
-									console.log('wine, viejo producto borrado');
 								})
 								.catch((error) => {
 									console.log(
@@ -183,7 +179,6 @@ export default function ProductMonth({
 	};
 
 	useEffect(() => {
-		console.log(`El producto ${name} es producto del mes: ${is_product_month}`);
 		setProductMonth(is_product_month);
 	}, []);
 
