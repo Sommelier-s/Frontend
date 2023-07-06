@@ -9,6 +9,11 @@
     margin: 0 5px;
     transition: transform 0.3s ease;
     width: 180px;
+    height: 235px;
+}
+
+.cardLink {
+    text-decoration: none;
 }
   
 .card:hover {
@@ -26,6 +31,9 @@
 .cardTitle {
     font-size: 18px;
     margin-bottom: 5px;
+    width: clamp(100px, 160px, 100%);
+    text-align: center;
+    white-space: normal;
 }
   
 .cardPrice {

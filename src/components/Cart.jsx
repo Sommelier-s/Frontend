@@ -70,6 +70,7 @@ const Cart = () => {
 		} else {
 			displayFailedMessage('No puede agregar mas del stock disponible');
 		}
+		
 	};
 
 	const handleRemoveOneFromCart = (productId, quantity) => {
