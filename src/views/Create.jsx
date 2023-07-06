@@ -217,31 +217,36 @@ export default function Create() {
 	const validateForm = () => {
 		const { name, description, price, stock } = formData;
 		const errors = {};
-
+	  
 		if (!name.trim()) {
 			errors.name = 'El nombre es requerido.';
-		}
-
-		if (!description.trim()) {
+		  } else if (!/[a-zA-Z]/.test(name)) {
+			errors.name = 'El nombre debe contener al menos una letra.';
+		  }
+	  
+		  if (!description.trim()) {
 			errors.description = 'La descripción es requerida.';
-		}
-
+		  } else if (!/[a-zA-Z]/.test(description)) {
+			errors.description = 'La descripción debe contener al menos una letra.';
+		  }
+	  
 		if (!price) {
-			errors.price = 'El precio es requerido.';
+		  errors.price = 'El precio es requerido.';
 		} else if (isNaN(price) || parseFloat(price) <= 0) {
-			errors.price = 'El precio debe ser un número válido y mayor que cero.';
+		  errors.price = 'El precio debe ser un número válido y mayor que cero.';
 		}
-
+	  
 		if (!stock) {
-			errors.stock = 'El stock es requerido.';
-		} else if (isNaN(stock) || parseInt(stock) <= 0) {
-			errors.stock = 'El stock debe ser un número válido y mayor que cero.';
+		  errors.stock = 'El stock es requerido.';
+		} else if (isNaN(price) || parseFloat(price) <= 0) {
+		  errors.stock = 'El stock debe ser un número válido y mayor que cero.';
 		}
-
+	  
 		setErrors(errors);
-
+	  
 		return Object.keys(errors).length === 0;
-	};
+	  };
+	  
 
 	const validateField = (fieldName, value) => {
 		const fieldErrors = {};
@@ -256,6 +261,8 @@ export default function Create() {
 			case 'description':
 				if (!value.trim()) {
 					fieldErrors.description = 'Descripción requerida.';
+				} else if (!isNaN(value)){
+					fieldErrors.description = 'La descripcion debe contener letras'
 				}
 				break;
 			case 'price':
@@ -265,7 +272,7 @@ export default function Create() {
 				}
 				break;
 			case 'stock':
-				if (isNaN(value) || Number(value) < 0) {
+				if (isNaN(value) || Number(value) <= 0) {
 					fieldErrors.stock =
 						'Stock inválido. Debe ser un número mayor o igual a cero.';
 				}
