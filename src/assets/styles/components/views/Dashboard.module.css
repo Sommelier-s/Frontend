@@ -84,4 +84,21 @@
   border-radius: 0 8px 8px 0;
 }
 
-  
+
+
+.boxUsersNotFound{
+  width: 500px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:50px ;
+}
+
+
+.usersNotFound{
+  color: white;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}

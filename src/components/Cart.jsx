@@ -8,6 +8,10 @@ import {
 	updateAmount,
 } from '../redux/actions';
 
+//Importo lo necesario para toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import swal from 'sweetalert';
 import { useState } from 'react';
 //Importación de estilos
@@ -20,6 +24,20 @@ const Cart = () => {
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
 	const location = useLocation();
+
+	// Toastify module for error messages
+	const displayFailedMessage = (mensaje) => {
+		toast.error(mensaje, {
+			position: 'top-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+	};
 
 	const displaySweetAlert = (mensaje, tipo) => {
 		swal({
@@ -49,7 +67,10 @@ const Cart = () => {
 		}
 		if (quantity <= stock) {
 			dispatch(updateQuantity(productId, quantity));
+		} else {
+			displayFailedMessage('No puede agregar mas del stock disponible');
 		}
+		
 	};
 
 	const handleRemoveOneFromCart = (productId, quantity) => {

@@ -7,19 +7,18 @@ import DashboardCardAdmin from '../components/DashboardCardAdmin';
 import DashboardCardAdminUsers from '../components/DashboardCardAdminUsers';
 //import DashboardCardPendings from '../components/DashboardCardPendings'
 import styles from '../assets/styles/components/views/Dashboard.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import CreateCategory from '../components/CreateCategory';
 import imageBack from '../assets/img/imageBack.png';
 import AddCategoryForm from '../components/AddCategoryForm';
 import Create from '../views/Create';
 import PendingShipments from '../components/PendingShipments';
 import CompletedShipments from '../components/CompletedShipments';
-import ProductOffer from "../components/ProductOffer";
-import ProductMonth from "../components/ProductMonth";
+import ProductOffer from '../components/ProductOffer';
+import ProductMonth from '../components/ProductMonth';
 import axios from 'axios';
 
 export default function Dashboard() {
-
 	const dispatch = useDispatch();
 	const [selectedOption, setSelectedOption] = useState('profile'); // Estado para almacenar la opción seleccionada del menú
 	const [showSearchBar, setShowSearchBar] = useState(false);
@@ -43,7 +42,6 @@ export default function Dashboard() {
 		}
 	};
 
-
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (!user.isAdmin) {
@@ -64,7 +62,6 @@ export default function Dashboard() {
 		} else {
 			setShowSearchBar(false);
 		}
-
 	}, [selectedOption]);
 
 	let filteredData;
@@ -77,6 +74,9 @@ export default function Dashboard() {
 			break;
 		case 'discountedProducts':
 			filteredData = offer;
+			break;
+		case 'users':
+			filteredData = users;
 			break;
 		default:
 			filteredData = [];
@@ -140,23 +140,29 @@ export default function Dashboard() {
 					{selectedOption === 'users' && (
 						<div>
 							{users.length !== 0 ? (
-								users.map((user) => (
-									<DashboardCardAdminUsers
-										id={user.id}
-										key={user.id}
-										profile_picture={user.profile_picture}
-										name={`${user.first_name} ${user.last_name}`}
-										email={user.email}
-										date_birth={user.date_birth}
-										isAdmin={user.is_Admin}
-										isActive={user.isActive}
-									/>
-								))
+								users
+									.filter((item) =>
+										item.first_name
+											.toLowerCase()
+											.includes(searchValue.toLowerCase()),
+									)
+									.map((user) => (
+										<DashboardCardAdminUsers
+											id={user.id}
+											key={user.id}
+											profile_picture={user.profile_picture}
+											name={`${user.first_name} ${user.last_name}`}
+											email={user.email}
+											date_birth={user.date_birth}
+											isAdmin={user.is_Admin}
+											isActive={user.isActive}
+										/>
+									))
 							) : (
-								<div>
-									<h2>
+								<div className={styles.boxUsersNotFound}>
+									<h2 className={styles.usersNotFound}>
 										No hay usuarios registrados, tu no estas incluido en la
-										lista
+										lista...
 									</h2>
 								</div>
 							)}
@@ -165,12 +171,12 @@ export default function Dashboard() {
 				</div>
 
 				<div className={styles.cardsContainer}>
-					{selectedOption !== 'users' && selectedOption !== 'discountedProducts' && filteredData.length > 0 && (
-						<div className={styles['dashboard-card-container']}>
-							{
-								console.log(filteredData)}
-							{
-								filteredData
+					{selectedOption !== 'users' &&
+						selectedOption !== 'discountedProducts' &&
+						filteredData.length > 0 && (
+							<div className={styles['dashboard-card-container']}>
+								{console.log(filteredData)}
+								{filteredData
 									.filter((item) =>
 										item.name.toLowerCase().includes(searchValue.toLowerCase()),
 									)
@@ -188,8 +194,8 @@ export default function Dashboard() {
 											graduation={item.graduation}
 										/>
 									))}
-						</div>
-					)}
+							</div>
+						)}
 				</div>
 
 				<div className={styles.cardsContainer}>
@@ -211,6 +217,7 @@ export default function Dashboard() {
 										price={item.price}
 										id_picture={item.picture}
 										graduation={item.graduation}
+										is_product_month={item.is_product_month}
 									/>
 								))}
 						</div>
@@ -218,25 +225,22 @@ export default function Dashboard() {
 				</div>
 
 				<div className={styles.cardsContainer}>
-
 					{selectedOption === 'discountedProducts' && (
 						<div className={styles['dashboard-card-container']}>
-							{offer
-								.map((item) => (
-									<ProductOffer
-										id={item.id}
-										product_id = {item.product_id}
-										key={item.id}
-										product_name={item.product_name} // Propiedad "name" desde el estado
-										image={item.image} // Propiedad "picture" desde el estado
-										price={item.price}
-										discount={item.discount}
-										id_picture={item.picture}
-										is_product_month={item.is_product_month}
-										graduation={item.graduation}
-
-									/>
-								))}
+							{offer.map((item) => (
+								<ProductOffer
+									id={item.id}
+									product_id={item.product_id}
+									key={item.id}
+									product_name={item.product_name} // Propiedad "name" desde el estado
+									image={item.image} // Propiedad "picture" desde el estado
+									price={item.price}
+									discount={item.discount}
+									id_picture={item.picture}
+									is_product_month={item.is_product_month}
+									graduation={item.graduation}
+								/>
+							))}
 						</div>
 					)}
 				</div>

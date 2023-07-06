@@ -13,6 +13,7 @@ import imageBack from '../assets/img/imageBack.png'
 import styles from '../assets/styles/components/views/DashboardUser.module.css'
 
 const DashboardUser = () => {
+
   const cartProducs = useSelector(state => state.cart)
   const [selectedOption, setSelectedOption] = useState('')
   const [purchasedProducts, setPurchasedProducts] = useState([])
@@ -23,6 +24,10 @@ const DashboardUser = () => {
   const user = useSelector(state => state.user)
   const idUser = user.id
   console.log(productsSaved)
+
+ 
+
+
   const getPurchasedProducts = async () => {
     try {
       const { data } = await axios.get(`/purchased/${idUser}`)

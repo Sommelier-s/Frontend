@@ -64,9 +64,9 @@ export default function AddCategoryForm() {
       try {
         let response;
         if (product === 'wine') {
-          response = await axios.post(`${desarrolloApp}/category_wine/?id=${user.id}`, categoryData);
+          response = await axios.post(`/category_wine/?id=${user.id}`, categoryData);
         } else if (product === 'liquor') {
-          response = await axios.post(`${desarrolloApp}/category_liquor?id=${user.id}`, categoryData);
+          response = await axios.post(`/category_liquor?id=${user.id}`, categoryData);
         }
 
         setProduct('');

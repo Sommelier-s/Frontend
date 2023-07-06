@@ -79,9 +79,11 @@ const DashboardCardProductUserReview = () => {
           )
         })
       ) : (
-        <Typography variant='body1' color='text.secondary'>
-          No ratings found.
-        </Typography>
+        <Card>
+					<Typography align="center" gutterBottom variant="h2" style={{marginTop: '10vh', transform: 'translateY(-30%)' }} >
+          No tienes reseñas aún.
+					</Typography>
+          </Card>
       )}
     </>
   )

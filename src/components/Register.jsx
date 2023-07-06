@@ -114,11 +114,7 @@ const Register = () => {
 			errors.email = 'Dirección de correo electrónico inválida.';
 		}
 
-		if (
-			password.length < 6 ||
-			!/\d/.test(password) ||
-			!/[A-Z]/.test(password)
-		) {
+		if (!password.match(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{6,}$/)) {
 			errors.password =
 				'Contraseña inválida. Debe tener al menos 6 caracteres, un número y una letra mayúscula.';
 		}
