@@ -75,7 +75,7 @@ export default function RecipeReviewCard({
 
 	const handleAddToOffer = async (event) => {
 		event.preventDefault();
-		console.log(offer);
+	
 		const offerExist = offer.find(offer => offer.product_id === id)
 
 		if (offerExist) {
@@ -117,10 +117,10 @@ export default function RecipeReviewCard({
 	}
 
 	const handleVisibilityClick = async () => {
-		console.log('entro a la funcion');
+		
 		setVisible(!visible);
 		if (!graduation) {
-			console.log('entro al axios del vino');
+			
 			try {
 				const updateWine = {
 					isActive: !visible,
@@ -134,7 +134,7 @@ export default function RecipeReviewCard({
 				console.log(error);
 			}
 		} else {
-			console.log('entro al axios del licor');
+			
 			try {
 				const updateLiquor = {
 					isActive: !visible,
@@ -144,7 +144,7 @@ export default function RecipeReviewCard({
 					`/liquor/${id}/?userId=${user.id}`,
 					updateLiquor,
 				);
-				console.log(data);
+				
 			} catch (error) {
 				console.log(error);
 			}
@@ -164,7 +164,7 @@ export default function RecipeReviewCard({
 					const { data } = axios
 						.delete(`/wine/permanently/${id}/?userId=${user.id}`)
 						.then((response) => {
-							console.log(response);
+							
 						})
 						.catch((error) => {
 							console.log(error);
@@ -173,7 +173,7 @@ export default function RecipeReviewCard({
 					const { data } = axios
 						.delete(`/liquor/permanently/${id}/?userId=${user.id}`)
 						.then((response) => {
-							console.log(response);
+							
 						})
 						.catch((error) => {
 							console.log(error);

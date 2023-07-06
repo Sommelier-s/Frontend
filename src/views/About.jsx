@@ -2,7 +2,6 @@ import React from 'react';
 
 //import components
 import Footer from '../components/Footer';
-
 //import images
 import linkedin from '../assets/img/Linkedin_color.png';
 import github from '../assets/img/Github_logo_blanco.png';

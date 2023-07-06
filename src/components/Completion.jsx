@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-//Importo lo necesario para toastify
-import { ToastContainer, toast } from 'react-toastify';
-import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
-import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
+
+//Importo lo necesario para toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
+
 import styles from '../assets/styles/components/Completion.module.css';
 import axios from 'axios';
 function Completion(props) {
@@ -27,20 +29,19 @@ function Completion(props) {
 
 	const [id_Cart, setId_Cart] = useState('');
 
-	const sendEmailPuschased=async()=>{
-		const userData={
-			id:user.id,
-			name: user.first_name +" "+user.last_name,
-			email:user.email,
-			type:"local",
-		}
-		try{
-			const {data}=await axios.post(`/auth/send-email`,userData);
-			console.log("Se ha notificado al usuario")
-		}catch(error){
+	const sendEmailPuschased = async () => {
+		const userData = {
+			id: user.id,
+			name: user.first_name + ' ' + user.last_name,
+			email: user.email,
+			type: 'local',
+		};
+		try {
+			const { data } = await axios.post(`/auth/send-email`, userData);
+		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	const thereIsACart = async () => {
 		try {
@@ -72,7 +73,6 @@ function Completion(props) {
 
 	const updateStockProducts = () => {
 		backupCart.map(async ({ id, quantity, graduation }) => {
-			console.log(graduation);
 			if (!graduation) {
 				try {
 					const { data } = await axios.put(`/wine/stock/${id}`, { quantity });
@@ -127,7 +127,7 @@ function Completion(props) {
 		if (id_Cart != '') {
 			emptyCartFromBackend();
 		}
-sendEmailPuschased();
+		sendEmailPuschased();
 		updateStockProducts();
 		loadSale();
 		loadPurchasedProducts();

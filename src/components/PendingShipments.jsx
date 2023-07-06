@@ -1,8 +1,11 @@
 import React from 'react';
-import styles from '../assets/styles/components/PendingShipments.module.css';
-import axios from 'axios';
-import CardPendingShipments from './CardPendingShipments';
 import { useState, useEffect } from 'react';
+
+import CardPendingShipments from './CardPendingShipments';
+
+import styles from '../assets/styles/components/PendingShipments.module.css';
+
+import axios from 'axios';
 const PendingShipments = () => {
 	const [deliveryPending, setDeliveryPending] = useState();
 	const getAllDeliveryPending = async () => {
@@ -16,7 +19,7 @@ const PendingShipments = () => {
 	useEffect(() => {
 		getAllDeliveryPending();
 	}, []);
-	console.log(deliveryPending);
+	
 
 	return (
 		<div className={styles.container}>

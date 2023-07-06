@@ -42,10 +42,7 @@ let wineLocal = [];
 let liquorLocal = [];
 let wineLocalActive = [];
 let liquorLocalActive = [];
-let userLocal = [];
 
-// const userId = window.localStorage.getItem("userId");
-// const userIdParseado = JSON.parse(userId);
 
 export const getOffer = () => {
     return async function (dispatch) {
@@ -74,7 +71,6 @@ export const getAllUsers = () => {
     return async function (dispatch) {
         try {
             const response = await axios.get(`/auth/user`)
-            userLocal = response.data.data;
             dispatch({ type: GET_ALL_USERS, payload: response.data.data })
         } catch (error) {
             console.log(error);

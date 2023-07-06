@@ -1,4 +1,9 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import swal from 'sweetalert';
+
 import {
 	Grid,
 	Paper,
@@ -22,13 +27,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveUser } from '../redux/actions';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import styles from '../assets/styles/components/views/Login.module.css';
-
 //Importaciones para el boton de Google
 import {
 	GoogleOAuthProvider,
@@ -36,7 +34,12 @@ import {
 	googleLogout,
 } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
-import swal from 'sweetalert';
+
+import { saveUser } from '../redux/actions';
+
+import styles from '../assets/styles/components/views/Login.module.css';
+
+import axios from 'axios';
 
 const Login = ({ handleChange }) => {
 	const user = useSelector((state) => state.user);
@@ -104,7 +107,7 @@ const Login = ({ handleChange }) => {
 		try {
 			const response = await axios.post(`/auth/login`, user);
 			const userLogin = response.data.data;
-			console.log(userLogin);
+			
 			if (userLogin.isActive) {
 				dispatch(saveUser(userLogin));
 				setAcess(true);

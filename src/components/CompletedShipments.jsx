@@ -1,9 +1,11 @@
 import React from 'react';
-import styles from '../assets/styles/components/CompletedShipments.module.css';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 import CardCompletedShipments from '../components/CardCompletedShipments';
+
+import styles from '../assets/styles/components/CompletedShipments.module.css';
+
+import axios from 'axios';
 const CompletedShipments = () => {
 	const [deliveryRealized, setDeliveryRealized] = useState();
 	const getAllDeliveryRealized = async () => {

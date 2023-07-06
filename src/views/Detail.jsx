@@ -2,26 +2,22 @@ import React from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllDrinks, addToCart, updateAmount } from '../redux/actions';
 import swal from 'sweetalert';
+
 import { Rating } from '@mui/material';
+//Importo lo necesario para toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-//Importación del componente cart
-import Cart from '../components/Cart';
-
-//Importación logo carrito
-import carro from '../assets/img/Carro.png';
-
 //Importación de estilos
+import { addToCart, updateAmount } from '../redux/actions';
+
 import styles from '../assets/styles/components/views/Detail.module.css';
 
-//Importo lo necesario para toastify
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const Detail = () => {
@@ -30,10 +26,7 @@ const Detail = () => {
 	const navigate = useNavigate();
 	const [rating, setRating] = useState(3);
 
-	const [info, setInfo] = useState()
-
-
-
+	const [info, setInfo] = useState();
 
 	const previousPath = location?.state?.from || '/home';
 
@@ -42,8 +35,7 @@ const Detail = () => {
 	const desarrolloApp = 'http://localhost:3001';
 
 	const { id } = useParams();
-	
-	
+
 	//Estado para la visibilidad del carrrito de compras
 	const [isCartVisible, setIsCartVisible] = useState(false);
 	//Estado para carrito vacio
@@ -72,7 +64,7 @@ const Detail = () => {
 		}
 		displayFailedMessage('No puede agregar mas del stock disponible');
 	};
-	
+
 	//Manejador para agregar al carro e ir a payment
 	const addToCartHandlerBuy = () => {
 		if (isStockAvailable(drink.id)) {
@@ -84,42 +76,36 @@ const Detail = () => {
 			'No puede comprar mas del stock disponible, revisa el carrito',
 		);
 	};
-	
+
 	const toggleCartVisibility = () => {
 		setIsCartVisible(!isCartVisible);
 	};
-	
+
 	const searchDrink = async () => {
 		try {
-			const { data } = await axios.get(
-				`/both_drinks/?id=${id}`,
-				);
-				setDrink(data.data);
-			} catch (error) {
-				displayFailedMessage('Bebida no encontrada');
-				console.log(error.response.error);
-			}
-		};
-		const getRatingsByProduct = async () => {
-			try {
-				const {data} = await axios.get(`/rating/product/${id}`)
-				console.log(data.data)
-				setInfo(data.data)
-				
-			} catch (error) {
-				console.log(error.error);
-				
-			}
+			const { data } = await axios.get(`/both_drinks/?id=${id}`);
+			setDrink(data.data);
+		} catch (error) {
+			displayFailedMessage('Bebida no encontrada');
+			console.log(error.response.error);
 		}
-		
-		
-		useEffect(() => {
-			searchDrink();
-			getRatingsByProduct()
+	};
+	const getRatingsByProduct = async () => {
+		try {
+			const { data } = await axios.get(`/rating/product/${id}`);
 			
-		}, []);
-		
-		console.log(info);
+			setInfo(data.data);
+		} catch (error) {
+			console.log(error.error);
+		}
+	};
+
+	useEffect(() => {
+		searchDrink();
+		getRatingsByProduct();
+	}, []);
+
+	
 	//Toastify module for success message
 	const displaySuccessMessage = (mensaje) => {
 		toast.success(mensaje, {
@@ -297,24 +283,27 @@ const Detail = () => {
 					<div className={styles.contentRating}>
 						<h1 className={styles.titleComent}>Comentarios y puntuaciones</h1>
 
-						{info ? info.map((data) => {
+						{info ? (
+							info.map((data) => {
+								return (
+									<div className={styles.boxRating}>
+										<Rating
+											name="product-rating"
+											value={data.puntuation}
+											className={styles.rating}
+											// onChange={(event, value) => handleRatingChange(value)}
+											size="large"
+										/>
 
-						return( <div className={styles.boxRating}>
-							<Rating
-								name="product-rating"
-								value={data.puntuation}
-								className={styles.rating}
-								// onChange={(event, value) => handleRatingChange(value)}
-								size="large"
-							/>
-
+										<p className={styles.comment}>{data.comment}</p>
+									</div>
+								);
+							})
+						) : (
 							<p className={styles.comment}>
-								{data.comment}
+								'No Tiene Comentario este Producto'
 							</p>
-						</div>)
-						}): (
-							<p className={styles.comment}>'No Tiene Comentario este Producto'</p>)} 
-						
+						)}
 					</div>
 				)}
 			</main>

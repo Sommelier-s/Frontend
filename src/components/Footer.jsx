@@ -7,8 +7,7 @@ import instagram from "../assets/img/Instagram_BN.png";
 import instagramColor from "../assets/img/Instagram_Color.png";
 import twitter from "../assets/img/Twitter_BN.png";
 import twitterColor from "../assets/img/Twitter_Color.png";
-import whatsapp from "../assets/img/Whatsapp_BN.png";
-import whatsappColor from "../assets/img/Whatsapp_Color.png";
+
 
 //Importación de estilos
 import styles from "../assets/styles/components/Footer.module.css";

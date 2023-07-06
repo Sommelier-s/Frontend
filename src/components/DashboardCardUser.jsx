@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
-
-import styles from '../assets/styles/components/views/DashboardCardUser.module.css';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+//Esta importacion es para poder abrir una ventana del sistema
+//para asi seleccionar las imagenes
+import { Container } from 'reactstrap';
+import Dropzone from 'react-dropzone';
+import swal from 'sweetalert';
 
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//Esta importacion es para poder abrir una ventana del sistema
-//para asi seleccionar las imagenes
 
-import { Container } from 'reactstrap';
-import Dropzone from 'react-dropzone';
+import styles from '../assets/styles/components/views/DashboardCardUser.module.css';
 
-import swal from 'sweetalert';
 import folder from '../assets/img/folder-filled.png';
 import axios from 'axios';
 const DashboardCardUser = ({ name, email, password, profile_user }) => {
@@ -75,7 +74,6 @@ const DashboardCardUser = ({ name, email, password, profile_user }) => {
 			const { data } = await axios.delete(
 				`/cloudinary/delete?id_public=${publicId}`,
 			);
-			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -255,7 +253,7 @@ const DashboardCardUser = ({ name, email, password, profile_user }) => {
 
 	const handleUpdateProfilePicture = async (event) => {
 		event.preventDefault();
-		console.log('Entro en la funcion');
+	
 		if (image.array.length !== 0) {
 			const newProfilePicture = {
 				profile_picture: image.array[0],
@@ -276,7 +274,7 @@ const DashboardCardUser = ({ name, email, password, profile_user }) => {
 						window.location.reload();
 					}
 				});
-				console.log(data);
+				
 			} catch (error) {
 				console.log(error);
 			}

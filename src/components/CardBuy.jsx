@@ -1,9 +1,8 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import styles from '../assets/styles/components/CardBuy.module.css';
-import { addToCart, updateAmount } from '../redux/actions';
+import { useNavigate } from 'react-router-dom';
+
 //Importación de Tippy
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -13,6 +12,10 @@ import { Rating } from '@mui/material';
 //Importo lo necesario para toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import styles from '../assets/styles/components/CardBuy.module.css';
+
+import { addToCart, updateAmount } from '../redux/actions';
 
 const CardBuy = ({
 	id,

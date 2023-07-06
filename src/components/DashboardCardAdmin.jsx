@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Button } from '@mui/material';
-import styles from '../assets/styles/components/DashboardCardAdmin.module.css';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Container } from 'reactstrap';
+import Dropzone from 'react-dropzone';
+
+import swal from 'sweetalert';
+
+import { Card, CardContent, Typography, Button } from '@mui/material';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //Esta importacion es para poder abrir una ventana del sistema
 //para asi seleccionar las imagenes
 
-import { Container } from 'reactstrap';
-import Dropzone from 'react-dropzone';
-
-import swal from 'sweetalert';
 import folder from '../assets/img/folder-filled.png';
+import styles from '../assets/styles/components/DashboardCardAdmin.module.css';
 import axios from 'axios';
 
 const DashboardCardAdmin = ({
@@ -80,7 +81,7 @@ const DashboardCardAdmin = ({
 			const { data } = await axios.delete(
 				`/cloudinary/delete?id_public=${publicId}`,
 			);
-			console.log(data);
+			
 		} catch (error) {
 			console.log(error);
 		}
@@ -260,7 +261,7 @@ const DashboardCardAdmin = ({
 
 	const handleUpdateProfilePicture = async (event) => {
 		event.preventDefault();
-		console.log('Entro en la funcion');
+		
 		if (image.array.length !== 0) {
 			const newProfilePicture = {
 				profile_picture: image.array[0],
@@ -281,7 +282,7 @@ const DashboardCardAdmin = ({
 						window.location.reload();
 					}
 				});
-				console.log(data);
+				
 			} catch (error) {
 				console.log(error);
 			}

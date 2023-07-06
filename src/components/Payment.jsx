@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { Elements, PaymentElement } from '@stripe/react-stripe-js';
-import { useSelector, useDispatch } from 'react-redux';
-import CardBuyPayment from './CardBuyPayment';
-import axios from 'axios';
-import styles from '../assets/styles/components/Payment.module.css';
-import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
-import { useNavigate } from 'react-router-dom';
 
+import CardBuyPayment from './CardBuyPayment';
+
+import { updateCartEmptyStatus, removeFromCart } from '../redux/actions';
+
+import styles from '../assets/styles/components/Payment.module.css';
+
+import axios from 'axios';
 
 function Payment(props) {
-	const desarrolloApp = 'http://localhost:3001';
 
 	const [stripePromise, setStripePromise] = useState(null);
 	const [clientSecret, setClientSecret] = useState('');

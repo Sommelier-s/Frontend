@@ -47,10 +47,7 @@ const initialState = {
     offer: [],
     amount: 0,
     isCartEmpty: true,
-    // Aqui el usuario
-    user: {
-
-    },
+    user: {},
     selectedProductMonth: [],
 }
 

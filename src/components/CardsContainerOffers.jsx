@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actions from '../redux/actions';
 
 // Importación de estilos
 import styles from "../assets/styles/components/Offers.module.css";
 
-// Importación de imágenes de ofertas
-import LicorPromo1 from '../assets/img/LicorPromo1.png';
-import LicorPromo2 from '../assets/img/LicorPromo2.png';
-import LicorPromo3 from '../assets/img/LicorPromo3.png';
 import Promo from '../assets/img/Promo.png';
+
+import * as actions from '../redux/actions';
 
 const CardsContainerOffers = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -27,7 +24,6 @@ const CardsContainerOffers = () => {
 
   useEffect(() => {
     dispatch(actions.getOffer())
-    console.log(offer);
   }, [])
 
   const renderImages = () => {

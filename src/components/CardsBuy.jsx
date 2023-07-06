@@ -1,6 +1,8 @@
 import React from 'react';
-import CardBuy from './CardBuy';
+
 import styles from '../assets/styles/components/CardsBuy.module.css';
+
+import CardBuy from './CardBuy';
 
 const CardsBuy = ({ allDrinks }) => {
 	return (

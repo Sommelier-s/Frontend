@@ -1,23 +1,24 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styles from '../assets/styles/components/UpdateProducts.module.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { date } from 'yup';
+//Esta importacion es para poder abrir una ventana del sistema
+//para asi seleccionar las imagenes
+import { Container } from 'reactstrap';
+import Dropzone from 'react-dropzone';
+import swal from 'sweetalert';
+
 import Tippy from '@tippyjs/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//Esta importacion es para poder abrir una ventana del sistema
-//para asi seleccionar las imagenes
 
-import { Container } from 'reactstrap';
-import Dropzone from 'react-dropzone';
-
-import swal from 'sweetalert';
 import folder from '../assets/img/folder-filled.png';
 import { getAllCategoryWine, getAllCategoryLiquor } from '../redux/actions';
+
+import styles from '../assets/styles/components/UpdateProducts.module.css';
+
+import axios from 'axios';
 
 const UpdateProducts = () => {
 	const [id_product, setId_product] = useState('');
@@ -44,25 +45,21 @@ const UpdateProducts = () => {
 
 	const validateFiels = (form, stateErrors) => {
 		let error = { ...stateErrors };
-		if (!isNaN(form.description))
-			error.description = 'No pueder ser un numero';
+		if (!isNaN(form.description)) error.description = 'No pueder ser un numero';
 		else error.description = '';
 
-	
 		if (isNaN(form.price)) error.price = 'Debe ser un numero';
 		else if (form.price.toLowerCase().includes('-'))
 			error.price = 'No debe ser negativo';
 		else if (parseInt(form.price) <= 0) error.price = 'Debe ser mayor a cero';
 		else error.price = '';
 
-	
 		if (isNaN(form.stock)) error.stock = 'Debe ser un numero';
 		else if (form.stock.toLowerCase().includes('-'))
 			error.stock = 'No debe ser negativo';
 		else if (parseInt(form.stock) <= 0) error.stock = 'Debe ser mayor a cero';
 		else error.stock = '';
 
-		
 		if (isNaN(form.graduation)) error.graduation = 'Debe ser un numero';
 		else if (form.graduation.toLowerCase().includes('-'))
 			error.graduation = 'No debe ser negativo';
@@ -177,7 +174,6 @@ const UpdateProducts = () => {
 						`/liquor/${id_product}/?userId=${id}`,
 						updateProduct,
 					);
-					console.log(data);
 					return swal({
 						title: 'Actualizado',
 						text: 'El producto se actulizo correctamente',
@@ -201,7 +197,7 @@ const UpdateProducts = () => {
 						`/wine/${id_product}/?userId=${id}`,
 						updateProduct,
 					);
-					console.log(data);
+					
 					return swal({
 						title: 'Actualizado',
 						text: 'El producto se actulizo correctamente',
@@ -273,7 +269,7 @@ const UpdateProducts = () => {
 			const { data } = await axios.delete(
 				`/cloudinary/delete?id_public=${publicId}`,
 			);
-			console.log(data);
+			
 		} catch (error) {
 			console.log(error);
 		}
