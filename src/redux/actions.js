@@ -3,14 +3,18 @@ import axios from 'axios';
 export const GENERATED_USER_ID = "GENERATED_USER_ID";
 
 export const GET_ALL_WINE = "GET_ALL_WINE";
+export const GET_ALL_WINE_ACTIVE = "GET_ALL_WINE_ACTIVE";
 export const GET_ALL_LIQUOR = "GET_ALL_LIQUOR";
+export const GET_ALL_LIQUOR_ACTIVE = "GET_ALL_ACTIVE";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 
 export const GET_ALL_CATEGORY_WINE = "GET_ALL_CATEGORY_WINE";
 export const GET_ALL_CATEGORY_LIQUOR = "GET_ALL_CATEGORY_LIQUOR";
 
 export const ALL_DRINKS = "ALL_DRINKS";
+export const ALL_DRINKS_ACTIVE = "ALL_DRINKS_ACTIVE";
 export const GENERATED_COPY_ALL_DRINKS = "GENERATED_COPY_ALL_DRINKS";
+export const GENERATED_COPY_ALL_DRINKS_ACTIVE = "GENERATED_COPY_ALL_DRINKS_ACTIVE";
 
 export const FILTER_SEARCH_BY_NAME = "FILTER_SEARCH_BY_NAME";
 export const FILTER_CATEGORY_WINE = "FILTER_CATEGORY_WINE";
@@ -36,6 +40,8 @@ export const GET_OFFER = 'GET_OFFER'
 const desarrolloApp = "http://localhost:3001";
 let wineLocal = [];
 let liquorLocal = [];
+let wineLocalActive = [];
+let liquorLocalActive = [];
 let userLocal = [];
 
 // const userId = window.localStorage.getItem("userId");
@@ -45,7 +51,7 @@ export const getOffer = () => {
     return async function (dispatch) {
         try {
             const response = await axios.get('/offer');
-            dispatch({ type: GET_OFFER, payload: response.data.data})
+            dispatch({ type: GET_OFFER, payload: response.data.data })
         } catch (error) {
             console.log(error.message);
         }
@@ -90,8 +96,6 @@ export const getAllWine = () => {
     }
 }
 
-
-
 export const getAllLiquor = () => {
     return async function (dispatch) {
         try {
@@ -117,6 +121,58 @@ export const getAllDrinks = () => {
 export const generatedCopyAllDrinks = () => {
     return { type: GENERATED_COPY_ALL_DRINKS }
 }
+
+
+
+export const getAllWineActive = () => {
+    console.log("Entro en la funcion para traer los vinos activos");
+
+    return async function (dispatch) {
+        try {
+            const { data } = await axios.get(`/wine/active`)
+            wineLocalActive = data.data;
+            dispatch({ type: GET_ALL_WINE_ACTIVE, payload: data.data })
+        } catch (error) {
+            console.log(error);
+            //console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
+        }
+    }
+}
+
+
+export const getAllLiquorActive = () => {
+    console.log("Entro en la funcion para traer los licores activos");
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`/liquor/active`)
+            liquorLocalActive = response.data.data;
+            dispatch({ type: GET_ALL_LIQUOR_ACTIVE, payload: response.data.data })
+        } catch (error) {
+            console.log(error);
+            //console.log(`status: ${error.response.data.status} message: ${error.response.data.error}`);
+        }
+    };
+
+}
+
+
+
+export const getAllDrinksActive = () => {
+    console.log("Entro en la funcion para jusntar los activos");
+    const allDrinksActive = [...wineLocalActive, ...liquorLocalActive];
+    return { type: ALL_DRINKS_ACTIVE, payload: allDrinksActive };
+}
+
+
+
+export const generatedCopyAllDrinksActive = () => {
+    console.log("Entro en la funcion para crear una copia de los activos");
+    return { type: GENERATED_COPY_ALL_DRINKS_ACTIVE }
+}
+
+
+
+
 
 
 export const getAllCategoryWine = () => {
@@ -209,10 +265,9 @@ export const saveProductMonth = () => {
     return async function (dispatch) {
         try {
             const { data } = await axios.get('/both_drinks/product_month');
-            dispatch({ type: SAVE_PRODUCT, payload: data.data})
+            dispatch({ type: SAVE_PRODUCT, payload: data.data })
         } catch (error) {
             console.log(error.message);
         }
     }
 };
-  

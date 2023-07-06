@@ -18,6 +18,10 @@ import {
 	getAllLiquor,
 	getAllDrinks,
 	generatedCopyAllDrinks,
+	getAllWineActive,
+	getAllLiquorActive,
+	getAllDrinksActive,
+	generatedCopyAllDrinksActive,
 	getAllCategoryWine,
 	getAllCategoryLiquor,
 	generatedUserId,
@@ -60,6 +64,7 @@ const Buy = () => {
 		dispatch(generatedUserId());
 		dispatch(getAllWine());
 		dispatch(getAllLiquor());
+		
 	}, []);
 
 	const stateLiquor = useSelector((state) => state && state.liquor);

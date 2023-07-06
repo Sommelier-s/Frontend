@@ -3,11 +3,15 @@ import {
 
     GET_ALL_WINE,
     GET_ALL_LIQUOR,
+    GET_ALL_WINE_ACTIVE,
+    GET_ALL_LIQUOR_ACTIVE,
     GET_ALL_CATEGORY_WINE,
     GET_ALL_CATEGORY_LIQUOR,
     GET_ALL_USERS,
     ALL_DRINKS,
     GENERATED_COPY_ALL_DRINKS,
+    ALL_DRINKS_ACTIVE,
+    GENERATED_COPY_ALL_DRINKS_ACTIVE,
     FILTER_SEARCH_BY_NAME,
     FILTER_CATEGORY_WINE,
     FILTER_CATEGORY_LIQUOR,
@@ -33,6 +37,10 @@ const initialState = {
     liquor: [],
     allDrinks: [],
     copyAllDrinks: [],
+    wineActive: [],
+    liquorActive: [],
+    allDrinksActive: [],
+    copyAllDrinksActive: [],
     categoryWine: [],
     categoryLiquor: [],
     cart: [],
@@ -102,6 +110,18 @@ export default function reducer(state = initialState, { type, payload }) {
                 ...state,
                 liquor: payload
             }
+
+        case GET_ALL_WINE_ACTIVE:
+            return {
+                ...state,
+                wineActive: payload
+            }
+        //Guarda toda la informacion en el atributo liquor del estado global
+        case GET_ALL_LIQUOR_ACTIVE:
+            return {
+                ...state,
+                liquorActive: payload
+            }
         //Guarda toda la informacion en el atributo users del estado global
         case GET_ALL_USERS:
             return {
@@ -118,6 +138,17 @@ export default function reducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 copyAllDrinks: state.allDrinks
+            }
+        case ALL_DRINKS_ACTIVE:
+            return {
+                ...state,
+                allDrinksActive: payload
+            }
+        //Crea una copia del atributo allDrinks en copyAllDrinks
+        case GENERATED_COPY_ALL_DRINKS_ACTIVE:
+            return {
+                ...state,
+                copyAllDrinksActive: state.allDrinksActive
             }
 
         //Guarda todos las categorias de los vinos traidos en el atributo categoryWine del estado global
@@ -288,7 +319,7 @@ export default function reducer(state = initialState, { type, payload }) {
 
         //Producto del mes
         case SAVE_PRODUCT:
-            
+
             return {
                 ...state,
                 selectedProductMonth: payload,
