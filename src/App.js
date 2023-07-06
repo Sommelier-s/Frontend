@@ -41,7 +41,7 @@ import {
 const desarrolloApp = "http://localhost:3001";
 const produccionApp = "https://backend-production-22db.up.railway.app";
 
-axios.defaults.baseURL = desarrolloApp;
+axios.defaults.baseURL = produccionApp;
 
 function App() {
 
