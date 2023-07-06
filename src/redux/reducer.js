@@ -165,7 +165,7 @@ export default function reducer(state = initialState, { type, payload }) {
         case FILTER_SEARCH_BY_NAME:
             return {
                 ...state,
-                copyAllDrinks: payload
+                copyAllDrinksActive: payload
             }
 
         //Retorna las vinos que cumplen con requisito de la categoria
@@ -173,12 +173,12 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks.filter((drink) => drink?.Wine_categoryId === payload)
+                    copyAllDrinksActive: state.allDrinksActive.filter((drink) => drink?.Wine_categoryId === payload)
                 }
             } else {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks
+                    copyAllDrinksActive: state.allDrinksActive
                 }
             }
         //Retorna las licores que cumplen con requisito de la categoria
@@ -186,12 +186,12 @@ export default function reducer(state = initialState, { type, payload }) {
             if (payload !== "Default") {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks.filter((drink) => drink?.Liquor_categoryId === payload)
+                    copyAllDrinksActive: state.allDrinksActive.filter((drink) => drink?.Liquor_categoryId === payload)
                 }
             } else {
                 return {
                     ...state,
-                    copyAllDrinks: state.allDrinks
+                    copyAllDrinksActive: state.allDrinksActive
                 }
             }
 
@@ -202,8 +202,8 @@ export default function reducer(state = initialState, { type, payload }) {
                 case "ascendente":
                     return {
                         ...state,
-                        copyAllDrinks: [
-                            ...state.copyAllDrinks.sort(function (a, b) {
+                        copyAllDrinksActive: [
+                            ...state.copyAllDrinksActive.sort(function (a, b) {
                                 return a.name.localeCompare(b.name)
                             }),
                         ]
@@ -211,8 +211,8 @@ export default function reducer(state = initialState, { type, payload }) {
                 case "descendente":
                     return {
                         ...state,
-                        copyAllDrinks: [
-                            ...state.copyAllDrinks.sort(function (a, b) {
+                        copyAllDrinksActive: [
+                            ...state.copyAllDrinksActive.sort(function (a, b) {
                                 return b.name.localeCompare(a.name)
                             }),
                         ]
@@ -220,7 +220,7 @@ export default function reducer(state = initialState, { type, payload }) {
                 default:
                     return {
                         ...state,
-                        copyAllDrinks: state.copyAllDrinks
+                        copyAllDrinksActive: state.copyAllDrinksActive
                     }
 
             }
@@ -232,21 +232,21 @@ export default function reducer(state = initialState, { type, payload }) {
                 case "ascendente":
                     return {
                         ...state,
-                        copyAllDrinks: [
-                            ...state.copyAllDrinks.sort((a, b) => a.price - b.price)
+                        copyAllDrinksActive: [
+                            ...state.copyAllDrinksActive.sort((a, b) => a.price - b.price)
                         ]
                     }
                 case "descendente":
                     return {
                         ...state,
-                        copyAllDrinks: [
-                            ...state.copyAllDrinks.sort((a, b) => b.price - a.price)
+                        copyAllDrinksActive: [
+                            ...state.copyAllDrinksActive.sort((a, b) => b.price - a.price)
                         ]
                     }
                 default:
                     return {
                         ...state,
-                        copyAllDrinks: state.copyAllDrinks
+                        copyAllDrinksActive: state.copyAllDrinksActive
                     }
             }
 

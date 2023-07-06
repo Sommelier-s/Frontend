@@ -121,7 +121,6 @@ export const generatedCopyAllDrinks = () => {
 
 
 export const getAllWineActive = () => {
-    console.log("Entro en la funcion para traer los vinos activos");
 
     return async function (dispatch) {
         try {
@@ -137,7 +136,7 @@ export const getAllWineActive = () => {
 
 
 export const getAllLiquorActive = () => {
-    console.log("Entro en la funcion para traer los licores activos");
+    
     return async function (dispatch) {
         try {
             const response = await axios.get(`/liquor/active`)
@@ -154,7 +153,7 @@ export const getAllLiquorActive = () => {
 
 
 export const getAllDrinksActive = () => {
-    console.log("Entro en la funcion para jusntar los activos");
+    
     const allDrinksActive = [...wineLocalActive, ...liquorLocalActive];
     return { type: ALL_DRINKS_ACTIVE, payload: allDrinksActive };
 }
@@ -162,7 +161,7 @@ export const getAllDrinksActive = () => {
 
 
 export const generatedCopyAllDrinksActive = () => {
-    console.log("Entro en la funcion para crear una copia de los activos");
+    
     return { type: GENERATED_COPY_ALL_DRINKS_ACTIVE }
 }
 

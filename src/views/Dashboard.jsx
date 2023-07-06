@@ -176,30 +176,35 @@ export default function Dashboard() {
 
 				<div className={styles.cardsContainer}>
 					{selectedOption !== 'users' &&
-						selectedOption !== 'discountedProducts' &&
-						filteredData.length > 0 && (
-							<div className={styles['dashboard-card-container']}>
-								
-								{filteredData
-									.filter((item) =>
-										item.name.toLowerCase().includes(searchValue.toLowerCase()),
-									)
-									.map((item) => (
-										<DashboardCard
-											id={item.id}
-											key={item.id}
-											name={item.name} // Propiedad "name" desde el estado
-											description={item.description} // Propiedad "description" desde el estado
-											stock={item.stock} // Propiedad "stock" desde el estado
-											picture={item.picture} // Propiedad "picture" desde el estado
-											isActive={item.isActive}
-											price={item.price}
-											id_picture={item.picture}
-											graduation={item.graduation}
-										/>
-									))}
-							</div>
-						)}
+					selectedOption !== 'discountedProducts' &&
+					filteredData.length > 0 ? (
+						<div className={styles['dashboard-card-container']}>
+							{filteredData
+								.filter((item) =>
+									item.name.toLowerCase().includes(searchValue.toLowerCase()),
+								)
+								.map((item) => (
+									<DashboardCard
+										id={item.id}
+										key={item.id}
+										name={item.name} // Propiedad "name" desde el estado
+										description={item.description} // Propiedad "description" desde el estado
+										stock={item.stock} // Propiedad "stock" desde el estado
+										picture={item.picture} // Propiedad "picture" desde el estado
+										isActive={item.isActive}
+										price={item.price}
+										id_picture={item.picture}
+										graduation={item.graduation}
+									/>
+								))}
+						</div>
+					) : (
+						<div className={styles.boxProductsPurchasedNotFound}>
+							<h3 className={styles.productsPurchasedNotFound}>
+								No posees productos comprados...
+							</h3>
+						</div>
+					)}
 				</div>
 
 				<div className={styles.cardsContainer}>

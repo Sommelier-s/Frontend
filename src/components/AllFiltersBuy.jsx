@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from '../assets/styles/components/AllFiltersBuy.module.css';
 
 import {
-	generatedCopyAllDrinks,
+	generatedCopyAllDrinksActive,
 	filterCategoryWine,
 	filterCategoryLiquor,
 	filterOrden,
@@ -51,13 +51,14 @@ const AllFiltersBuy = () => {
 	//Trae todos los temperamentos
 	const allCategoryWine = useSelector((state) => state.categoryWine);
 	const allCategoryLiquor = useSelector((state) => state.categoryLiquor);
-	const allDrinks = useSelector((state) => state.copyAllDrinks);
+	const allDrinks = useSelector((state) => state.copyAllDrinksActive);
 
 	const [search, setSearch] = useState('');
 
 	//funcion para filtrar por el tipo de temperamento
 	const handleChangeCategoryWine = (event) => {
 		const idCategory = event.target.value;
+		console.log(idCategory);
 		dispatch(filterCategoryWine(idCategory));
 	};
 
@@ -109,7 +110,7 @@ const AllFiltersBuy = () => {
 	const resetAll = (event) => {
 		event.preventDefault();
 		setSearch('');
-		dispatch(generatedCopyAllDrinks());
+		dispatch(generatedCopyAllDrinksActive());
 	};
 
 	//para el input

@@ -52,7 +52,8 @@ const About = () => {
 		},
 		{
 			nombre: 'Vicente De Blasi',
-			linkedin: 'https://www.linkedin.com',
+			linkedin:
+				'https://www.linkedin.com/in/vicente-de-blasi-sanguinetti-869585266/',
 			github: 'https://github.com/VicenteDeBlasi',
 			image: 'https://avatars.githubusercontent.com/u/103010932?v=4',
 		},
