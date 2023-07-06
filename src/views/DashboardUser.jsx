@@ -14,7 +14,7 @@ import styles from "../assets/styles/components/views/DashboardUser.module.css";
 
 const DashboardUser = () => {
   const cartProducs = useSelector((state) => state.cart);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState('profile');
   const [purchasedProducts, setPurchasedProducts] = useState([]);
   const [productsSaved, setProductsSaved] = useState([]);
   const [filteredProductsSaved, setFilteredProductsSaved] = useState([]);
