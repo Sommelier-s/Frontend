@@ -7,9 +7,9 @@ import CardsBuy from './CardsBuy';
 
 const PaginationBuy = () => {
 	//Aqui traigo todos los perros, pero uso la copia
-	const allDrinksFull = useSelector((state) => state.copyAllDrinks);
-	const allDrinks = allDrinksFull.filter((drink) => drink.isActive == true);
-	console.log(allDrinks);
+	const allDrinks = useSelector((state) => state.copyAllDrinks);
+	// const allDrinks = allDrinksFull.filter((drink) => drink.isActive == true);
+	// console.log(allDrinks);
 
 	//Estados para controlar la paginacion
 	const [currentPage, setCurrentPage] = useState(1);
